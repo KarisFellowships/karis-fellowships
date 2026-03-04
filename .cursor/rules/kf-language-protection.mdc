@@ -1,0 +1,13 @@
+---
+description: Enforces that all user-facing text on the Karis Fellowships site comes verbatim from karisfellowships.com or original KF documents. No invented, paraphrased, or reworded copy allowed.
+alwaysApply: true
+---
+
+# KF Language Protection
+
+- ALL user-facing text (headings, descriptions, taglines, body copy, testimonials, bios, FAQ answers) must come **verbatim** from karisfellowships.com or the original KF documents.
+- NEVER invent, paraphrase, or reword any text. Use exact wording from the source.
+- NEVER alter language in KF documents: lessons, NHG materials, toolbox docs, meditations, worksheets, facilitator guides, or question documents.
+- If a label is needed that doesn't exist on the site, use the simplest functional word (e.g., "Open," "Download," "Back") and flag it for user review.
+- When unsure, ask the user. Do not guess.
+- Consult `~/.cursor/skills/karis-language/website-text.md` for the full reference text library.

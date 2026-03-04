@@ -5,7 +5,7 @@ export default function ContactPage() {
     <>
       <PageHeader
         title="Contact Us"
-        subtitle="We'd love to hear from you. Ask the person who invited you or reach out below."
+        subtitle="Still have questions? Ask the person who invited you or email us at admin@karisfellowships.com."
         accent="sky"
       />
 

@@ -34,7 +34,7 @@ export default function AboutPage() {
 
           <div className="mt-20">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal">Our Vision</p>
-            <h2 className="mt-2 text-2xl font-bold text-foreground">To see you, dear Christian&hellip;</h2>
+            <h2 className="mt-2 text-2xl font-bold text-foreground">Our vision? To see you, dear Christian . . .</h2>
 
             <div className="mt-8 grid gap-5 sm:grid-cols-2">
               {[
@@ -70,7 +70,7 @@ export default function AboutPage() {
 
           <div className="mt-16 overflow-hidden rounded-3xl bg-gradient-to-r from-teal-muted via-teal-muted/50 to-cream p-8 sm:p-10">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal">Express Your Unique</p>
-            <h3 className="mt-1 text-2xl font-bold text-foreground">Glory</h3>
+            <h3 className="mt-1 text-2xl font-bold text-foreground">GLORY Here on Earth</h3>
             <p className="mt-4 max-w-3xl leading-relaxed text-slate">
               In our glory, we are expressing the character of God and our own
               unique qualities and work as His creatures. We come more and more
@@ -83,7 +83,7 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-20">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky">Our People</p>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky">About Us</p>
             <h2 className="mt-2 text-2xl font-bold text-foreground">Who We Are</h2>
             <p className="mt-4 leading-relaxed text-slate">
               We are Christians who not only recognize how messed up we are, but
@@ -96,7 +96,7 @@ export default function AboutPage() {
                 {
                   name: "Nancy Diven, Founder",
                   bar: "bg-teal",
-                  bio: "Nancy earned a BA in classical culture from the University of Oklahoma. She is forever grateful for the guidance of two Oxford trained professors whom she met there and for the years of Bible study in the evangelical church. Karis Fellowships training is the result of God's work in her life and His clear call to offer to others this ministry of invitation.",
+                  bio: "Nancy earned a BA in classical culture from the University of Oklahoma. She is forever grateful for the guidance of two Oxford trained professors whom she met there and for the years of Bible study in the evangelical church. Karis Fellowships training is the result of God\u2019s work in her life and His clear call to offer to others this ministry of invitation.",
                 },
                 {
                   name: "Alison Tunnell Diven, Co-Founder",
@@ -121,8 +121,7 @@ export default function AboutPage() {
           <div className="mt-14 rounded-2xl bg-slate-light p-7 text-sm leading-relaxed text-slate">
             Karis Fellowships International is a 501(c)(3) not-for-profit
             organization. We are 100% volunteer-run, which means we pay no
-            salaries. Your donations go toward operating costs including
-            administrative tools, conference call services, and website hosting.
+            salaries.
           </div>
         </div>
       </section>

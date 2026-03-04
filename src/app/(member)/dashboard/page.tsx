@@ -28,7 +28,7 @@ export default function DashboardPage() {
         <div className="relative mx-auto max-w-6xl">
           <p className="text-sm font-medium text-teal-light/80">Welcome back</p>
           <h1 className="mt-1 text-3xl font-bold text-white">Your Dashboard</h1>
-          <p className="mt-2 text-white/50">Everything you need, all in one place.</p>
+          <p className="mt-2 text-white/50">Empowering Christians to fulfill their true glory.</p>
         </div>
       </section>
 
@@ -82,6 +82,63 @@ export default function DashboardPage() {
               </div>
               <Link href="/kf/call-info" className="mt-4 inline-flex items-center text-xs font-semibold text-teal-light hover:text-teal transition-colors">
                 Full call details &rarr;
+              </Link>
+            </div>
+          </div>
+
+          {/* Meeting Prep Guide + Facilitator Section */}
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            {/* Meeting Prep Guide */}
+            <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <svg className="h-5 w-5 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">Meeting Prep Guide</h3>
+              </div>
+              <p className="text-sm text-white/50 leading-relaxed">
+                Prepare for this week&apos;s KF{currentLesson.number} meeting with the Meeting Prep Guide.
+              </p>
+              <a
+                href="/docs/meeting-prep-guide.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-2 rounded-lg bg-amber/15 px-4 py-2.5 text-sm font-semibold text-amber transition-all hover:bg-amber/25"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                Open Meeting Prep Guide
+              </a>
+            </div>
+
+            {/* Facilitator Section */}
+            <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <svg className="h-5 w-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">Facilitators</h3>
+              </div>
+              <p className="text-sm text-white/50 leading-relaxed mb-4">
+                Facilitator guide and this week&apos;s KF{currentLesson.number} facilitator questions.
+              </p>
+              <div className="space-y-2">
+                <a
+                  href="/docs/facilitator-guide.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg bg-violet/15 px-4 py-2.5 text-sm font-semibold text-violet-light transition-all hover:bg-violet/25"
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                  Facilitator Guide
+                </a>
+                <a
+                  href={`/docs/questions/kf${currentLesson.number}-questions.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg bg-violet/15 px-4 py-2.5 text-sm font-semibold text-violet-light transition-all hover:bg-violet/25"
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  KF{currentLesson.number} Facilitator Questions
+                </a>
+              </div>
+              <Link href="/kf/facilitator" className="mt-3 inline-flex items-center text-xs font-semibold text-violet-light hover:text-violet transition-colors">
+                All facilitator resources &rarr;
               </Link>
             </div>
           </div>

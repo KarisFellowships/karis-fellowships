@@ -44,7 +44,7 @@ export default function Home() {
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal-light">What We Do</p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-              Training for Real Transformation
+              What We Do &amp; Why
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-white/60">
               We train, educate, and support Christians to grow into the people
@@ -56,10 +56,10 @@ export default function Home() {
 
           <div className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Mature", color: "bg-teal", desc: "Visibly mature in the Fruit of the Spirit. We dig for the roots of our sickness and learn to respond to life out of new principles of thinking, feeling, and acting." },
-              { title: "Love", color: "bg-coral", desc: "Love is the goal of our instruction. We are training to become the love of God in the world — actually living it, not just talking about it." },
-              { title: "Truth", color: "bg-sky", desc: "Truth is the cornerstone of Karis Fellowships. We learn to admit the truth about who we are without shame and condemnation." },
-              { title: "Freedom", color: "bg-violet", desc: "With its many commands of 'do not fear,' the Bible makes it clear that we have a problem with fear. Mature love casts out all fear." },
+              { title: "Mature", color: "bg-teal", desc: "Our standard for spirituality and growth is the Fruit of the Spirit evident in our lives (Galatians 5:22-23). We dig for the roots of our sickness unto death and learn to respond to life out of new principles of thinking, feeling, and acting." },
+              { title: "Love", color: "bg-coral", desc: "Love is the goal of our instruction (I Timothy 1:3-7). Without love we are nothing and can do nothing (1 Corinthians 13). We are training to become the love of God in the world\u2014actually living it, not just talking about it." },
+              { title: "Truth", color: "bg-sky", desc: "Truth is the cornerstone of Karis Fellowships. We learn to admit the truth about who we are without shame and condemnation (Psalm 15:2, Romans 8:1, John 8:31-32). We learn to give up our illusions about ourselves, others, the world, and God." },
+              { title: "Freedom", color: "bg-violet", desc: "With its many commands of \u2018do not fear,\u2019 the Bible makes it clear that we have a problem with fear. Our greatest deliverance is from the bondage to the \u2018fear of death\u2019 (Hebrews 2:14-18). Mature love casts out all fear, and our goal is to have no fear but the fear of God (1 John 4:18)." },
             ].map(({ title, color, desc }) => (
               <div key={title} className="group rounded-2xl bg-white/5 p-7 ring-1 ring-white/10 transition-all duration-200 hover:bg-white/10 hover:-translate-y-1">
                 <div className={`mb-5 h-1 w-10 rounded-full ${color} transition-all duration-200 group-hover:w-16`} />
@@ -80,12 +80,12 @@ export default function Home() {
         <div className="relative mx-auto max-w-6xl">
           <div className="max-w-xl">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal-light">How It Works</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Your Path to Growth</h2>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">How It Works</h2>
             <div className="mt-10 space-y-8">
               {[
-                { step: "1", title: "NHG Book Study", color: "bg-teal text-white", line: "bg-white/15", desc: "It starts with a book study to help you discover where you are now — exactly how you are enslaved to pride, fear, and illusion." },
-                { step: "2", title: "Join Karis Fellowships", color: "bg-coral text-white", line: "bg-white/15", desc: "After you complete the book study, you may join Karis Fellowships, a one-year training program designed to equip and support you." },
-                { step: "3", title: "Weekly Training & Healing", color: "bg-violet text-white", line: "bg-transparent", desc: "Members attend small, weekly meetings for grounding, encouragement, confession, Bible teaching, training, healing, and prayer." },
+                { step: "1", title: "NHG Book Study", color: "bg-teal text-white", line: "bg-white/15", desc: "It starts with a conference call-based book study to help you discover where you are now\u2013exactly how you are enslaved to pride, fear, and illusion." },
+                { step: "2", title: "Join Karis Fellowships", color: "bg-coral text-white", line: "bg-white/15", desc: "After you complete this book study, you may join Karis Fellowships, a one-year training program designed to equip and support you for recovery from a life based on pride to one based on Biblical love." },
+                { step: "3", title: "Weekly Meetings", color: "bg-violet text-white", line: "bg-transparent", desc: "Our KF members attend small, weekly meetings via conference call for grounding and re-centering, encouragement, confession, sharing, Bible teaching, training, healing, and prayer." },
               ].map(({ step, title, color, line, desc }) => (
                 <div key={step} className="flex gap-5">
                   <div className="flex flex-col items-center">
@@ -99,7 +99,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <p className="mt-8 text-sm text-white/40 italic">All programs are online — attend from anywhere in the world.</p>
+            <p className="mt-8 text-sm text-white/40 italic">All of our programs are online, so you can attend from anywhere in the world.</p>
           </div>
         </div>
       </section>
@@ -109,7 +109,7 @@ export default function Home() {
         <div className="mx-auto max-w-5xl">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-violet">Get Started</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Begin Your Journey</h2>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">How to Get Started</h2>
           </div>
           <div className="mt-14 grid gap-8 sm:grid-cols-2">
             <Link href="/register" className="group relative block overflow-hidden rounded-3xl transition-all duration-300 hover:-translate-y-1">
@@ -120,7 +120,7 @@ export default function Home() {
               <div className="absolute inset-x-0 bottom-0 p-8">
                 <span className="inline-block rounded-full bg-teal/90 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">Step 1 &middot; Open to All</span>
                 <h3 className="mt-3 text-2xl font-bold text-white">NHG Book Study</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/70">Your first step — read the first 11 chapters, complete a study guide, and attend live conference calls.</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/70">Your first step is to participate in the Neurosis and Human Growth (NHG) book study.</p>
                 <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2.5 text-sm font-bold text-white backdrop-blur-sm transition-all group-hover:bg-teal">
                   Register for NHG
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
@@ -181,11 +181,32 @@ export default function Home() {
         <div className="relative mx-auto max-w-6xl">
           <div className="ml-auto max-w-xl">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky">Who We Are</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">A Volunteer Community</h2>
-            <p className="mt-5 text-lg leading-relaxed text-white/70">
-              We are volunteers offering our time, energy, and abilities in gratitude for our own transformation. We are Christians who not only recognize how messed up we are, but choose a path of healing and reorienting to God.
-            </p>
-            <p className="mt-4 text-lg leading-relaxed text-white/70">On this path, we train hard and rejoice in the tangible evidence of our growth.</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Who We Are</h2>
+
+            <div className="mt-8 space-y-5">
+              <div className="rounded-xl bg-white/5 p-5 ring-1 ring-white/10 backdrop-blur-sm">
+                <div className="mb-2 h-0.5 w-8 rounded-full bg-teal" />
+                <h3 className="font-bold text-white">Nancy Diven, Founder</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/60">
+                  Nancy earned a BA in classical culture from the University of Oklahoma. She is forever grateful for the guidance of two Oxford trained professors whom she met there and for the years of Bible study in the evangelical church. Karis Fellowships training is the result of God&apos;s work in her life and His clear call to offer to others this ministry of invitation.
+                </p>
+              </div>
+              <div className="rounded-xl bg-white/5 p-5 ring-1 ring-white/10 backdrop-blur-sm">
+                <div className="mb-2 h-0.5 w-8 rounded-full bg-coral" />
+                <h3 className="font-bold text-white">Alison Tunnell Diven, Co-Founder</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/60">
+                  Alison is the co-founder of Karis Fellowships, Intl. In 2010, she helped Nancy make the move to an on-line ministry. She also helped develop the original KF training materials and created the first KF website.
+                </p>
+              </div>
+              <div className="rounded-xl bg-white/5 p-5 ring-1 ring-white/10 backdrop-blur-sm">
+                <div className="mb-2 h-0.5 w-8 rounded-full bg-violet" />
+                <h3 className="font-bold text-white">Volunteers</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/60">
+                  We are volunteers offering our time, energy, and abilities in gratitude for our own transformation. We are Christians who not only recognize how messed up we are, but choose a path of healing and reorienting to God. On this path, we train hard and rejoice in the tangible evidence of our growth.
+                </p>
+              </div>
+            </div>
+
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/about" className="inline-flex items-center gap-2 rounded-2xl bg-white/15 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white shadow-sm transition-all duration-200 hover:bg-white/25 hover:-translate-y-0.5">About Us</Link>
               <Link href="/contact" className="inline-flex items-center rounded-2xl border border-white/30 px-7 py-3.5 text-sm font-bold text-white/80 transition-colors hover:bg-white/10">Contact Us</Link>
@@ -202,7 +223,7 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-bold text-white sm:text-4xl">Ready to Begin?</h2>
-          <p className="mt-5 text-lg text-white/75">Your first step is to participate in the NHG book study. Register any time and study at your own pace.</p>
+          <p className="mt-5 text-lg text-white/75">Your first step is to participate in the Neurosis and Human Growth (NHG) book study. You may register any time and study at your own pace.</p>
           <Link href="/register" className="mt-9 inline-flex items-center gap-2 rounded-full bg-white px-10 py-4 text-sm font-bold text-teal-deep shadow-lg transition-all duration-200 hover:bg-teal-light hover:text-teal-deep hover:shadow-xl hover:-translate-y-0.5">
             Register for NHG
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>

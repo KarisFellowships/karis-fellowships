@@ -24,7 +24,7 @@ export default function LoginPage() {
         <div className="w-full max-w-sm">
           <span className="text-xl font-bold text-white">Karis Fellowships</span>
           <h1 className="mt-8 text-2xl font-bold text-white">Welcome back</h1>
-          <p className="mt-1 text-sm text-white/50">Sign in to access your materials.</p>
+          <p className="mt-1 text-sm text-white/50">Empowering Christians to fulfill their true glory.</p>
 
           <div className="mt-8 space-y-4">
             <div>
