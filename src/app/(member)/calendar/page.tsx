@@ -3,15 +3,10 @@ import Image from "next/image";
 
 export default function CalendarPage() {
   return (
-    <>
-      <PageHeader
-        title="Calendar"
-        subtitle="Upcoming dates, meetings, and events for Karis Fellowships."
-        accent="amber"
-      />
+    <div className="bg-slate-dark">
+      <PageHeader title="Calendar" subtitle="Upcoming dates, meetings, and events for Karis Fellowships." accent="amber" />
       <section className="px-6 py-12 sm:py-16">
         <div className="mx-auto max-w-3xl">
-          {/* Visual header */}
           <div className="relative mb-8 overflow-hidden rounded-2xl shadow-lg">
             <div className="relative h-36">
               <Image src="/sunrise-ocean.jpg" alt="New day dawning" fill className="object-cover" />
@@ -22,8 +17,8 @@ export default function CalendarPage() {
             </div>
           </div>
 
-          <div className="rounded-xl bg-amber-light/50 p-6">
-            <p className="text-slate">
+          <div className="rounded-xl bg-white/5 ring-1 ring-white/10 p-6">
+            <p className="text-white/50">
               Please refer to the Calendar on the Karis Fellowships website to
               find the dates, times, and call-in numbers of this season&apos;s
               mega-meetings and other events.
@@ -37,21 +32,21 @@ export default function CalendarPage() {
               { label: "Romans Bible Study", detail: "October – December", color: "bg-sky" },
               { label: "HPKP Study", detail: "April – May", color: "bg-violet" },
             ].map(({ label, detail, color }) => (
-              <div key={label} className="flex items-center gap-4 rounded-xl border border-border/40 bg-white p-4 transition-shadow hover:shadow-sm">
+              <div key={label} className="flex items-center gap-4 rounded-xl bg-white/5 ring-1 ring-white/10 p-4 transition-all hover:bg-white/10">
                 <span className={`h-3 w-3 rounded-full ${color}`} />
                 <div>
-                  <h3 className="text-sm font-bold text-foreground">{label}</h3>
-                  <p className="text-xs text-slate">{detail}</p>
+                  <h3 className="text-sm font-bold text-white">{label}</h3>
+                  <p className="text-xs text-white/40">{detail}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <p className="mt-8 text-sm text-slate italic">
+          <p className="mt-8 text-sm text-white/30 italic">
             A full interactive calendar will be integrated once event data is connected.
           </p>
         </div>
       </section>
-    </>
+    </div>
   );
 }

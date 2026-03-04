@@ -5,7 +5,7 @@ export default function MemberLayout({ children }: { children: React.ReactNode }
   return (
     <>
       <Navbar isLoggedIn={true} />
-      <main className="min-h-screen">{children}</main>
+      <main className="min-h-screen bg-slate-dark">{children}</main>
       <Footer />
     </>
   );

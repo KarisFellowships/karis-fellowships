@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-cream text-foreground">
+    <div className="min-h-screen bg-slate-dark text-foreground">
       <Navbar />
 
       {/* Hero */}
@@ -13,16 +13,13 @@ export default function Home() {
         <Image src="/hero.jpg" alt="Hands nurturing a growing plant" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-gradient-to-b from-slate-dark/60 via-slate-dark/45 to-slate-dark/70" />
         <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
-          <p className="animate-fade-up text-sm font-semibold uppercase tracking-[0.3em] text-teal-light">
-            An invitation to mutual generosity
-          </p>
-          <h1 className="animate-fade-up-delay mt-5 text-5xl font-bold leading-[1.1] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
+          <h1 className="animate-fade-up text-5xl font-bold leading-[1.1] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
             Karis Fellowships
           </h1>
-          <p className="animate-fade-up-delay-2 mx-auto mt-6 max-w-2xl text-lg font-light text-white/80 sm:text-xl">
+          <p className="animate-fade-up-delay mx-auto mt-6 max-w-2xl text-lg font-semibold text-teal-light sm:text-xl md:text-2xl">
             Empowering Christians to fulfill their true glory.
           </p>
-          <div className="animate-fade-up-delay-3 mt-10 flex flex-wrap items-center justify-center gap-4">
+          <div className="animate-fade-up-delay-2 mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/register"
               className="group inline-flex items-center gap-2 rounded-full bg-teal px-8 py-4 text-sm font-bold text-white shadow-lg shadow-teal/25 transition-all duration-200 hover:bg-teal-hover hover:shadow-xl hover:shadow-teal/30 hover:-translate-y-0.5"
@@ -38,18 +35,18 @@ export default function Home() {
             </a>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cream to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-dark to-transparent" />
       </section>
 
       {/* What We Do */}
       <section id="what-we-do" className="scroll-mt-20 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal">What We Do</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal-light">What We Do</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
               Training for Real Transformation
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-slate">
+            <p className="mt-5 text-lg leading-relaxed text-white/60">
               We train, educate, and support Christians to grow into the people
               God created them to be and to walk in authentic relationship with
               their Creator. Discontent with mere theory, we teach not only the
@@ -64,49 +61,45 @@ export default function Home() {
               { title: "Truth", color: "bg-sky", desc: "Truth is the cornerstone of Karis Fellowships. We learn to admit the truth about who we are without shame and condemnation." },
               { title: "Freedom", color: "bg-violet", desc: "With its many commands of 'do not fear,' the Bible makes it clear that we have a problem with fear. Mature love casts out all fear." },
             ].map(({ title, color, desc }) => (
-              <div key={title} className="group rounded-2xl bg-white p-7 shadow-sm ring-1 ring-border/40 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+              <div key={title} className="group rounded-2xl bg-white/5 p-7 ring-1 ring-white/10 transition-all duration-200 hover:bg-white/10 hover:-translate-y-1">
                 <div className={`mb-5 h-1 w-10 rounded-full ${color} transition-all duration-200 group-hover:w-16`} />
-                <h3 className="text-lg font-bold text-foreground">{title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate">{desc}</p>
+                <h3 className="text-lg font-bold text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/50">{desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="overflow-hidden bg-white px-6 py-28 sm:py-36">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
-            <div className="relative">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-2xl shadow-slate-dark/10">
-                <Image src="/ship-sailing.jpg" alt="Ship sailing toward the horizon" fill className="object-cover" />
-              </div>
-              <div className="absolute -bottom-5 -right-5 -z-10 h-full w-full rounded-3xl bg-teal-muted" />
-            </div>
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-coral">How It Works</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Your Path to Growth</h2>
-              <div className="mt-10 space-y-8">
-                {[
-                  { step: "1", title: "NHG Book Study", color: "bg-teal text-white", line: "bg-border", desc: "It starts with a book study to help you discover where you are now — exactly how you are enslaved to pride, fear, and illusion." },
-                  { step: "2", title: "Join Karis Fellowships", color: "bg-coral text-white", line: "bg-border", desc: "After you complete the book study, you may join Karis Fellowships, a one-year training program designed to equip and support you." },
-                  { step: "3", title: "Weekly Training & Healing", color: "bg-violet text-white", line: "bg-transparent", desc: "Members attend small, weekly meetings for grounding, encouragement, confession, Bible teaching, training, healing, and prayer." },
-                ].map(({ step, title, color, line, desc }) => (
-                  <div key={step} className="flex gap-5">
-                    <div className="flex flex-col items-center">
-                      <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${color} text-sm font-bold shadow-sm`}>{step}</span>
-                      <div className={`mt-2 h-full w-px ${line}`} />
-                    </div>
-                    <div className="pb-2">
-                      <h3 className="text-lg font-bold text-foreground">{title}</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-slate">{desc}</p>
-                    </div>
+      {/* How It Works — editorial text-over-image */}
+      <section className="relative overflow-hidden px-6 py-28 sm:py-36">
+        <div className="absolute inset-0">
+          <Image src="/ship-sailing.jpg" alt="Ship sailing toward the horizon" fill className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-dark/95 via-slate-dark/85 to-slate-dark/60" />
+        </div>
+        <div className="relative mx-auto max-w-6xl">
+          <div className="max-w-xl">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal-light">How It Works</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Your Path to Growth</h2>
+            <div className="mt-10 space-y-8">
+              {[
+                { step: "1", title: "NHG Book Study", color: "bg-teal text-white", line: "bg-white/15", desc: "It starts with a book study to help you discover where you are now — exactly how you are enslaved to pride, fear, and illusion." },
+                { step: "2", title: "Join Karis Fellowships", color: "bg-coral text-white", line: "bg-white/15", desc: "After you complete the book study, you may join Karis Fellowships, a one-year training program designed to equip and support you." },
+                { step: "3", title: "Weekly Training & Healing", color: "bg-violet text-white", line: "bg-transparent", desc: "Members attend small, weekly meetings for grounding, encouragement, confession, Bible teaching, training, healing, and prayer." },
+              ].map(({ step, title, color, line, desc }) => (
+                <div key={step} className="flex gap-5">
+                  <div className="flex flex-col items-center">
+                    <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${color} text-sm font-bold shadow-sm`}>{step}</span>
+                    <div className={`mt-2 h-full w-px ${line}`} />
                   </div>
-                ))}
-              </div>
-              <p className="mt-8 text-sm text-slate italic">All programs are online — attend from anywhere in the world.</p>
+                  <div className="pb-2">
+                    <h3 className="text-lg font-bold text-white">{title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-white/65">{desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
+            <p className="mt-8 text-sm text-white/40 italic">All programs are online — attend from anywhere in the world.</p>
           </div>
         </div>
       </section>
@@ -116,49 +109,49 @@ export default function Home() {
         <div className="mx-auto max-w-5xl">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-violet">Get Started</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Begin Your Journey</h2>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Begin Your Journey</h2>
           </div>
           <div className="mt-14 grid gap-8 sm:grid-cols-2">
-            <div className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-border/40 transition-all duration-200 hover:shadow-xl">
-              <div className="relative h-48 overflow-hidden">
-                <Image src="/forest-light.jpg" alt="Light breaking through a forest" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
-                <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-teal shadow-sm backdrop-blur-sm">Step 1 &middot; Open to All</span>
+            <Link href="/register" className="group relative block overflow-hidden rounded-3xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative aspect-[3/4] sm:aspect-[4/5]">
+                <Image src="/forest-light.jpg" alt="Light breaking through a forest" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-dark via-slate-dark/40 to-transparent" />
               </div>
-              <div className="p-8 pt-4">
-                <h3 className="text-2xl font-bold text-foreground">NHG Book Study</h3>
-                <p className="mt-3 leading-relaxed text-slate">Your first step is to participate in the Neurosis and Human Growth (NHG) book study. You read the first 11 chapters, complete a study guide, and attend live conference calls.</p>
-                <Link href="/register" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-teal px-6 py-4 text-sm font-bold text-white shadow-sm transition-all duration-200 hover:bg-teal-hover hover:shadow-md hover:-translate-y-0.5">
+              <div className="absolute inset-x-0 bottom-0 p-8">
+                <span className="inline-block rounded-full bg-teal/90 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">Step 1 &middot; Open to All</span>
+                <h3 className="mt-3 text-2xl font-bold text-white">NHG Book Study</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/70">Your first step — read the first 11 chapters, complete a study guide, and attend live conference calls.</p>
+                <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2.5 text-sm font-bold text-white backdrop-blur-sm transition-all group-hover:bg-teal">
                   Register for NHG
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
-                </Link>
+                </span>
               </div>
-            </div>
-            <div className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-border/40 transition-all duration-200 hover:shadow-xl">
-              <div className="relative h-48 overflow-hidden">
-                <Image src="/butterfly-transform.jpg" alt="Transformation in nature" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
-                <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-violet shadow-sm backdrop-blur-sm">Step 2 &middot; By Invitation</span>
+            </Link>
+            <Link href="/login" className="group relative block overflow-hidden rounded-3xl transition-all duration-300 hover:-translate-y-1">
+              <div className="relative aspect-[3/4] sm:aspect-[4/5]">
+                <Image src="/butterfly-transform.jpg" alt="Transformation in nature" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-dark via-slate-dark/40 to-transparent" />
               </div>
-              <div className="p-8 pt-4">
-                <h3 className="text-2xl font-bold text-foreground">Karis Fellowships</h3>
-                <p className="mt-3 leading-relaxed text-slate">After completing the NHG book study and with board acceptance, you are eligible to join our one-year training program of Bible teaching, practical tools, support, and healing.</p>
-                <Link href="/login" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-teal bg-transparent px-6 py-4 text-sm font-bold text-teal transition-all duration-200 hover:bg-teal-muted hover:-translate-y-0.5">
+              <div className="absolute inset-x-0 bottom-0 p-8">
+                <span className="inline-block rounded-full bg-violet/90 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">Step 2 &middot; By Invitation</span>
+                <h3 className="mt-3 text-2xl font-bold text-white">Karis Fellowships</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/70">A one-year training program of Bible teaching, practical tools, support, and healing.</p>
+                <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2.5 text-sm font-bold text-white backdrop-blur-sm transition-all group-hover:bg-violet">
                   Member Login
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
-                </Link>
+                </span>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="bg-white px-6 py-28 sm:py-36">
+      <section className="bg-slate-dark/50 px-6 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-amber">Testimonials</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">What Members Say</h2>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">What Members Say</h2>
           </div>
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {[
@@ -169,37 +162,33 @@ export default function Home() {
               { quote: "The life of peace and calm that I truly never believed would ever be possible for me is with each day being realized more and more. I am amazed at all the ways God has set me free.", author: "Graduate student", color: "bg-amber" },
               { quote: "Anxiety. Guilt. Fear. If I could describe my life prior to Karis Fellowships, those would be the words. Now, after training for just over a year, I have a sense of hope for the very first time.", author: "Young professional", color: "bg-teal" },
             ].map(({ quote, author, color }, i) => (
-              <div key={i} className="flex flex-col rounded-2xl bg-cream p-7 transition-shadow hover:shadow-md">
+              <div key={i} className="flex flex-col rounded-2xl bg-white/5 p-7 ring-1 ring-white/10 transition-all hover:bg-white/10">
                 <div className={`mb-4 h-1 w-8 rounded-full ${color}`} />
-                <p className="flex-1 text-sm leading-relaxed text-slate">&ldquo;{quote}&rdquo;</p>
-                <p className="mt-5 text-xs font-bold uppercase tracking-wide text-foreground/35">&mdash; {author}</p>
+                <p className="flex-1 text-sm leading-relaxed text-white/60">&ldquo;{quote}&rdquo;</p>
+                <p className="mt-5 text-xs font-bold uppercase tracking-wide text-white/25">&mdash; {author}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Who We Are */}
-      <section className="px-6 py-28 sm:py-36">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
-            <div className="order-2 lg:order-1">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky">Who We Are</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">A Volunteer Community</h2>
-              <p className="mt-5 text-lg leading-relaxed text-slate">
-                Founded by Nancy Diven with Alison Tunnell Diven, we are volunteers offering our time, energy, and abilities in gratitude for our own transformation. We are Christians who not only recognize how messed up we are, but choose a path of healing and reorienting to God.
-              </p>
-              <p className="mt-4 text-lg leading-relaxed text-slate">On this path, we train hard and rejoice in the tangible evidence of our growth.</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/about" className="inline-flex items-center gap-2 rounded-2xl bg-sky px-7 py-3.5 text-sm font-bold text-white shadow-sm transition-all duration-200 hover:bg-sky/90 hover:-translate-y-0.5">About Us</Link>
-                <Link href="/contact" className="inline-flex items-center rounded-2xl border-2 border-sky px-7 py-3.5 text-sm font-bold text-sky transition-colors hover:bg-sky-light">Contact Us</Link>
-              </div>
-            </div>
-            <div className="relative order-1 lg:order-2">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-2xl shadow-slate-dark/10">
-                <Image src="/mountain-dawn.jpg" alt="Dawn breaking over mountain peaks" fill className="object-cover" />
-              </div>
-              <div className="absolute -bottom-5 -left-5 -z-10 h-full w-full rounded-3xl bg-sky-light" />
+      {/* Who We Are — text overlapping image */}
+      <section className="relative overflow-hidden px-6 py-28 sm:py-36">
+        <div className="absolute inset-0">
+          <Image src="/mountain-dawn.jpg" alt="Dawn breaking over mountain peaks" fill className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-l from-slate-dark/95 via-slate-dark/80 to-slate-dark/50" />
+        </div>
+        <div className="relative mx-auto max-w-6xl">
+          <div className="ml-auto max-w-xl">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky">Who We Are</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">A Volunteer Community</h2>
+            <p className="mt-5 text-lg leading-relaxed text-white/70">
+              We are volunteers offering our time, energy, and abilities in gratitude for our own transformation. We are Christians who not only recognize how messed up we are, but choose a path of healing and reorienting to God.
+            </p>
+            <p className="mt-4 text-lg leading-relaxed text-white/70">On this path, we train hard and rejoice in the tangible evidence of our growth.</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/about" className="inline-flex items-center gap-2 rounded-2xl bg-white/15 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-white shadow-sm transition-all duration-200 hover:bg-white/25 hover:-translate-y-0.5">About Us</Link>
+              <Link href="/contact" className="inline-flex items-center rounded-2xl border border-white/30 px-7 py-3.5 text-sm font-bold text-white/80 transition-colors hover:bg-white/10">Contact Us</Link>
             </div>
           </div>
         </div>

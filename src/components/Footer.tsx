@@ -8,12 +8,9 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-14">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal text-xs font-bold text-white">K</span>
-              <span className="text-lg font-bold text-white">Karis Fellowships</span>
-            </div>
-            <p className="mt-3 text-sm leading-relaxed text-white/40">
-              An invitation to a relationship based on mutual generosity.
+            <span className="text-lg font-bold text-white">Karis Fellowships</span>
+            <p className="mt-3 text-sm leading-relaxed text-teal-light">
+              Empowering Christians to fulfill their true glory.
             </p>
           </div>
           <div>
@@ -42,7 +39,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-12 border-t border-white/10 pt-6 text-center text-xs text-white/25">
-          &copy; {year} Nancy Diven &middot; karisfellowships.com
+          &copy; {year} Karis Fellowships International &middot; karisfellowships.com
         </div>
       </div>
     </footer>

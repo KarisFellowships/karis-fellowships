@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function NHGPage() {
   return (
-    <>
+    <div className="bg-slate-dark">
       <PageHeader
         title="NHG Book Study"
         subtitle="Neurosis and Human Growth — your foundational study for the Karis journey."
@@ -13,9 +13,8 @@ export default function NHGPage() {
 
       <section className="px-6 py-12 sm:py-16">
         <div className="mx-auto max-w-4xl">
-          {/* Intro with image */}
           <div className="grid items-center gap-8 lg:grid-cols-2">
-            <div className="rounded-2xl bg-coral-light/40 p-6 text-slate">
+            <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6 text-white/55">
               <p>
                 It starts with a conference call-based book study to help you
                 discover where you are now — exactly how you are enslaved to
@@ -30,40 +29,14 @@ export default function NHGPage() {
           </div>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <ContentCard
-              title="Start Here"
-              description="New to the NHG book study? Begin here for an overview and orientation."
-              href="/nhg/start-here"
-              accent="coral"
-              badge="Begin"
-            />
-            <ContentCard
-              title="Schedules & Reading Guides"
-              description="Study schedules, chapter reading guides, and study plan options."
-              href="/nhg/schedules"
-              accent="amber"
-            />
-            <ContentCard
-              title="Attend NHG Meetings"
-              description="Conference call information and meeting details for live sessions."
-              href="/nhg/meetings"
-              accent="teal"
-            />
-            <ContentCard
-              title="Listen to Recordings"
-              description="Recordings from past NHG sessions for review and catch-up."
-              href="/nhg/recordings"
-              accent="sky"
-            />
-            <ContentCard
-              title="NHG Facilitator Information"
-              description="Resources and guidelines for NHG discussion facilitators."
-              href="/nhg/facilitator"
-              accent="violet"
-            />
+            <ContentCard title="Start Here" description="New to the NHG book study? Begin here for an overview and orientation." href="/nhg/start-here" accent="coral" badge="Begin" />
+            <ContentCard title="Schedules & Reading Guides" description="Study schedules, chapter reading guides, and study plan options." href="/nhg/schedules" accent="amber" />
+            <ContentCard title="Attend NHG Meetings" description="Conference call information and meeting details for live sessions." href="/nhg/meetings" accent="teal" />
+            <ContentCard title="Listen to Recordings" description="Recordings from past NHG sessions for review and catch-up." href="/nhg/recordings" accent="sky" />
+            <ContentCard title="NHG Facilitator Information" description="Resources and guidelines for NHG discussion facilitators." href="/nhg/facilitator" accent="violet" />
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
