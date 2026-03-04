@@ -1,18 +1,18 @@
 interface PageHeaderProps {
   title: string;
   subtitle?: string;
-  accent?: "sage" | "gold" | "terracotta" | "sky" | "plum";
+  accent?: "teal" | "coral" | "sky" | "violet" | "amber";
 }
 
 const accentStyles = {
-  sage: { bg: "from-sage-muted/50 to-cream", bar: "bg-sage" },
-  gold: { bg: "from-gold-light/50 to-cream", bar: "bg-gold" },
-  terracotta: { bg: "from-terracotta-light/50 to-cream", bar: "bg-terracotta" },
-  sky: { bg: "from-sky-light/50 to-cream", bar: "bg-sky" },
-  plum: { bg: "from-plum-light/50 to-cream", bar: "bg-plum" },
+  teal: { bg: "from-teal-muted to-cream", bar: "bg-teal" },
+  coral: { bg: "from-coral-light to-cream", bar: "bg-coral" },
+  sky: { bg: "from-sky-light to-cream", bar: "bg-sky" },
+  violet: { bg: "from-violet-light to-cream", bar: "bg-violet" },
+  amber: { bg: "from-amber-light to-cream", bar: "bg-amber" },
 };
 
-export default function PageHeader({ title, subtitle, accent = "sage" }: PageHeaderProps) {
+export default function PageHeader({ title, subtitle, accent = "teal" }: PageHeaderProps) {
   const style = accentStyles[accent];
 
   return (
@@ -23,7 +23,7 @@ export default function PageHeader({ title, subtitle, accent = "sage" }: PageHea
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-foreground/65">{subtitle}</p>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate">{subtitle}</p>
         )}
       </div>
     </section>
