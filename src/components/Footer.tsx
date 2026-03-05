@@ -11,12 +11,12 @@ export default function Footer() {
             <span className="font-serif text-2xl font-semibold tracking-wide text-white">
               Karis Fellowships
             </span>
-            <p className="mt-4 text-sm leading-relaxed text-teal-light/70">
+            <p className="mt-4 text-sm leading-relaxed text-teal-light">
               Empowering Christians to fulfill their true glory.
             </p>
           </div>
           <div>
-            <h4 className="text-[11px] font-medium uppercase tracking-[0.25em] text-white/20">Navigate</h4>
+            <h4 className="text-[11px] font-medium uppercase tracking-[0.25em] text-white/40">Navigate</h4>
             <ul className="mt-5 flex flex-col gap-3">
               {[
                 { href: "/about", label: "About" },
@@ -25,21 +25,21 @@ export default function Footer() {
                 { href: "/login", label: "Member Login" },
               ].map(({ href, label }) => (
                 <li key={href}>
-                  <Link href={href} className="text-sm text-white/30 transition-colors hover:text-white/60">{label}</Link>
+                  <Link href={href} className="text-sm text-white/50 transition-colors hover:text-white/80">{label}</Link>
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <h4 className="text-[11px] font-medium uppercase tracking-[0.25em] text-white/20">Connect</h4>
-            <p className="mt-5 text-sm text-white/30">
-              <a href="mailto:admin@karisfellowships.com" className="text-white/40 underline underline-offset-4 decoration-white/10 transition-colors hover:text-teal-light hover:decoration-teal-light/30">
+            <h4 className="text-[11px] font-medium uppercase tracking-[0.25em] text-white/40">Connect</h4>
+            <p className="mt-5 text-sm text-white/50">
+              <a href="mailto:admin@karisfellowships.com" className="text-white/60 underline underline-offset-4 decoration-white/20 transition-colors hover:text-teal-light hover:decoration-teal-light/40">
                 admin@karisfellowships.com
               </a>
             </p>
           </div>
         </div>
-        <div className="mt-16 border-t border-white/[0.06] pt-8 text-center text-[11px] tracking-wide text-white/15">
+        <div className="mt-16 border-t border-white/10 pt-8 text-center text-[11px] tracking-wide text-white/30">
           &copy; {year} Karis Fellowships International &middot; karisfellowships.com
         </div>
       </div>

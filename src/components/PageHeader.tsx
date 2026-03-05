@@ -22,7 +22,7 @@ export default function PageHeader({ title, subtitle, accent = "teal", dark = fa
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-5 max-w-2xl text-base leading-[1.8] text-white/40">{subtitle}</p>
+          <p className="mt-5 max-w-2xl text-base leading-[1.8] text-white/65">{subtitle}</p>
         )}
       </div>
     </section>

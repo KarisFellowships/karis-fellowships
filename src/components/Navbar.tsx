@@ -38,7 +38,7 @@ export default function Navbar({ isLoggedIn = false }: { isLoggedIn?: boolean })
             <li key={href}>
               <Link
                 href={href}
-                className="px-4 py-2 text-[13px] tracking-wide text-white/50 transition-colors hover:text-white"
+                className="px-4 py-2 text-[13px] tracking-wide text-white/65 transition-colors hover:text-white"
               >
                 {label}
               </Link>
@@ -46,7 +46,7 @@ export default function Navbar({ isLoggedIn = false }: { isLoggedIn?: boolean })
           ))}
           <li className="ml-4">
             {isLoggedIn ? (
-              <Link href="/login" className="rounded-xl border border-white/10 px-5 py-2 text-[13px] tracking-wide text-white/50 transition-all hover:border-white/25 hover:text-white">
+              <Link href="/login" className="rounded-xl border border-white/15 px-5 py-2 text-[13px] tracking-wide text-white/60 transition-all hover:border-white/30 hover:text-white">
                 Log Out
               </Link>
             ) : (
@@ -75,7 +75,7 @@ export default function Navbar({ isLoggedIn = false }: { isLoggedIn?: boolean })
           <ul className="flex flex-col gap-1">
             {links.map(({ href, label }) => (
               <li key={href}>
-                <Link href={href} onClick={() => setMobileOpen(false)} className="block rounded-xl px-4 py-3 text-sm tracking-wide text-white/50 transition-colors hover:bg-white/5 hover:text-white">
+                <Link href={href} onClick={() => setMobileOpen(false)} className="block rounded-xl px-4 py-3 text-sm tracking-wide text-white/65 transition-colors hover:bg-white/5 hover:text-white">
                   {label}
                 </Link>
               </li>
