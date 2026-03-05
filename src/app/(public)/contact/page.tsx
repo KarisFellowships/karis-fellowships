@@ -9,36 +9,36 @@ export default function ContactPage() {
         accent="sky"
       />
 
-      <section className="px-6 py-16 sm:py-24">
+      <section className="px-8 py-20 sm:py-28">
         <div className="mx-auto max-w-2xl">
-          <div className="rounded-2xl border border-border/60 bg-white p-8 shadow-sm">
-            <div className="mb-8 rounded-xl bg-sky-light/50 p-5">
+          <div className="rounded-3xl border border-border/40 bg-white p-10">
+            <div className="mb-10 rounded-2xl bg-ivory/60 p-6">
               <p className="text-sm text-slate">
                 You can reach us directly at{" "}
                 <a
                   href="mailto:admin@karisfellowships.com"
-                  className="font-bold text-teal underline underline-offset-2 hover:text-teal-hover"
+                  className="font-medium text-teal underline underline-offset-4 decoration-teal/30 hover:text-teal-hover transition-colors"
                 >
                   admin@karisfellowships.com
                 </a>
               </p>
             </div>
 
-            <h2 className="text-xl font-bold text-foreground">Send Us a Message</h2>
-            <div className="mt-6 space-y-4">
+            <h2 className="font-serif text-2xl font-semibold text-foreground">Send Us a Message</h2>
+            <div className="mt-8 space-y-5">
               <div>
-                <label className="block text-sm font-medium text-slate">Name</label>
-                <input type="text" className="mt-1 w-full rounded-lg border border-border bg-cream px-4 py-3 text-sm outline-none transition-colors focus:border-teal focus:ring-1 focus:ring-teal" placeholder="Your name" />
+                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Name</label>
+                <input type="text" className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30" placeholder="Your name" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate">Email</label>
-                <input type="email" className="mt-1 w-full rounded-lg border border-border bg-cream px-4 py-3 text-sm outline-none transition-colors focus:border-teal focus:ring-1 focus:ring-teal" placeholder="you@email.com" />
+                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Email</label>
+                <input type="email" className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30" placeholder="you@email.com" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate">Message</label>
-                <textarea className="mt-1 w-full rounded-lg border border-border bg-cream px-4 py-3 text-sm outline-none transition-colors focus:border-teal focus:ring-1 focus:ring-teal" rows={5} placeholder="How can we help?" />
+                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Message</label>
+                <textarea className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30" rows={5} placeholder="How can we help?" />
               </div>
-              <button className="w-full rounded-full bg-teal px-6 py-3.5 text-sm font-bold text-white transition-all hover:bg-teal-hover hover:-translate-y-0.5">
+              <button className="w-full rounded-xl bg-teal px-6 py-4 text-[13px] font-medium uppercase tracking-[0.15em] text-white transition-all duration-500 hover:bg-teal-hover">
                 Send Message
               </button>
             </div>

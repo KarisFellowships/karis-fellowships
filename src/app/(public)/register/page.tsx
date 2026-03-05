@@ -11,75 +11,75 @@ export default function RegisterPage() {
         accent="coral"
       />
 
-      <section className="px-6 py-16 sm:py-24">
+      <section className="px-8 py-20 sm:py-28">
         <div className="mx-auto max-w-4xl">
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            <div className="rounded-2xl bg-gradient-to-br from-teal-muted to-cream p-8">
-              <h2 className="text-xl font-bold text-foreground">How to Get Started</h2>
-              <p className="mt-4 leading-relaxed text-slate">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div className="rounded-3xl bg-gradient-to-br from-ivory to-cream p-10">
+              <h2 className="font-serif text-2xl font-semibold text-foreground">How to Get Started</h2>
+              <p className="mt-5 leading-[1.8] text-slate">
                 For a big picture look at the book study and how it fits into Karis
                 Fellowships,{" "}
-                <Link href="/about" className="font-medium text-teal underline underline-offset-2 hover:text-teal-hover">
+                <Link href="/about" className="font-medium text-teal underline underline-offset-4 decoration-teal/30 hover:text-teal-hover hover:decoration-teal/60 transition-colors">
                   click here
                 </Link>.
               </p>
             </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-lg">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
               <Image src="/ship-sailing.jpg" alt="Ship sailing toward the horizon" fill className="object-cover" />
             </div>
           </div>
 
-          <div className="mt-12">
-            <h2 className="text-xl font-bold text-foreground">Curriculum</h2>
-            <p className="mt-2 text-slate">It&apos;s simple.</p>
-            <ol className="mt-4 space-y-3">
+          <div className="mt-16">
+            <h2 className="font-serif text-2xl font-semibold text-foreground">Curriculum</h2>
+            <p className="mt-3 text-slate">It&apos;s simple.</p>
+            <ol className="mt-6 space-y-4">
               {[
                 "You read the first 11 chapters of Karen Horney's Neurosis and Human Growth.",
                 "You complete a study guide for each chapter as you go.",
                 "You attend live conference calls to hear additional material, check your answers, and ask questions.",
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal text-sm font-bold text-white">
-                    {i + 1}
+                <li key={i} className="flex items-start gap-5">
+                  <span className="mt-0.5 font-serif text-2xl font-light text-teal/40">
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="pt-1 text-slate">{item}</p>
+                  <p className="pt-1.5 leading-[1.8] text-slate">{item}</p>
                 </li>
               ))}
             </ol>
           </div>
 
-          <div className="mt-10">
-            <h2 className="text-xl font-bold text-foreground">Format</h2>
-            <p className="mt-2 text-slate">We offer 3 options:</p>
-            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+          <div className="mt-14">
+            <h2 className="font-serif text-2xl font-semibold text-foreground">Format</h2>
+            <p className="mt-3 text-slate">We offer 3 options:</p>
+            <div className="mt-6 grid gap-6 sm:grid-cols-3">
               {[
                 {
                   title: "Flex Study",
-                  color: "border-t-teal",
+                  color: "border-t-teal/40",
                   desc: "Begin any time and study at your own pace until the next round of live calls. You can then attend weekly calls or wait for the Weekend Intensive calls.",
                 },
                 {
                   title: "Weekend Intensive",
-                  color: "border-t-coral",
+                  color: "border-t-coral/40",
                   desc: "An 8-week study with only email support until a single weekend of 6 two-hour conference calls at the end.",
                 },
                 {
                   title: "Weekly Study",
-                  color: "border-t-violet",
+                  color: "border-t-violet/40",
                   desc: "An 8-week study with weekly 1.5-2 hour conference calls.",
                 },
               ].map(({ title, color, desc }) => (
-                <div key={title} className={`rounded-xl border border-border/60 border-t-4 ${color} bg-white p-5`}>
-                  <h3 className="font-bold text-foreground">{title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate">{desc}</p>
+                <div key={title} className={`rounded-2xl border border-border/40 border-t-2 ${color} bg-white p-7`}>
+                  <h3 className="font-serif text-lg font-semibold text-foreground">{title}</h3>
+                  <p className="mt-3 text-sm leading-[1.8] text-slate">{desc}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="mt-10 rounded-xl bg-teal-muted/50 p-6">
-            <h3 className="font-bold text-foreground">After the Study</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate">
+          <div className="mt-14 rounded-3xl border border-border/30 bg-ivory/50 p-8">
+            <h3 className="font-serif text-lg font-semibold text-foreground">After the Study</h3>
+            <p className="mt-3 text-sm leading-[1.8] text-slate">
               If you attend the NHG conference calls, complete your reading
               guides, and your registration is accepted by the KF board, you are
               eligible to join Karis Fellowships, our one-year training program
@@ -87,47 +87,47 @@ export default function RegisterPage() {
             </p>
           </div>
 
-          <div className="mt-10">
-            <h3 className="font-bold text-foreground">Calendar</h3>
-            <p className="mt-2 text-slate">
+          <div className="mt-14">
+            <h3 className="font-serif text-lg font-semibold text-foreground">Calendar</h3>
+            <p className="mt-3 leading-[1.8] text-slate">
               We offer the Weekly Study and Weekend Intensive Study formats,
               both 8 weeks in length, once a year beginning in January and
               ending in March. Please contact your Karis Link for exact dates
               and times.
             </p>
-            <p className="mt-3 text-sm text-slate italic">
+            <p className="mt-4 text-sm text-slate/60 italic">
               You may also register any time and study at your own pace until
               the next conference calls begin in January.
             </p>
           </div>
 
-          <div className="mt-14 rounded-2xl border-2 border-teal/20 bg-white p-8 shadow-sm">
-            <h2 className="text-2xl font-bold text-foreground">Register</h2>
-            <p className="mt-2 text-slate">
+          <div className="mt-20 rounded-3xl border border-border/40 bg-white p-10">
+            <h2 className="font-serif text-3xl font-semibold text-foreground">Register</h2>
+            <p className="mt-3 text-slate">
               Registration form coming soon. In the meantime, email us
               at{" "}
-              <a href="mailto:admin@karisfellowships.com" className="font-medium text-teal underline underline-offset-2 hover:text-teal-hover">
+              <a href="mailto:admin@karisfellowships.com" className="font-medium text-teal underline underline-offset-4 decoration-teal/30 hover:text-teal-hover transition-colors">
                 admin@karisfellowships.com
               </a>
             </p>
-            <div className="mt-6 space-y-4">
+            <div className="mt-8 space-y-5">
               <div>
-                <label className="block text-sm font-medium text-slate">Full Name</label>
-                <input type="text" className="mt-1 w-full rounded-lg border border-border bg-cream px-4 py-3 text-sm outline-none transition-colors focus:border-teal focus:ring-1 focus:ring-teal" placeholder="Your name" />
+                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Full Name</label>
+                <input type="text" className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30" placeholder="Your name" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate">Email Address</label>
-                <input type="email" className="mt-1 w-full rounded-lg border border-border bg-cream px-4 py-3 text-sm outline-none transition-colors focus:border-teal focus:ring-1 focus:ring-teal" placeholder="you@email.com" />
+                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Email Address</label>
+                <input type="email" className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30" placeholder="you@email.com" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate">How did you hear about us?</label>
-                <textarea className="mt-1 w-full rounded-lg border border-border bg-cream px-4 py-3 text-sm outline-none transition-colors focus:border-teal focus:ring-1 focus:ring-teal" rows={3} placeholder="Who invited you or how did you find us?" />
+                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">How did you hear about us?</label>
+                <textarea className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30" rows={3} placeholder="Who invited you or how did you find us?" />
               </div>
-              <button className="w-full rounded-full bg-teal px-6 py-3.5 text-sm font-bold text-white transition-all hover:bg-teal-hover hover:-translate-y-0.5">
+              <button className="w-full rounded-xl bg-teal px-6 py-4 text-[13px] font-medium uppercase tracking-[0.15em] text-white transition-all duration-500 hover:bg-teal-hover">
                 Submit Registration
               </button>
             </div>
-            <p className="mt-4 text-xs text-slate/60">
+            <p className="mt-5 text-xs text-slate/40">
               Still have questions? Ask the person who invited you or email us
               at admin@karisfellowships.com.
             </p>

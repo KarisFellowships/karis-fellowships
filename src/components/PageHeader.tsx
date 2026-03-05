@@ -5,24 +5,24 @@ interface PageHeaderProps {
   dark?: boolean;
 }
 
-const accentBar = {
-  teal: "bg-teal",
-  coral: "bg-coral",
-  sky: "bg-sky",
-  violet: "bg-violet",
-  amber: "bg-amber",
+const accentLine = {
+  teal: "bg-teal/40",
+  coral: "bg-coral/40",
+  sky: "bg-sky/40",
+  violet: "bg-violet/40",
+  amber: "bg-amber/40",
 };
 
 export default function PageHeader({ title, subtitle, accent = "teal", dark = false }: PageHeaderProps) {
   return (
-    <section className={`px-6 pb-14 pt-28 sm:pb-20 sm:pt-32 ${dark ? "bg-slate-dark" : "bg-gradient-to-b from-slate-dark to-slate-dark/95"}`}>
+    <section className={`px-8 pb-16 pt-32 sm:pb-24 sm:pt-36 ${dark ? "bg-slate-dark" : "bg-gradient-to-b from-slate-dark to-slate-dark/95"}`}>
       <div className="mx-auto max-w-4xl">
-        <div className={`mb-5 h-1 w-12 rounded-full ${accentBar[accent]}`} />
-        <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+        <div className={`mb-6 h-px w-10 ${accentLine[accent]}`} />
+        <h1 className="font-serif text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/50">{subtitle}</p>
+          <p className="mt-5 max-w-2xl text-base leading-[1.8] text-white/40">{subtitle}</p>
         )}
       </div>
     </section>

@@ -1,23 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f9fb;
+  --background: #f7f6f3;
   --foreground: #1a1d23;
-  --cream: #f8f9fb;
-  --cream-dark: #eef0f4;
+  --cream: #f7f6f3;
+  --cream-dark: #edeae4;
+  --ivory: #f5f0e8;
 
-  --teal: #0d9488;
+  --teal: #0f766e;
   --teal-light: #5eead4;
-  --teal-hover: #0f766e;
+  --teal-hover: #115e59;
   --teal-muted: #e6faf7;
-  --teal-deep: #134e4a;
+  --teal-deep: #0c4a42;
 
-  --coral: #f06050;
+  --coral: #e05545;
   --coral-light: #fde8e6;
 
-  --slate: #475569;
+  --slate: #64748b;
   --slate-light: #f1f5f9;
-  --slate-dark: #1e293b;
+  --slate-dark: #141c2b;
 
   --sky: #0ea5e9;
   --sky-light: #e0f2fe;
@@ -29,7 +30,7 @@
   --amber-light: #fef3c7;
 
   --white: #ffffff;
-  --border: #e2e8f0;
+  --border: #e2e0db;
 }
 
 @theme inline {
@@ -37,6 +38,7 @@
   --color-foreground: var(--foreground);
   --color-cream: var(--cream);
   --color-cream-dark: var(--cream-dark);
+  --color-ivory: var(--ivory);
   --color-teal: var(--teal);
   --color-teal-light: var(--teal-light);
   --color-teal-hover: var(--teal-hover);
@@ -56,6 +58,7 @@
   --color-white: var(--white);
   --color-border: var(--border);
   --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), "Cormorant Garamond", "Georgia", serif;
 }
 
 body {
@@ -70,7 +73,7 @@ html {
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
+  from { opacity: 0; transform: translateY(32px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -80,17 +83,28 @@ html {
 }
 
 .animate-fade-up {
-  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .animate-fade-up-delay {
-  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+  animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
 
 .animate-fade-up-delay-2 {
-  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+  animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 }
 
 .animate-fade-up-delay-3 {
-  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
+  animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
 }

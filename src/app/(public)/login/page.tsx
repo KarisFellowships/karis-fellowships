@@ -11,38 +11,38 @@ export default function LoginPage() {
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-teal-deep/50" />
-        <div className="absolute bottom-12 left-10 right-10">
-          <p className="text-2xl font-bold text-white">
+        <div className="absolute inset-0 bg-slate-dark/40" />
+        <div className="absolute bottom-16 left-12 right-12">
+          <span className="font-serif text-3xl font-light leading-snug text-white/80">
             &ldquo;On this path, we train hard and rejoice in the tangible
             evidence of our growth.&rdquo;
-          </p>
+          </span>
         </div>
       </div>
 
-      <div className="flex w-full items-center justify-center bg-slate-dark px-6 py-32 lg:w-1/2">
+      <div className="flex w-full items-center justify-center bg-slate-dark px-8 py-32 lg:w-1/2">
         <div className="w-full max-w-sm">
-          <span className="text-xl font-bold text-white">Karis Fellowships</span>
-          <h1 className="mt-8 text-2xl font-bold text-white">Welcome back</h1>
-          <p className="mt-1 text-sm text-white/50">Empowering Christians to fulfill their true glory.</p>
+          <span className="font-serif text-2xl font-semibold tracking-wide text-white">Karis Fellowships</span>
+          <h1 className="mt-10 font-serif text-3xl font-semibold text-white">Welcome back</h1>
+          <p className="mt-2 text-sm text-white/30">Empowering Christians to fulfill their true glory.</p>
 
-          <div className="mt-8 space-y-4">
+          <div className="mt-10 space-y-5">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-white/40">Email</label>
-              <input type="email" className="mt-1.5 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all focus:border-teal focus:ring-2 focus:ring-teal/15 placeholder:text-white/25" placeholder="you@email.com" />
+              <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-white/25">Email</label>
+              <input type="email" className="mt-2 w-full rounded-xl border border-white/[0.08] bg-white/[0.03] px-5 py-3.5 text-sm text-white outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-white/15" placeholder="you@email.com" />
             </div>
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-white/40">Password</label>
-              <input type="password" className="mt-1.5 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all focus:border-teal focus:ring-2 focus:ring-teal/15 placeholder:text-white/25" placeholder="Your password" />
+              <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-white/25">Password</label>
+              <input type="password" className="mt-2 w-full rounded-xl border border-white/[0.08] bg-white/[0.03] px-5 py-3.5 text-sm text-white outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-white/15" placeholder="Your password" />
             </div>
-            <button className="w-full rounded-xl bg-teal px-6 py-3.5 text-sm font-bold text-white shadow-sm transition-all hover:bg-teal-hover hover:-translate-y-px">
+            <button className="w-full rounded-xl bg-teal/90 px-6 py-4 text-[13px] font-medium uppercase tracking-[0.15em] text-white transition-all duration-500 hover:bg-teal">
               Log In
             </button>
           </div>
 
-          <p className="mt-8 text-center text-sm text-white/40">
+          <p className="mt-10 text-center text-sm text-white/25">
             Not a member yet?{" "}
-            <Link href="/register" className="font-semibold text-teal-light hover:text-teal">
+            <Link href="/register" className="text-teal-light/60 underline underline-offset-4 decoration-teal-light/20 hover:text-teal-light hover:decoration-teal-light/40 transition-colors">
               Register for NHG
             </Link>
           </p>
