@@ -1,9 +1,9 @@
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import { getCurrentLesson } from "@/lib/date-engine";
 
-const currentLesson = 51;
-
-export default function KFFacilitatorPage() {
+export default async function KFFacilitatorPage() {
+  const { lessonNumber: currentLesson } = await getCurrentLesson();
   return (
     <div className="bg-slate-dark">
       <PageHeader title="Facilitator Resources" subtitle="Everything you need to lead your weekly KF meeting." accent="violet" />

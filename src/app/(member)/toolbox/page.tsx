@@ -5,12 +5,8 @@ import Image from "next/image";
 const categories = [
   { slug: "worksheets", title: "Worksheets", desc: "Practical worksheets for your training.", accent: "teal" as const },
   { slug: "healing-integration", title: "Healing / Integration", desc: "Tools for healing and integration work.", accent: "coral" as const },
-  { slug: "prayers-bible-readings", title: "Prayers & Bible Readings", desc: "Curated prayers and scripture passages.", accent: "amber" as const },
-  { slug: "meditation", title: "Meditation", desc: "Meditation guides and techniques.", accent: "sky" as const },
-  { slug: "neurotic-types", title: "Neurotic Types", desc: "Understanding the neurotic types from NHG.", accent: "violet" as const },
-  { slug: "mini-meetings", title: "Mini-Meetings", desc: "Resources for shorter meeting formats.", accent: "teal" as const },
-  { slug: "core-meetings", title: "CORE Meetings", desc: "Materials for CORE meeting sessions.", accent: "coral" as const },
-  { slug: "additional-recordings", title: "Additional Recordings", desc: "Extra recordings and audio resources.", accent: "amber" as const },
+  { slug: "mini-meetings", title: "Mini Meetings + CORE Meetings", desc: "Mini meeting guides for each lesson and CORE meeting resources.", accent: "amber" as const },
+  { slug: "archived", title: "Archived", desc: "Mindfulness Month, Neurotic Types, and additional recordings.", accent: "violet" as const },
 ];
 
 export default function ToolboxPage() {

@@ -1,29 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getCurrentLesson } from "@/lib/date-engine";
 
-const currentLesson = {
-  number: 51,
-  dateRange: "March 1 – March 7, 2026",
-  title: "KF51 Meeting",
-};
+const meetings = [
+  { day: "Sunday", time: "8:00 am CST", code: "140-752-083#" },
+  { day: "Monday", time: "10:00 am CST", code: "227-470-849#" },
+  { day: "Tuesday", time: "7:30 pm CST", code: "744-046-419#" },
+];
+const callPhone = "(701) 801-1220";
 
-const callInfo = {
-  phone: "1-605-313-5111",
-  accessCode: "834205#",
-  playbackCode: "834205#",
-  playbackPhone: "1-605-313-5111",
-  meetingDay: "Sundays",
-  meetingTime: "Check your group for times",
-};
-
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const currentLesson = await getCurrentLesson();
   return (
     <div className="min-h-screen bg-slate-dark pt-20">
       {/* Hero banner */}
       <section className="relative overflow-hidden px-6 py-14">
         <div className="absolute inset-0">
-          <Image src="/sunrise-ocean.jpg" alt="Sunrise over the ocean" fill className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-deep/90 via-teal-deep/80 to-teal-deep/60" />
+          <Image src="/hero.jpg" alt="Soothing forest canopy with sunlight filtering through" fill className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-dark/85 via-slate-dark/70 to-slate-dark/50" />
         </div>
         <div className="relative mx-auto max-w-6xl">
           <p className="text-sm font-medium text-teal-light/80">Welcome back</p>
@@ -39,7 +33,7 @@ export default function DashboardPage() {
             {/* Left: Current lesson (wider) */}
             <div className="lg:col-span-2">
               <Link
-                href={`/kf/meetings/kf${currentLesson.number}`}
+                href={`/kf/meetings/kf${currentLesson.lessonNumber}`}
                 className="group block overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10 p-8 transition-all hover:bg-white/10 hover:-translate-y-0.5"
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -48,7 +42,7 @@ export default function DashboardPage() {
                       This Week
                     </span>
                     <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
-                      KF{currentLesson.number}
+                      KF{currentLesson.lessonNumber}
                     </h2>
                     <p className="mt-1 text-white/50">{currentLesson.dateRange}</p>
                   </div>
@@ -68,16 +62,15 @@ export default function DashboardPage() {
               <div className="space-y-3">
                 <div>
                   <p className="text-xs text-white/35 uppercase tracking-wide">Phone</p>
-                  <p className="mt-0.5 text-lg font-bold text-teal-light">{callInfo.phone}</p>
+                  <p className="mt-0.5 text-lg font-bold text-teal-light">{callPhone}</p>
                 </div>
-                <div>
-                  <p className="text-xs text-white/35 uppercase tracking-wide">Access Code</p>
-                  <p className="mt-0.5 text-lg font-bold text-white">{callInfo.accessCode}</p>
-                </div>
-                <div className="border-t border-white/10 pt-3">
-                  <p className="text-xs text-white/35 uppercase tracking-wide">When</p>
-                  <p className="mt-0.5 text-sm font-semibold text-white/70">{callInfo.meetingDay}</p>
-                  <p className="text-xs text-white/40">{callInfo.meetingTime}</p>
+                <div className="border-t border-white/10 pt-3 space-y-2.5">
+                  {meetings.map(({ day, time, code }) => (
+                    <div key={day}>
+                      <p className="text-xs font-semibold text-white/60">{day} &middot; {time}</p>
+                      <p className="text-xs text-white/35 font-mono">{code}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
               <Link href="/kf/call-info" className="mt-4 inline-flex items-center text-xs font-semibold text-teal-light hover:text-teal transition-colors">
@@ -95,7 +88,7 @@ export default function DashboardPage() {
                 <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">Meeting Prep Guide</h3>
               </div>
               <p className="text-sm text-white/50 leading-relaxed">
-                Prepare for this week&apos;s KF{currentLesson.number} meeting with the Meeting Prep Guide.
+                Prepare for this week&apos;s KF{currentLesson.lessonNumber} meeting with the Meeting Prep Guide.
               </p>
               <a
                 href="/docs/meeting-prep-guide.pdf"
@@ -115,7 +108,7 @@ export default function DashboardPage() {
                 <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">Facilitators</h3>
               </div>
               <p className="text-sm text-white/50 leading-relaxed mb-4">
-                Facilitator guide and this week&apos;s KF{currentLesson.number} facilitator questions.
+                Facilitator guide and this week&apos;s KF{currentLesson.lessonNumber} facilitator questions.
               </p>
               <div className="space-y-2">
                 <a
@@ -128,13 +121,13 @@ export default function DashboardPage() {
                   Facilitator Guide
                 </a>
                 <a
-                  href={`/docs/questions/kf${currentLesson.number}-questions.pdf`}
+                  href={`/docs/questions/kf${currentLesson.lessonNumber}-questions.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 rounded-lg bg-violet/15 px-4 py-2.5 text-sm font-semibold text-violet-light transition-all hover:bg-violet/25"
                 >
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                  KF{currentLesson.number} Facilitator Questions
+                  KF{currentLesson.lessonNumber} Facilitator Questions
                 </a>
               </div>
               <Link href="/kf/facilitator" className="mt-3 inline-flex items-center text-xs font-semibold text-violet-light hover:text-violet transition-colors">

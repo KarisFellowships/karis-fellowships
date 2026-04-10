@@ -1,21 +1,21 @@
 import PageHeader from "@/components/PageHeader";
 import Image from "next/image";
 import Link from "next/link";
+import { getCurrentLesson } from "@/lib/date-engine";
 
-function getLessonDateRange(lessonNumber: number): string {
-  const startDate = new Date("2025-09-07");
-  const offset = lessonNumber * 7;
-  const start = new Date(startDate);
-  start.setDate(start.getDate() + offset);
-  const end = new Date(start);
-  end.setDate(end.getDate() + 6);
-
+function computeLessonDateRange(lessonNumber: number, currentLessonNumber: number, currentStartDate: string): string {
+  const anchor = new Date(currentStartDate + "T12:00:00Z");
+  const offset = lessonNumber - currentLessonNumber;
+  const start = new Date(anchor.getTime() + offset * 7 * 24 * 60 * 60 * 1000);
+  const end = new Date(start.getTime() + 6 * 24 * 60 * 60 * 1000);
   const fmt = (d: Date) =>
-    d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
   return `${fmt(start)} – ${fmt(end)}`;
 }
 
-export default function KFMeetingsPage() {
+export default async function KFMeetingsPage() {
+  const currentLesson = await getCurrentLesson();
+
   return (
     <div className="min-h-screen bg-slate-dark">
       <PageHeader title="All Weekly Meetings" subtitle="Browse all 52 KF weekly lessons, teachings, and meeting guides." accent="coral" />
@@ -31,26 +31,15 @@ export default function KFMeetingsPage() {
             </div>
           </div>
 
-          <div className="relative mb-8">
-            <input
-              type="text"
-              placeholder="Search lessons by topic, scripture, or keyword..."
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 pl-12 text-sm text-white outline-none transition-colors focus:border-teal focus:ring-2 focus:ring-teal/20 placeholder:text-white/30"
-            />
-            <svg className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 53 }, (_, i) => i).map((n) => (
+            {Array.from({ length: 52 }, (_, i) => i + 1).map((n) => (
               <Link
                 key={n}
                 href={`/kf/meetings/kf${n}`}
                 className="group flex items-center gap-4 rounded-xl bg-white/5 ring-1 ring-white/10 p-4 transition-all hover:bg-white/10 hover:-translate-y-0.5"
               >
                 <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
-                  n === 51
+                  n === currentLesson.lessonNumber
                     ? "bg-teal text-white"
                     : "bg-teal/20 text-teal-light"
                 }`}>
@@ -60,8 +49,10 @@ export default function KFMeetingsPage() {
                   <h3 className="text-sm font-semibold text-white group-hover:text-teal-light transition-colors">
                     KF{n} Meeting
                   </h3>
-                  <p className="text-xs text-white/35">{getLessonDateRange(n)}</p>
-                  {n === 51 && (
+                  <p className="text-xs text-white/35">
+                    {computeLessonDateRange(n, currentLesson.lessonNumber, currentLesson.startDate)}
+                  </p>
+                  {n === currentLesson.lessonNumber && (
                     <span className="text-xs font-medium text-teal-light">This Week</span>
                   )}
                 </div>

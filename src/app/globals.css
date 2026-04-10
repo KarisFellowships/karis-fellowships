@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f6f3;
+  --background: #f8f9fb;
   --foreground: #1a1d23;
-  --cream: #f7f6f3;
-  --cream-dark: #edeae4;
-  --ivory: #f5f0e8;
+  --cream: #f8f9fb;
+  --cream-dark: #eef0f4;
+  --ivory: #f4f6f8;
 
-  --teal: #0f766e;
+  --teal: #0d9488;
   --teal-light: #5eead4;
-  --teal-hover: #115e59;
+  --teal-hover: #0f766e;
   --teal-muted: #e6faf7;
-  --teal-deep: #0c4a42;
+  --teal-deep: #134e4a;
 
-  --coral: #e05545;
+  --coral: #f06050;
   --coral-light: #fde8e6;
 
-  --slate: #64748b;
+  --slate: #475569;
   --slate-light: #f1f5f9;
-  --slate-dark: #141c2b;
+  --slate-dark: #1e293b;
 
   --sky: #0ea5e9;
   --sky-light: #e0f2fe;
@@ -30,7 +30,7 @@
   --amber-light: #fef3c7;
 
   --white: #ffffff;
-  --border: #e2e0db;
+  --border: #e2e8f0;
 }
 
 @theme inline {
@@ -57,14 +57,14 @@
   --color-amber-light: var(--amber-light);
   --color-white: var(--white);
   --color-border: var(--border);
-  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-serif), "Cormorant Garamond", "Georgia", serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 

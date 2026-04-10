@@ -1,8 +1,73 @@
+"use client";
+
 import PageHeader from "@/components/PageHeader";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { createClient } from "@/lib/supabase-browser";
 
 export default function RegisterPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [howHeard, setHowHeard] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  async function handleRegister(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    const supabase = createClient();
+    const { data: authData, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { name, how_heard: howHeard },
+      },
+    });
+
+    if (signUpError) {
+      setError(signUpError.message);
+      setLoading(false);
+      return;
+    }
+
+    const userId = authData.user?.id;
+    if (!userId) {
+      setError("Registration failed. Please try again.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "nhg_registration",
+          amount: 3000,
+          userId,
+          userEmail: email,
+        }),
+      });
+      const { url, error: checkoutError } = await res.json();
+      if (checkoutError || !url) {
+        setError("Registration created but payment setup failed. You can pay later from your dashboard.");
+        setSuccess(true);
+        setLoading(false);
+        return;
+      }
+      window.location.href = url;
+    } catch {
+      setError("Registration created but payment setup failed. You can pay later from your dashboard.");
+      setSuccess(true);
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <PageHeader
@@ -103,30 +168,79 @@ export default function RegisterPage() {
 
           <div className="mt-20 rounded-3xl border border-border/40 bg-white p-10">
             <h2 className="font-serif text-3xl font-semibold text-foreground">Register</h2>
-            <p className="mt-3 text-slate">
-              Registration form coming soon. In the meantime, email us
-              at{" "}
-              <a href="mailto:admin@karisfellowships.com" className="font-medium text-teal underline underline-offset-4 decoration-teal/30 hover:text-teal-hover transition-colors">
-                admin@karisfellowships.com
-              </a>
-            </p>
-            <div className="mt-8 space-y-5">
-              <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Full Name</label>
-                <input type="text" className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30" placeholder="Your name" />
+
+            {success ? (
+              <div className="mt-6 rounded-xl bg-teal-muted px-6 py-5">
+                <p className="font-medium text-teal">Registration submitted!</p>
+                <p className="mt-1 text-sm text-slate">
+                  Check your email to confirm your account. Once confirmed, you can{" "}
+                  <Link href="/login" className="font-medium text-teal underline underline-offset-4">
+                    log in
+                  </Link>{" "}
+                  to access your NHG materials.
+                </p>
               </div>
-              <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Email Address</label>
-                <input type="email" className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30" placeholder="you@email.com" />
-              </div>
-              <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">How did you hear about us?</label>
-                <textarea className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30" rows={3} placeholder="Who invited you or how did you find us?" />
-              </div>
-              <button className="w-full rounded-xl bg-teal px-6 py-4 text-[13px] font-medium uppercase tracking-[0.15em] text-white transition-all duration-500 hover:bg-teal-hover">
-                Submit Registration
-              </button>
-            </div>
+            ) : (
+              <form onSubmit={handleRegister} className="mt-8 space-y-5">
+                <div>
+                  <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Full Name</label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Email Address</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30"
+                    placeholder="you@email.com"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Password</label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={8}
+                    className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30"
+                    placeholder="Minimum 8 characters"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">How did you hear about us?</label>
+                  <textarea
+                    value={howHeard}
+                    onChange={(e) => setHowHeard(e.target.value)}
+                    className="mt-2 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3.5 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30"
+                    rows={3}
+                    placeholder="Who invited you or how did you find us?"
+                  />
+                </div>
+
+                {error && (
+                  <p className="rounded-lg bg-coral-light px-4 py-3 text-sm text-coral">{error}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full rounded-xl bg-teal px-6 py-4 text-[13px] font-medium uppercase tracking-[0.15em] text-white transition-all duration-500 hover:bg-teal-hover disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? "Submitting…" : "Submit Registration"}
+                </button>
+              </form>
+            )}
+
             <p className="mt-5 text-xs text-slate/40">
               Still have questions? Ask the person who invited you or email us
               at admin@karisfellowships.com.

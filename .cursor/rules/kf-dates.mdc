@@ -1,0 +1,15 @@
+---
+description: All program dates (KF, NHG, HPKP, Romans) must come from the Excel projection file
+alwaysApply: true
+---
+
+# Date Projection Rule
+
+ALL program dates — KF weekly meetings, NHG book study (rows 63–78), HPKP study, Romans study, Weekend Intensives, and any other scheduled events — MUST come from the Excel projection file at `content/KF Date Projection.xlsx`.
+
+- Never hardcode program dates or calculate them from an anchor date.
+- The seed script (`scripts/seed-schedule.mjs`) reads the Excel file directly and populates Supabase schedule tables.
+- If date data is needed in application code, it MUST be fetched from Supabase schedule tables (populated from the Excel).
+- If the Excel file is updated, the seed script must be re-run to update the database.
+- The fallback function in `date-engine.ts` should never be relied upon as a source of truth — it exists only for graceful degradation if the database is unreachable.
+- The NHG study rows in the spreadsheet (rows 63–78: Intro Meeting through KF0) define the NHG schedule each year.

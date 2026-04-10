@@ -20,14 +20,10 @@ export default function OtherStudiesPage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <ContentCard title="Romans Bible Study" description="A study through the book of Romans, typically offered October through December." href="/other-studies" accent="teal" />
-            <ContentCard title="Honor, Patronage, Kinship & Purity" description="The HPKP book study exploring cultural context of the Bible, typically offered April through May." href="/other-studies" accent="amber" />
-            <ContentCard title="Mindfulness Month" description="Mindfulness resources and training materials." href="/other-studies" accent="sky" />
+            <ContentCard title="Romans Bible Study" description="A study through the book of Romans, typically offered October through December." href="/other-studies/romans" accent="teal" />
+            <ContentCard title="Honor, Patronage, Kinship & Purity" description="The HPKP book study exploring cultural context of the Bible, typically offered April through May." href="/other-studies/hpkp" accent="amber" />
+            <ContentCard title="Mindfulness Month" description="Mindfulness resources and training materials." href="/other-studies/mindfulness" accent="sky" />
           </div>
-
-          <p className="mt-8 text-sm text-white/30 italic">
-            Individual study pages and materials will be built out as content is provided.
-          </p>
         </div>
       </section>
     </div>
