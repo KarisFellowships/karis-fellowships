@@ -1,0 +1,38 @@
+---
+description: Karis Fellowships architecture decisions and CMS strategy
+alwaysApply: true
+---
+
+# Architecture Decisions
+
+## Content Management Strategy
+- No CMS (Sanity) is integrated yet. All content is hardcoded or in static files.
+- Sanity can be added later incrementally (page by page, on a branch) without downtime or rewriting existing components.
+- If a CMS is added, work on a separate branch, test via Vercel preview URLs, and deploy when ready.
+- The current component/layout/auth/Stripe work is NOT wasted — a CMS only changes where text comes from, not the templates.
+
+## Document Storage
+- Admin-swappable documents live in Supabase Storage bucket "documents" (toolbox, nhg, other-studies, facilitator, lessons, questions, kf-resources).
+- Use `docUrl()` from `src/lib/storage-url.ts` to convert static `/docs/...` paths to Supabase Storage public URLs.
+- The admin panel Documents tab manages these files (upload, replace, delete).
+
+## Admin Panel
+- Located at `src/app/(member)/admin/` under the member layout.
+- Protected by `ADMIN_ONLY_ROUTES` in `src/proxy.ts` — only `tier === "admin"` users can access.
+- Members tab: search, filter, upgrade/downgrade tiers, activate/suspend.
+- Documents tab: browse by category, upload, delete via Supabase Storage API.
+- API routes at `/api/admin/update-member` and `/api/admin/documents` use the service role key.
+
+## Tier Enforcement
+- `src/proxy.ts` enforces three route groups: `MEMBER_ROUTES`, `KF_ONLY_ROUTES`, `ADMIN_ONLY_ROUTES`.
+- Missing profile or inactive user → redirect to `/login`.
+- NHG users on KF-only routes → redirect to `/nhg`.
+- Non-admin users on admin routes → redirect to their home page.
+
+## Email
+- Contact form sends via Resend (`/api/contact`).
+- Automated emails (matching KF date sheet) can use Vercel Cron + Supabase for templates + Resend — no CMS needed.
+
+## Future: Announcements
+- If the admin needs to post banners/announcements without code changes, add an `announcements` table in Supabase and a new admin tab. This is Option 1 (lightweight, no CMS).
+- Option 2 (editable content blocks) or Option 3 (full Sanity CMS) can be layered on later.

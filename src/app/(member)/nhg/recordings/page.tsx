@@ -2,11 +2,11 @@ import PageHeader from "@/components/PageHeader";
 
 export default function NHGRecordingsPage() {
   return (
-    <div className="bg-slate-dark">
-      <PageHeader title="NHG Recordings" subtitle="Recordings from past NHG sessions for review and catch-up." accent="sky" />
-      <section className="px-6 py-12 sm:py-16">
+    <div className="min-h-screen bg-[#4a5568]">
+      <PageHeader title="NHG Recordings" subtitle="Recordings from past NHG sessions for review and catch-up." accent="sky" image="/waterfall.jpg" imageAlt="Waterfall in nature" />
+      <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-3xl">
-          <div className="rounded-xl bg-white/5 ring-1 ring-white/10 p-6">
+          <div className="rounded-xl bg-[#1e293b] p-6">
             <p className="text-white/50">
               Listen to past NHG conference call recordings. Links to recordings from StartMeeting will appear here.
             </p>

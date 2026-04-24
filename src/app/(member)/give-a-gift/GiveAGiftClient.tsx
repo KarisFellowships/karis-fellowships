@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import PageHeader from "@/components/PageHeader";
+import Image from "next/image";
 
 const PRESETS = [1000, 2500, 5000, 10000];
 
@@ -74,14 +74,21 @@ export default function GiveAGiftClient({
   }
 
   return (
-    <div className="bg-slate-dark">
-      <PageHeader
-        title="Give a Gift"
-        subtitle="We appreciate your participation in the karis relationship by supporting Karis Fellowships!"
-        accent="coral"
-      />
-      <section className="px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-3xl space-y-10">
+    <div className="min-h-screen bg-[#4a5568] pt-20">
+      <section className="relative z-10">
+        <div className="absolute inset-0">
+          <Image src="/sunlight-nature.jpg" alt="Sunlight through nature" fill className="object-cover brightness-110 saturate-[1.15]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
+        </div>
+        <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
+          <div className="mx-auto max-w-6xl">
+            <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">Give a Gift</h1>
+            <p className="mt-1.5 text-sm font-medium text-white/80 drop-shadow">We appreciate your participation in the karis relationship by supporting Karis Fellowships!</p>
+          </div>
+        </div>
+      </section>
+      <section className="px-6 pb-12 pt-4">
+        <div className="mx-auto max-w-3xl space-y-3">
           {/* Success Banner */}
           {success && (
             <div className="rounded-2xl bg-teal/15 ring-1 ring-teal/30 p-6 text-center">
@@ -96,7 +103,7 @@ export default function GiveAGiftClient({
           )}
 
           {/* Contribute Financially */}
-          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
+          <div className="rounded-xl bg-[#1e293b] p-8">
             <h2 className="text-xl font-bold text-white">Contribute Financially</h2>
             <p className="mt-3 text-sm leading-relaxed text-white/60">
               Your financial gifts keep this website running, allow us to explore technology options, and pay for legal and accounting services. We do not pay ourselves salaries; we are volunteers.
@@ -179,7 +186,7 @@ export default function GiveAGiftClient({
           </div>
 
           {/* AmazonSmile */}
-          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
+          <div className="rounded-xl bg-[#1e293b] p-8">
             <h2 className="text-xl font-bold text-white">AmazonSmile</h2>
             <div className="mt-4 space-y-4 text-sm leading-relaxed text-white/60">
               <ol className="list-decimal list-inside space-y-2">
@@ -202,7 +209,7 @@ export default function GiveAGiftClient({
           </div>
 
           {/* Facilitate an NHG Meeting */}
-          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
+          <div className="rounded-xl bg-[#1e293b] p-8">
             <h2 className="text-xl font-bold text-white">Facilitate an Upcoming NHG Meeting</h2>
             <div className="mt-4 text-sm leading-relaxed text-white/60">
               <p>
@@ -224,7 +231,7 @@ export default function GiveAGiftClient({
           </div>
 
           {/* Contribute Your Gifts */}
-          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
+          <div className="rounded-xl bg-[#1e293b] p-8">
             <h2 className="text-xl font-bold text-white">Contribute Your Gifts</h2>
             <div className="mt-4 text-sm leading-relaxed text-white/60">
               <p>You can support Karis Fellowships with your time, energy, and abilities in many ways. We are always on the lookout for:</p>
@@ -233,7 +240,7 @@ export default function GiveAGiftClient({
               {volunteerOpportunities.map((item) => (
                 <li
                   key={item}
-                  className="flex items-center gap-3 rounded-xl bg-white/5 ring-1 ring-white/10 p-3"
+                  className="flex items-center gap-3 rounded-xl bg-white/5 p-3"
                 >
                   <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-violet/15">
                     <svg className="h-3.5 w-3.5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">

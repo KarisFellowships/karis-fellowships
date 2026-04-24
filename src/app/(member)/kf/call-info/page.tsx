@@ -2,24 +2,24 @@ import PageHeader from "@/components/PageHeader";
 import Link from "next/link";
 
 const meetings = [
-  { day: "Sunday", time: "8:00 am CST", code: "140-752-083#" },
-  { day: "Monday", time: "10:00 am CST", code: "227-470-849#" },
-  { day: "Tuesday", time: "7:30 pm CST", code: "744-046-419#" },
+  { day: "Sunday", time: "8:00 am CST", code: "548-008-425#" },
+  { day: "Monday", time: "10:00 am CST", code: "591-492-083#" },
+  { day: "Tuesday", time: "7:30 pm CST", code: "209-466-826#" },
 ];
 const callPhone = "(701) 801-1220";
 
 export default function KFCallInfoPage() {
   return (
-    <div className="bg-slate-dark">
-      <PageHeader title="Call & Playback Info" subtitle="Conference call details for KF weekly meetings." accent="amber" />
-      <section className="px-6 py-12 sm:py-16">
+    <div className="min-h-screen bg-[#4a5568]">
+      <PageHeader title="Call & Playback Info" subtitle="Conference call details for KF weekly meetings." accent="amber" image="/sunrise-ocean.jpg" imageAlt="Sunrise over calm water" />
+      <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-3xl space-y-6">
-          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
+          <div className="rounded-xl bg-[#1e293b] p-8">
             <p className="text-xs font-bold uppercase tracking-wider text-white/30">Phone Number</p>
             <p className="mt-1 text-3xl font-bold text-teal-light">{callPhone}</p>
           </div>
 
-          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
+          <div className="rounded-xl bg-[#1e293b] p-8">
             <p className="text-xs font-bold uppercase tracking-wider text-white/30 mb-5">Meeting Times &amp; Access Codes</p>
             <div className="space-y-5">
               {meetings.map(({ day, time, code }) => (

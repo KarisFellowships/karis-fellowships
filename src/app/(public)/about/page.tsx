@@ -8,6 +8,8 @@ export default function AboutPage() {
         title="About Karis Fellowships"
         subtitle="Founded by Nancy Diven with Alison Tunnell Diven, we are volunteers offering our time, energy, and abilities in gratitude for our own transformation."
         accent="teal"
+        image="/starry-mountain.jpg"
+        imageAlt="Stars over mountains"
       />
 
       <section className="px-8 py-20 sm:py-28">

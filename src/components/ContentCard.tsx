@@ -28,7 +28,7 @@ export default function ContentCard({ title, description, href, accent = "teal",
   return (
     <Link
       href={href}
-      className="group block overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10 transition-all duration-200 hover:bg-white/10 hover:-translate-y-1"
+      className="group block overflow-hidden rounded-xl bg-[#1e293b] transition-all duration-200 hover:bg-[#243044] hover:-translate-y-1"
     >
       <div className={`h-1 ${accentBar[accent]}`} />
       <div className="p-6">

@@ -1,25 +1,24 @@
-import PageHeader from "@/components/PageHeader";
-import ContentCard from "@/components/ContentCard";
 import Image from "next/image";
+import ContentCard from "@/components/ContentCard";
 
 export default function OtherStudiesPage() {
   return (
-    <div className="bg-slate-dark">
-      <PageHeader title="Other Studies" subtitle="Additional studies and resources beyond the weekly KF meetings." accent="violet" />
-      <section className="px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-4xl">
-          <div className="relative mb-10 overflow-hidden rounded-2xl shadow-lg">
-            <div className="relative h-40">
-              <Image src="/starry-mountain.jpg" alt="Stars over mountains" fill className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-dark/70 to-slate-dark/30" />
-            </div>
-            <div className="absolute bottom-5 left-6 right-6">
-              <p className="text-lg font-bold text-white">Go deeper.</p>
-              <p className="mt-1 text-sm text-white/60">Supplemental studies to enrich your journey.</p>
-            </div>
+    <div className="min-h-screen bg-[#4a5568] pt-20">
+      <section className="relative z-10">
+        <div className="absolute inset-0">
+          <Image src="/starry-mountain.jpg" alt="Stars over mountains" fill className="object-cover brightness-110 saturate-[1.15]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
+        </div>
+        <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
+          <div className="mx-auto max-w-6xl">
+            <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">Other Studies</h1>
+            <p className="mt-1.5 text-sm font-medium text-white/80 drop-shadow">Additional studies and resources beyond the weekly KF meetings.</p>
           </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
+        </div>
+      </section>
+      <section className="px-6 pb-12 pt-4">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-3 sm:grid-cols-2">
             <ContentCard title="Romans Bible Study" description="A study through the book of Romans, typically offered October through December." href="/other-studies/romans" accent="teal" />
             <ContentCard title="Honor, Patronage, Kinship & Purity" description="The HPKP book study exploring cultural context of the Bible, typically offered April through May." href="/other-studies/hpkp" accent="amber" />
             <ContentCard title="Mindfulness Month" description="Mindfulness resources and training materials." href="/other-studies/mindfulness" accent="sky" />

@@ -12,10 +12,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const SUPABASE_URL = "https://afeaatpzvpdlttqyspdd.supabase.co";
-const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmZWFhdHB6dnBkbHR0cXlzcGRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NjEyNjQsImV4cCI6MjA4ODEzNzI2NH0.QZCP3BwRbk5iDCGKBlY_0ewNLH0mMBnA4VLjlfyvOT0";
+const SUPABASE_SERVICE_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmZWFhdHB6dnBkbHR0cXlzcGRkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjU2MTI2NCwiZXhwIjoyMDg4MTM3MjY0fQ.AvUeFQEQyehbf27IBgGm1Ld5IgZnfV55FnqA86I1zNE";
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
 function excelSerialToDate(serial) {
   return new Date(Math.round((serial - 25569) * 86400 * 1000));
@@ -31,7 +31,11 @@ function addDays(dateStr, days) {
   return toDateString(d);
 }
 
-// NHG weekly study rows (Excel rows 63–71, 0-indexed in data array)
+// NHG rows (Excel rows 63–75, 0-indexed in data array)
+// Rows 63-71: Weekly Study (Intro + 8 chapter weeks)
+// Row 72: "Weekend Intensive" label header (no date)
+// Row 73: Weekend Intensive Day 1 (start date)
+// Row 75: Weekend Intensive Day 3 (end date)
 const NHG_WEEKLY_ROWS = [
   { excelRow: 63, weekNumber: 0, label: "Intro Meeting" },
   { excelRow: 64, weekNumber: 1, label: "Intro & Chapt 1" },
@@ -43,6 +47,10 @@ const NHG_WEEKLY_ROWS = [
   { excelRow: 70, weekNumber: 7, label: "Chap 9 & 10" },
   { excelRow: 71, weekNumber: 8, label: "Chap 11" },
 ];
+
+// Weekend Intensive: start from row 73, end from row 75
+const WI_START_ROW = 73;
+const WI_END_ROW = 75;
 
 async function seed() {
   const excelPath = join(__dirname, "..", "content", "KF Date Projection.xlsx");
@@ -80,6 +88,26 @@ async function seed() {
         year,
         start_date: startDate,
         end_date: endDate,
+      });
+    }
+  }
+
+  // Weekend Intensive (week 9): start from row 73, end from row 75
+  const wiStartRow = data[WI_START_ROW];
+  const wiEndRow = data[WI_END_ROW];
+  if (wiStartRow && wiEndRow) {
+    for (const { col, year } of yearColumns) {
+      const startSerial = wiStartRow[col];
+      const endSerial = wiEndRow[col];
+      if (!startSerial || typeof startSerial !== "number" || startSerial < 1000) continue;
+      if (!endSerial || typeof endSerial !== "number" || endSerial < 1000) continue;
+
+      rows.push({
+        week_number: 9,
+        label: "Weekend Intensive",
+        year,
+        start_date: toDateString(excelSerialToDate(startSerial)),
+        end_date: toDateString(excelSerialToDate(endSerial)),
       });
     }
   }

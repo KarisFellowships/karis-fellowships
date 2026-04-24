@@ -1,7 +1,8 @@
-import PageHeader from "@/components/PageHeader";
+import Image from "next/image";
 import StudyDonationBanner from "@/components/StudyDonationBanner";
 import Link from "next/link";
 import { createServerClient } from "@/lib/supabase-server";
+import { docUrl } from "@/lib/storage-url";
 
 const studyGuides = [
   { label: "Chapter 1 Study Guide", href: "/docs/other-studies/romans/1-Chap.-Study-Guide-Romans-2014-v3n.docx", type: "docx" },
@@ -44,9 +45,20 @@ export default async function RomansPage() {
   }
 
   return (
-    <div className="bg-slate-dark">
-      <PageHeader title="Romans Bible Study" subtitle="A study through the book of Romans" accent="teal" />
-      <section className="px-6 py-12 sm:py-16">
+    <div className="min-h-screen bg-[#4a5568] pt-20">
+      <section className="relative z-10">
+        <div className="absolute inset-0">
+          <Image src="/mountain-dawn.jpg" alt="Mountains at dawn" fill className="object-cover brightness-110 saturate-[1.15]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
+        </div>
+        <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
+          <div className="mx-auto max-w-6xl">
+            <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">Romans Bible Study</h1>
+            <p className="mt-1.5 text-sm font-medium text-white/80 drop-shadow">A study through the book of Romans</p>
+          </div>
+        </div>
+      </section>
+      <section className="px-6 pb-12 pt-4">
         <div className="mx-auto max-w-3xl">
           <StudyDonationBanner
             studyName="Romans"
@@ -55,9 +67,27 @@ export default async function RomansPage() {
             userId={user?.id ?? ""}
             userEmail={user?.email ?? ""}
           />
+          {/* Call Info */}
+          <div className="rounded-xl bg-[#1e293b] p-6 mb-3">
+            <div className="flex items-center gap-2 mb-4">
+              <svg className="h-5 w-5 text-teal-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">Meeting Call Info</h3>
+            </div>
+            <div className="flex flex-wrap items-center gap-6">
+              <div>
+                <p className="text-xs text-white/35 uppercase tracking-wide">Phone</p>
+                <p className="mt-0.5 text-lg font-bold text-teal-light">(701) 801-1220</p>
+              </div>
+              <div>
+                <p className="text-xs text-white/35 uppercase tracking-wide">Access Code</p>
+                <p className="mt-0.5 font-mono text-lg font-bold text-teal-light/80">158-890-796#</p>
+              </div>
+            </div>
+          </div>
+
           {/* Overview */}
           <a
-            href="/docs/other-studies/romans/2016-KF-Overview-of-Romans.pdf"
+            href={docUrl("/docs/other-studies/romans/2016-KF-Overview-of-Romans.pdf")}
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-4 rounded-2xl bg-teal/10 ring-1 ring-teal/20 p-6 transition-all hover:bg-teal/15 hover:-translate-y-0.5"
@@ -80,10 +110,10 @@ export default async function RomansPage() {
               {studyGuides.map(({ label, href, type }) => (
                 <a
                   key={href}
-                  href={href}
+                  href={docUrl(href)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-xl bg-white/5 ring-1 ring-white/10 p-4 transition-all hover:bg-white/10 hover:-translate-y-0.5"
+                  className="group flex items-center gap-3 rounded-xl bg-[#1e293b] p-4 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
                 >
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-teal/15">
                     <svg className="h-4 w-4 text-teal-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,10 +136,10 @@ export default async function RomansPage() {
               {summaries.map(({ label, href, type }) => (
                 <a
                   key={href}
-                  href={href}
+                  href={docUrl(href)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-xl bg-white/5 ring-1 ring-white/10 p-4 transition-all hover:bg-white/10 hover:-translate-y-0.5"
+                  className="group flex items-center gap-3 rounded-xl bg-[#1e293b] p-4 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
                 >
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber/15">
                     <svg className="h-4 w-4 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24">

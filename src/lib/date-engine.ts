@@ -44,6 +44,76 @@ export async function getCurrentLesson(): Promise<CurrentLesson> {
   }
 }
 
+export async function getAllLessons(): Promise<CurrentLesson[]> {
+  try {
+    const supabase = await createServerClient();
+    const today = new Date().toISOString().split("T")[0];
+    const year = new Date().getUTCFullYear();
+
+    const { data, error } = await supabase
+      .from("kf_schedule")
+      .select("lesson_number, start_date, end_date")
+      .gte("start_date", `${year - 1}-06-01`)
+      .lte("start_date", `${year + 1}-06-01`)
+      .order("start_date", { ascending: true });
+
+    if (error || !data || data.length === 0) {
+      return [];
+    }
+
+    // Find the cycle closest to today: pick rows whose start_date is nearest
+    const todayTime = new Date(today + "T12:00:00Z").getTime();
+    let bestCycleStart = 0;
+    let bestDistance = Infinity;
+
+    // Group by cycles of ~53 consecutive rows (KF0-KF52)
+    // Find the row for lesson 0 or 1 that is closest to today
+    for (const row of data) {
+      if (row.lesson_number <= 1) {
+        const rowTime = new Date(row.start_date + "T12:00:00Z").getTime();
+        const dist = Math.abs(rowTime - todayTime);
+        if (dist < bestDistance) {
+          bestDistance = dist;
+          bestCycleStart = rowTime;
+        }
+      }
+    }
+
+    // Filter to the cycle that contains the best start
+    const msPerYear = 365 * 24 * 60 * 60 * 1000;
+    const cycleRows = data.filter((row) => {
+      const rowTime = new Date(row.start_date + "T12:00:00Z").getTime();
+      return Math.abs(rowTime - bestCycleStart) < msPerYear;
+    });
+
+    // Deduplicate by lesson_number (keep the one closest to today)
+    const byLesson = new Map<number, typeof data[0]>();
+    for (const row of cycleRows) {
+      const existing = byLesson.get(row.lesson_number);
+      if (!existing) {
+        byLesson.set(row.lesson_number, row);
+      } else {
+        const existDist = Math.abs(new Date(existing.start_date + "T12:00:00Z").getTime() - todayTime);
+        const newDist = Math.abs(new Date(row.start_date + "T12:00:00Z").getTime() - todayTime);
+        if (newDist < existDist) {
+          byLesson.set(row.lesson_number, row);
+        }
+      }
+    }
+
+    return Array.from(byLesson.values())
+      .sort((a, b) => a.lesson_number - b.lesson_number)
+      .map((row) => ({
+        lessonNumber: row.lesson_number,
+        startDate: row.start_date,
+        endDate: row.end_date,
+        dateRange: formatDateRange(row.start_date, row.end_date),
+      }));
+  } catch {
+    return [];
+  }
+}
+
 function getFallbackLesson(today: string): CurrentLesson {
   // Anchor: KF1 week starts 2025-09-07 (Sunday)
   const anchor = new Date("2025-09-07T12:00:00Z");

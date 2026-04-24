@@ -8,6 +8,8 @@ export default function RegisterSuccessPage() {
         title="Registration Complete"
         subtitle="Thank you for registering and for your generous gift!"
         accent="teal"
+        image="/forest-light.jpg"
+        imageAlt="Light breaking through the forest"
       />
       <section className="px-8 py-20 sm:py-28">
         <div className="mx-auto max-w-xl text-center">

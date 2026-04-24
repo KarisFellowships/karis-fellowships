@@ -12,10 +12,15 @@ export default function Home() {
       <HeroVideo />
 
       {/* What We Do — LIGHT section */}
-      <section id="what-we-do" className="scroll-mt-20 bg-ivory px-8 py-20 sm:py-24">
+      <section id="what-we-do" className="scroll-mt-20 bg-ivory px-8 py-14 sm:py-18">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-teal">What We Do</p>
+            <svg className="mx-auto h-8 w-8 text-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22v-14" />
+              <path d="M12 18c-4 0-7-3-6-7 4-.5 7 2.5 6 7" />
+              <path d="M12 14c4 0 7-3 6-7-4-.5-7 2.5-6 7" />
+              <path d="M12 10c-3.5 0-6-2.5-5-6 3.5-.5 6 2 5 6" />
+            </svg>
             <h2 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-foreground sm:text-5xl md:text-6xl">
               What We Do &amp; Why
             </h2>
@@ -52,7 +57,7 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-6xl">
           <div className="max-w-xl">
-            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-teal-light">How It Works</p>
+            <svg className="h-8 w-8 text-teal-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 3v4" /><path d="M12 17v4" /><path d="M3 12h4" /><path d="M17 12h4" /><path d="M12 12l3-5" /><path d="M12 12l-1.5 3" /><circle cx="12" cy="12" r="1.5" /></svg>
             <h2 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-white/95 sm:text-5xl">How It Works</h2>
             <div className="mt-14 space-y-10">
               {[
@@ -78,7 +83,7 @@ export default function Home() {
       <section className="bg-cream px-8 py-28 sm:py-36">
         <div className="mx-auto max-w-5xl">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-teal">Get Started</p>
+            <svg className="mx-auto h-8 w-8 text-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M2 4c0 0 3-1 5-1s4 1 5 2c1-1 3-2 5-2s5 1 5 1v15c0 0-3-1-5-1s-4 1-5 2c-1-1-3-2-5-2s-5 1-5 1V4z" /><path d="M12 5v16" /></svg>
             <h2 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">How to Get Started</h2>
           </div>
           <div className="mt-16 grid gap-8 sm:grid-cols-2">
@@ -120,7 +125,7 @@ export default function Home() {
       <section className="bg-slate-dark px-8 py-28 sm:py-36">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-teal-light">Testimonials</p>
+            <svg className="mx-auto h-8 w-8 text-teal-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M10 8c0-2.5-2-4.5-4.5-4.5S1 5.5 1 8c0 3 4.5 6 4.5 6S10 11 10 8z" /><path d="M23 8c0-2.5-2-4.5-4.5-4.5S14 5.5 14 8c0 3 4.5 6 4.5 6S23 11 23 8z" /><path d="M5.5 17v3" /><path d="M18.5 17v3" /></svg>
             <h2 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-white/95 sm:text-5xl">What Members Say</h2>
           </div>
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -150,7 +155,7 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-6xl">
           <div className="ml-auto max-w-xl">
-            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-teal-light">Who We Are</p>
+            <svg className="h-8 w-8 text-teal-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M2 17c4-2 7-6 10-12" /><path d="M6 14c2.5 0 4-2 3.5-4.5C7 9 5.5 11 6 14z" /><path d="M9 10c2 1 4 0 4.5-2.5C11.5 7 9.5 7.5 9 10z" /><path d="M12 17c-4-2-7-6-10-12" /><path d="M8 14c-2.5 0-4-2-3.5-4.5C7 9 8.5 11 8 14z" /></svg>
             <h2 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-white/95 sm:text-5xl">Who We Are</h2>
 
             <div className="mt-10 space-y-5">

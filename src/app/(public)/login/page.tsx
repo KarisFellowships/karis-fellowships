@@ -56,10 +56,9 @@ export default function LoginPage() {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-slate-dark/40" />
-        <div className="absolute bottom-16 left-12 right-12">
+        <div className="absolute inset-0 flex items-center justify-center px-12 pt-16">
           <span className="font-serif text-3xl font-light leading-snug text-white/80">
-            &ldquo;On this path, we train hard and rejoice in the tangible
-            evidence of our growth.&rdquo;
+            &ldquo;Train hard, fight easy.&rdquo;
           </span>
         </div>
       </div>

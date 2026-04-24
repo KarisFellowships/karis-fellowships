@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# Large local video (exceeds GitHub 100MB limit); hero uses TreeVideoClipped.mp4
+public/treesvideo.mov
+
 # debug
 npm-debug.log*
 yarn-debug.log*

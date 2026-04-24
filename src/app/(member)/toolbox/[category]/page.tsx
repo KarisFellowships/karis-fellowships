@@ -1,5 +1,6 @@
 import PageHeader from "@/components/PageHeader";
 import Link from "next/link";
+import { docUrl } from "@/lib/storage-url";
 
 type Accent = "teal" | "coral" | "sky" | "violet" | "amber";
 
@@ -141,7 +142,7 @@ export default async function ToolboxCategoryPage({ params }: Props) {
 
   if (!data) {
     return (
-      <div className="bg-slate-dark">
+      <div className="min-h-screen bg-[#4a5568]">
         <PageHeader title="Not Found" subtitle="This toolbox category does not exist." accent="teal" />
         <section className="px-6 py-12">
           <div className="mx-auto max-w-3xl">
@@ -155,19 +156,19 @@ export default async function ToolboxCategoryPage({ params }: Props) {
   }
 
   return (
-    <div className="bg-slate-dark">
-      <PageHeader title={data.title} subtitle={`KF Toolbox — ${data.title}`} accent={data.accent} />
-      <section className="px-6 py-12 sm:py-16">
+    <div className="min-h-screen bg-[#4a5568]">
+      <PageHeader title={data.title} subtitle={`KF Toolbox — ${data.title}`} accent={data.accent} image="/butterfly-transform.jpg" imageAlt="Transformation" />
+      <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-3xl">
           {data.docs.length > 0 && (
             <div className="grid gap-2">
               {data.docs.map(({ label, href, type }) => (
                 <a
                   key={href}
-                  href={href}
+                  href={docUrl(href)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-xl bg-white/5 ring-1 ring-white/10 p-4 transition-all hover:bg-white/10 hover:-translate-y-0.5"
+                  className="group flex items-center gap-3 rounded-xl bg-[#1e293b] p-4 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
                 >
                   <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-${data.accent}/15`}>
                     <svg className={`h-4 w-4 text-${data.accent}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -192,10 +193,10 @@ export default async function ToolboxCategoryPage({ params }: Props) {
                 {docs.map(({ label, href, type }) => (
                   <a
                     key={href}
-                    href={href}
+                    href={docUrl(href)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3 rounded-xl bg-white/5 ring-1 ring-white/10 p-4 transition-all hover:bg-white/10 hover:-translate-y-0.5"
+                    className="group flex items-center gap-3 rounded-xl bg-[#1e293b] p-4 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
                   >
                     <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-${data.accent}/15`}>
                       <svg className={`h-4 w-4 text-${data.accent}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">

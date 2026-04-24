@@ -1,16 +1,17 @@
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { getCurrentLesson } from "@/lib/date-engine";
+import { docUrl } from "@/lib/storage-url";
 
 export default async function KFFacilitatorPage() {
   const { lessonNumber: currentLesson } = await getCurrentLesson();
   return (
-    <div className="bg-slate-dark">
-      <PageHeader title="Facilitator Resources" subtitle="Everything you need to lead your weekly KF meeting." accent="violet" />
-      <section className="px-6 py-12 sm:py-16">
+    <div className="min-h-screen bg-[#4a5568]">
+      <PageHeader title="Facilitator Resources" subtitle="Everything you need to lead your weekly KF meeting." accent="violet" image="/forest-canopy.jpg" imageAlt="Sunlit forest canopy" />
+      <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-4xl">
           {/* Facilitator Guide */}
-          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
+          <div className="rounded-xl bg-[#1e293b] p-8">
             <div className="flex items-start gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-violet/20">
                 <svg className="h-6 w-6 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
@@ -21,7 +22,7 @@ export default async function KFFacilitatorPage() {
                   The complete facilitator guide with protocols, tips, and structure for leading KF meetings.
                 </p>
                 <a
-                  href="/docs/facilitator-guide.pdf"
+                  href={docUrl("/docs/facilitator/facilitator-guide.pdf")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center gap-2 rounded-lg bg-violet/15 px-5 py-2.5 text-sm font-semibold text-violet-light transition-all hover:bg-violet/25"
@@ -34,14 +35,14 @@ export default async function KFFacilitatorPage() {
           </div>
 
           {/* This Week highlight */}
-          <div className="mt-8 rounded-2xl bg-gradient-to-r from-violet/10 to-teal/10 ring-1 ring-violet/20 p-6">
+          <div className="mt-8 rounded-xl bg-gradient-to-r from-violet/10 to-teal/10 ring-1 ring-violet/20 p-6">
             <div className="flex items-center gap-2 mb-2">
               <span className="inline-block rounded-full bg-violet px-3 py-1 text-xs font-bold text-white">This Week</span>
             </div>
             <h3 className="text-lg font-bold text-white">KF{currentLesson} Facilitator Questions</h3>
             <p className="mt-1 text-sm text-white/50">Questions for this week&apos;s meeting discussion.</p>
             <a
-              href={`/docs/questions/kf${currentLesson}-questions.pdf`}
+              href={docUrl(`/docs/questions/kf${currentLesson}-questions.pdf`)}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-2 rounded-lg bg-violet px-5 py-2.5 text-sm font-bold text-white transition-all hover:bg-violet/80"
@@ -59,13 +60,13 @@ export default async function KFFacilitatorPage() {
               {Array.from({ length: 53 }, (_, i) => i).map((n) => (
                 <a
                   key={n}
-                  href={`/docs/questions/kf${n}-questions.pdf`}
+                  href={docUrl(`/docs/questions/kf${n}-questions.pdf`)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`group flex items-center gap-3 rounded-xl p-3 transition-all hover:-translate-y-0.5 ${
                     n === currentLesson
                       ? "bg-violet/20 ring-1 ring-violet/40"
-                      : "bg-white/5 ring-1 ring-white/10 hover:bg-white/10"
+                      : "bg-[#1e293b] hover:bg-[#243044]"
                   }`}
                 >
                   <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${

@@ -1,0 +1,29 @@
+---
+description: All meeting access codes must match the "New Code KF Website" column in the KF Meeting Code Generator spreadsheet
+alwaysApply: true
+---
+
+# KF Meeting Access Codes
+
+All meeting access codes displayed on the website MUST match the **"New Code KF Website"** column from the KF Meeting Code Generator spreadsheet located at `.cursor/KF Meeting Code Generator 2026.xlsx`.
+
+## Authoritative Codes (from "New Code KF Website" column)
+
+| Meeting                  | Access Code     |
+|--------------------------|-----------------|
+| KF 1 Sunday Morning      | 548-008-425#    |
+| KF 2 Sunday Evening      | 646-522-354#    |
+| KF 3 Monday Morning      | 591-492-083#    |
+| KF 4 Tuesday Evening     | 209-466-826#    |
+| NHG Saturday AM           | 226-621-530#    |
+| NHG Weekend Intensive     | 546-213-115#    |
+| Bible Study Romans        | 158-890-796#    |
+| Special Studies (HPKP)    | 903-351-258#    |
+| Phone Number              | (701) 801-1220  |
+
+## Rules
+
+1. NEVER use old codes — always use the "New Code KF Website" column values above.
+2. When adding or editing any page that displays access codes, verify against this table.
+3. Format codes with dashes and a trailing `#` (e.g., `548-008-425#`).
+4. If the spreadsheet is updated, this rule must also be updated to match.

@@ -1,5 +1,6 @@
 import PageHeader from "@/components/PageHeader";
 import Link from "next/link";
+import { docUrl } from "@/lib/storage-url";
 
 const documents = [
   { label: "Week 1 Reflection Guide", href: "/docs/toolbox/archived/mindfulness-month/MM-Week-1-Reflection-Guide.pdf" },
@@ -9,7 +10,7 @@ const documents = [
 
 export default function MindfulnessPage() {
   return (
-    <div className="bg-slate-dark">
+    <div className="min-h-screen bg-[#4a5568]">
       <PageHeader title="Mindfulness Month" subtitle="Mindfulness resources and training materials" accent="sky" />
       <section className="px-6 py-12 sm:py-16">
         <div className="mx-auto max-w-3xl">
@@ -17,10 +18,10 @@ export default function MindfulnessPage() {
             {documents.map(({ label, href }) => (
               <a
                 key={href}
-                href={href}
+                href={docUrl(href)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 rounded-xl bg-white/5 ring-1 ring-white/10 p-4 transition-all hover:bg-white/10 hover:-translate-y-0.5"
+                className="group flex items-center gap-3 rounded-xl bg-[#1e293b] p-4 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
               >
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sky/15">
                   <svg className="h-4 w-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

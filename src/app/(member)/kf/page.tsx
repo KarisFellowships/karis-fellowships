@@ -1,63 +1,56 @@
-import PageHeader from "@/components/PageHeader";
 import ContentCard from "@/components/ContentCard";
 import Image from "next/image";
 import Link from "next/link";
+import { getCurrentLesson } from "@/lib/date-engine";
 
-const currentLesson = {
-  number: 51,
-  dateRange: "March 1 – March 7, 2026",
-};
-
-export default function KFPage() {
+export default async function KFPage() {
+  const currentLesson = await getCurrentLesson();
   return (
-    <div className="bg-slate-dark">
-      <PageHeader
-        title="KF Weekly Meetings"
-        subtitle="Small, weekly meetings for grounding and re-centering, encouragement, confession, sharing, Bible teaching, training, healing, and prayer."
-        accent="teal"
-      />
+    <div className="min-h-screen bg-[#4a5568] pt-20">
+      <section className="relative z-10">
+        <div className="absolute inset-0">
+          <Image src="/ship-voyage.jpg" alt="Sailboat heading out to open sea" fill className="object-cover brightness-110 saturate-[1.15]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
+        </div>
+        <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
+          <div className="mx-auto max-w-6xl">
+            <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">KF Weekly Meetings</h1>
+            <p className="mt-1.5 text-sm font-medium text-white/80 drop-shadow">Small, weekly meetings for grounding and re-centering, encouragement, confession, sharing, Bible teaching, training, healing, and prayer.</p>
+          </div>
+        </div>
+      </section>
 
-      <section className="px-6 py-12 sm:py-16">
-        <div className="mx-auto max-w-4xl">
-          <Link
-            href={`/kf/meetings/kf${currentLesson.number}`}
-            className="group block overflow-hidden rounded-2xl border-2 border-teal/20 transition-all hover:border-teal/40 hover:-translate-y-0.5"
-          >
-            <div className="relative h-40 overflow-hidden">
-              <Image src="/ship-sailing.jpg" alt="Sailing toward the horizon" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-dark via-slate-dark/50 to-transparent" />
-              <span className="absolute left-5 top-5 inline-block rounded-full bg-teal px-3 py-1 text-xs font-bold text-white shadow-sm">
-                This Week
+      <section className="px-6 pb-12 pt-4">
+        <div className="mx-auto max-w-6xl space-y-3">
+          {/* Top row: This Week (left) + Start Here (right) */}
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Link
+              href={`/kf/meetings/kf${currentLesson.lessonNumber}`}
+              className="group flex items-center gap-5 rounded-xl bg-[#1e293b] p-6 transition-all hover:bg-[#243044]"
+            >
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-teal/20 text-lg font-bold text-teal-light">
+                {currentLesson.lessonNumber}
               </span>
-            </div>
-            <div className="bg-white/5 p-8 pt-4">
-              <h2 className="text-2xl font-bold text-white">
-                KF{currentLesson.number}
-              </h2>
-              <p className="mt-1 text-white/50">{currentLesson.dateRange}</p>
-              <span className="mt-4 inline-flex items-center text-sm font-bold text-teal-light group-hover:text-teal transition-colors">
-                Open this week&apos;s lesson &rarr;
-              </span>
-            </div>
-          </Link>
+              <div>
+                <span className="inline-block rounded-full bg-teal/90 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                  This Week
+                </span>
+                <h2 className="mt-1.5 text-xl font-bold text-white group-hover:text-teal-light transition-colors">
+                  KF{currentLesson.lessonNumber}
+                </h2>
+                <p className="text-xs text-white/50">{currentLesson.dateRange}</p>
+                <span className="mt-2 inline-flex items-center text-sm font-semibold text-teal-light transition-colors group-hover:text-white">
+                  Open lesson &rarr;
+                </span>
+              </div>
+            </Link>
 
-          <div className="mt-8">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search all lessons by topic, scripture, or keyword..."
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 pl-12 text-sm text-white outline-none transition-colors focus:border-teal focus:ring-2 focus:ring-teal/20 placeholder:text-white/30"
-              />
-              <svg className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
+            <ContentCard title="Start Here" description="New to KF? Begin here for an orientation to the weekly meeting format." href="/kf/start-here" accent="teal" badge="Begin" />
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <ContentCard title="Start Here" description="New to KF? Begin here for an orientation to the weekly meeting format." href="/kf/start-here" accent="teal" badge="Begin" />
-            <ContentCard title="Call & Playback Info" description="Conference call numbers, playback information, and meeting times." href="/kf/call-info" accent="amber" />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <ContentCard title="All Weekly Meetings" description="Browse all 52 weekly lessons, teachings, and meeting guides." href="/kf/meetings" accent="coral" />
+            <ContentCard title="Call & Playback Info" description="Conference call numbers, playback information, and meeting times." href="/kf/call-info" accent="amber" />
             <ContentCard title="Listen to Recordings" description="Recordings from past KF meetings via StartMeeting." href="/kf/recordings" accent="sky" />
             <ContentCard title="KF Facilitator Information" description="Resources and guidelines for KF meeting facilitators." href="/kf/facilitator" accent="violet" />
           </div>

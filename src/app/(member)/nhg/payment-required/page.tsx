@@ -45,7 +45,7 @@ export default function NHGPaymentRequiredPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-dark pt-20">
+    <div className="min-h-screen bg-[#4a5568] pt-20">
       <section className="flex items-center justify-center px-6 py-20">
         <div className="mx-auto max-w-lg text-center">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-coral/15">

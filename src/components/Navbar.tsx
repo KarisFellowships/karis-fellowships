@@ -19,7 +19,7 @@ const nhgLinks = [
 const kfLinks = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/nhg", label: "NHG" },
-  { href: "/kf", label: "KF Weekly" },
+  { href: "/kf", label: "KF Weekly Meetings" },
   { href: "/toolbox", label: "Toolbox" },
   { href: "/other-studies", label: "Other Studies" },
   { href: "/give-a-gift", label: "Give a Gift" },
@@ -32,10 +32,8 @@ function getLinks(tier: NavTier) {
   return kfLinks;
 }
 
-function getHomeHref(tier: NavTier) {
-  if (!tier) return "/";
-  if (tier === "nhg") return "/nhg";
-  return "/dashboard";
+function getHomeHref(_tier: NavTier) {
+  return "/";
 }
 
 export default function Navbar({ isLoggedIn = false, tier = null }: { isLoggedIn?: boolean; tier?: NavTier }) {

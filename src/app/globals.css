@@ -98,6 +98,242 @@ html {
   animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
 }
 
+/* ── KF Lesson Content (rendered from DOCX → HTML via mammoth) ── */
+
+.lesson-content {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9375rem;
+  line-height: 1.9;
+}
+
+.lesson-content h1 {
+  font-family: var(--font-serif, "Cormorant Garamond", serif);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.lesson-content p {
+  margin-bottom: 1rem;
+}
+
+.lesson-content strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.lesson-content em {
+  font-style: italic;
+}
+
+.lesson-content a {
+  color: var(--color-teal-light, #7dd3c0);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s;
+}
+
+.lesson-content a:hover {
+  color: var(--color-teal, #2dd4bf);
+}
+
+.lesson-content sup {
+  font-size: 0.7em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+.lesson-content sup a {
+  text-decoration: none;
+  color: var(--color-teal-light, #7dd3c0);
+}
+
+.lesson-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.lesson-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.lesson-content li {
+  margin-bottom: 0.25rem;
+}
+
+.lesson-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.lesson-content td {
+  padding: 0.375rem 0.75rem;
+  vertical-align: top;
+}
+
+.lesson-content td:first-child {
+  font-weight: 600;
+  color: #fff;
+  width: 2rem;
+}
+
+/* Footnotes at end of lesson */
+.lesson-content ol li p {
+  display: inline;
+}
+
+/* ── Light theme for lesson content (on white/cream bg) ── */
+
+.lesson-content--light {
+  color: #374151;
+  font-weight: 450;
+}
+
+.lesson-content--light h1 {
+  font-family: var(--font-serif, "Cormorant Garamond", serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #0a6c6e 0%, #0d9494 50%, #14b8a6 100%);
+  border-left: 3px solid #5eead4;
+  border-radius: 0.5rem;
+}
+
+.lesson-content--light p {
+  margin-left: 2rem;
+}
+
+.lesson-content--light strong {
+  color: #1e293b;
+  font-weight: 700;
+  font-size: 0.975rem;
+}
+
+.lesson-content--light a {
+  color: #0d7377;
+}
+
+.lesson-content--light a:hover {
+  color: #0a5c5f;
+}
+
+.lesson-content--light sup a {
+  color: #0d7377;
+}
+
+.lesson-content--light td:first-child {
+  color: #111827;
+}
+
+.lesson-content--light ol {
+  margin-left: 2rem;
+  border-top: 1px solid #e2ddd5;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+}
+
+/* Major section headings (timestamp lines like 0:01 OPENING) */
+.lesson-content--light .lesson-section-heading {
+  margin-left: 0;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  background: linear-gradient(135deg, rgba(10, 108, 110, 0.12) 0%, rgba(13, 148, 148, 0.10) 50%, rgba(20, 184, 166, 0.08) 100%);
+  border-left: 3px solid rgba(13, 148, 148, 0.5);
+  border-radius: 0.5rem;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lesson-content--light .lesson-section-heading:hover {
+  background: linear-gradient(135deg, rgba(10, 108, 110, 0.18) 0%, rgba(13, 148, 148, 0.15) 50%, rgba(20, 184, 166, 0.12) 100%);
+  border-left-color: rgba(13, 148, 148, 0.7);
+}
+
+.lesson-content--light .lesson-section-heading strong {
+  color: #0a6c6e;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.lesson-section-chevron {
+  width: 1rem;
+  height: 1rem;
+  color: rgba(13, 148, 148, 0.5);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+.lesson-section-chevron--open {
+  transform: rotate(180deg);
+}
+
+/* Expandable facilitator note panel */
+.schedule-note-panel {
+  margin-left: 0;
+  margin-bottom: 1rem;
+  padding: 0.875rem 1rem;
+  background: linear-gradient(135deg, #f0fdfa 0%, #e6f9f5 100%);
+  border-left: 3px solid #5eead4;
+  border-radius: 0 0 0.5rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: #1e3a3a;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; }
+  to { opacity: 1; max-height: 500px; }
+}
+
+/* Collapsible footnotes */
+.footnotes-toggle {
+  margin-left: 0;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  background: rgba(100, 116, 139, 0.08);
+  border-left: 3px solid rgba(100, 116, 139, 0.3);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s;
+}
+
+.footnotes-toggle:hover {
+  background: rgba(100, 116, 139, 0.14);
+}
+
+.footnotes-toggle-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.footnotes-toggle .lesson-section-chevron {
+  color: rgba(100, 116, 139, 0.5);
+}
+
 .grain::after {
   content: "";
   position: absolute;

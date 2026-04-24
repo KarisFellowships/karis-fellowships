@@ -2,11 +2,11 @@ import PageHeader from "@/components/PageHeader";
 
 export default function NHGMeetingsPage() {
   return (
-    <div className="bg-slate-dark">
-      <PageHeader title="Attend NHG Meetings" subtitle="Conference call information and meeting details." accent="teal" />
-      <section className="px-6 py-12 sm:py-16">
+    <div className="min-h-screen bg-[#4a5568]">
+      <PageHeader title="Attend NHG Meetings" subtitle="Conference call information and meeting details." accent="teal" image="/sunlight-nature.jpg" imageAlt="Sunlight through nature" />
+      <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-3xl">
-          <div className="rounded-xl bg-white/5 ring-1 ring-white/10 p-6">
+          <div className="rounded-xl bg-[#1e293b] p-6">
             <h2 className="font-bold text-white">Meeting Information</h2>
             <p className="mt-2 text-white/50">
               All of our programs are online, so you can attend from anywhere in the world.
