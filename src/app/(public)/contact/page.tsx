@@ -7,6 +7,7 @@ export default function ContactPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent) {
@@ -18,7 +19,7 @@ export default function ContactPage() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, website }),
       });
       if (res.ok) {
         setStatus("sent");
@@ -81,6 +82,18 @@ export default function ContactPage() {
                   </p>
                 )}
                 <div className="mt-8 space-y-5">
+                  {/* Honeypot — hidden from humans, filled by bots */}
+                  <div className="absolute opacity-0 -z-10" aria-hidden="true">
+                    <label htmlFor="website">Website</label>
+                    <input
+                      id="website"
+                      type="text"
+                      value={website}
+                      onChange={(e) => setWebsite(e.target.value)}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
                   <div>
                     <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Name</label>
                     <input

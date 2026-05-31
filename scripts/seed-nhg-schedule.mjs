@@ -3,6 +3,7 @@
  * Run with: node scripts/seed-nhg-schedule.mjs
  */
 
+import "dotenv/config";
 import { createClient } from "@supabase/supabase-js";
 import XLSX from "xlsx";
 import { fileURLToPath } from "url";
@@ -11,9 +12,13 @@ import { dirname, join } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const SUPABASE_URL = "https://afeaatpzvpdlttqyspdd.supabase.co";
-const SUPABASE_SERVICE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmZWFhdHB6dnBkbHR0cXlzcGRkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjU2MTI2NCwiZXhwIjoyMDg4MTM3MjY0fQ.AvUeFQEQyehbf27IBgGm1Ld5IgZnfV55FnqA86I1zNE";
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+  console.error("Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in .env.local");
+  process.exit(1);
+}
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 

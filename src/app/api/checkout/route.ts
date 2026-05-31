@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
+import { createServerClient } from "@/lib/supabase-server";
 import type Stripe from "stripe";
 
 const DONATION_TYPES = [
@@ -37,6 +38,12 @@ export async function POST(request: NextRequest) {
       userId: string;
       userEmail?: string;
     };
+
+    const supabase = await createServerClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user || user.id !== userId) {
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    }
 
     if (!DONATION_TYPES.includes(type as DonationType)) {
       return NextResponse.json({ error: "Invalid payment type" }, { status: 400 });

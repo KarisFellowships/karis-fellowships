@@ -195,16 +195,11 @@ html {
 }
 
 .lesson-content--light h1 {
-  font-family: var(--font-serif, "Cormorant Garamond", serif);
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: #fff;
-  padding: 0.75rem 1rem;
+  color: #1e293b;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #0d7377;
+  padding-bottom: 0.5rem;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #0a6c6e 0%, #0d9494 50%, #14b8a6 100%);
-  border-left: 3px solid #5eead4;
-  border-radius: 0.5rem;
 }
 
 .lesson-content--light p {

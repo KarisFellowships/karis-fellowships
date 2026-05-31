@@ -37,23 +37,29 @@ export async function POST(request: NextRequest) {
 
     const supabase = createAdminClient();
 
-    await supabase.from("donations").insert({
-      user_id: userId,
-      amount,
-      type,
-      stripe_session_id: session.id,
-    });
+    try {
+      const { error: insertError } = await supabase.from("donations").insert({
+        user_id: userId,
+        amount,
+        type,
+        stripe_session_id: session.id,
+      });
+      if (insertError) console.error("Failed to insert donation:", insertError);
 
-    const flagUpdates: Record<string, boolean> = {};
-    if (type === "nhg_registration") flagUpdates.nhg_paid = true;
-    if (type === "hpkp") flagUpdates.hpkp_donated = true;
-    if (type === "romans") flagUpdates.romans_donated = true;
+      const flagUpdates: Record<string, boolean> = {};
+      if (type === "nhg_registration") flagUpdates.nhg_paid = true;
+      if (type === "hpkp") flagUpdates.hpkp_donated = true;
+      if (type === "romans") flagUpdates.romans_donated = true;
 
-    if (Object.keys(flagUpdates).length > 0) {
-      await supabase
-        .from("users")
-        .update(flagUpdates)
-        .eq("id", userId);
+      if (Object.keys(flagUpdates).length > 0) {
+        const { error: updateError } = await supabase
+          .from("users")
+          .update(flagUpdates)
+          .eq("id", userId);
+        if (updateError) console.error("Failed to update user flags:", updateError);
+      }
+    } catch (dbError) {
+      console.error("Database error in webhook:", dbError);
     }
   }
 

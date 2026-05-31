@@ -81,7 +81,14 @@ export async function DELETE(request: Request) {
   const admin = await verifyAdmin();
   if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const { path } = await request.json();
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
+
+  const { path } = body as { path?: string };
   if (!path) {
     return NextResponse.json({ error: "Missing path" }, { status: 400 });
   }
