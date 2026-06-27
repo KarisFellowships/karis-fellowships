@@ -37,7 +37,6 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
     setError("");
     setLoading(true);
 
-    const supabase = createClient();
     const registrationMeta = {
       name: firstName,
       country,
@@ -52,6 +51,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
     };
 
     if (isReturning) {
+      const supabase = createClient();
       const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
 
       if (signInError) {
@@ -72,25 +72,6 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
       return;
     }
 
-    const { data: authData, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: registrationMeta },
-    });
-
-    if (signUpError) {
-      setError(signUpError.message);
-      setLoading(false);
-      return;
-    }
-
-    const userId = authData.user?.id;
-    if (!userId) {
-      setError("Registration failed. Please try again.");
-      setLoading(false);
-      return;
-    }
-
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -98,21 +79,22 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
         body: JSON.stringify({
           type: "nhg_registration",
           amount: Math.round(parseFloat(donationAmount) * 100) || 3000,
-          userId,
-          userEmail: email,
+          registrationData: {
+            email,
+            password,
+            ...registrationMeta,
+          },
         }),
       });
       const { url, error: checkoutError } = await res.json();
       if (checkoutError || !url) {
-        setError("Registration created but payment setup failed. You can pay later from your dashboard.");
-        setSuccess(true);
+        setError("Something went wrong setting up payment. Please try again.");
         setLoading(false);
         return;
       }
       window.location.href = url;
     } catch {
-      setError("Registration created but payment setup failed. You can pay later from your dashboard.");
-      setSuccess(true);
+      setError("Something went wrong. Please try again.");
       setLoading(false);
     }
   }
@@ -135,6 +117,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                 <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-teal/60">Upcoming Book Study</p>
                 <p className="mt-1.5 text-sm text-slate/60">
                   9 weeks &middot; Covers chapters 1&ndash;11 of <em>Neurosis and Human Growth</em>
+                  <br />Weekly or Weekend Intensive Option
                 </p>
               </div>
             </div>
@@ -167,11 +150,10 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
             <div className="mt-6 rounded-xl bg-teal-muted px-6 py-5">
               <p className="font-medium text-teal">Registration submitted!</p>
               <p className="mt-1 text-sm text-slate">
-                Check your email to confirm your account. Once confirmed, you can{" "}
+                Your account is ready! You can now log in to access your NHG Book Study materials.{" "}
                 <Link href="/login" className="font-medium text-teal underline underline-offset-4">
-                  log in
-                </Link>{" "}
-                to access your NHG materials.
+                  Log in here
+                </Link>
               </p>
             </div>
           ) : (
@@ -224,23 +206,21 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">State <span className="text-coral">*</span></label>
+                  <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">State</label>
                   <input
                     type="text"
                     value={state}
                     onChange={(e) => setState(e.target.value)}
-                    required
                     className="mt-1.5 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30"
                     placeholder="State / Province"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">City <span className="text-coral">*</span></label>
+                  <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">City</label>
                   <input
                     type="text"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    required
                     className="mt-1.5 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30"
                     placeholder="City"
                   />

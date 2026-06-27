@@ -3,16 +3,18 @@ import Image from "next/image";
 import { getNHGStatus } from "@/lib/nhg-date-engine";
 import { createServerClient } from "@/lib/supabase-server";
 import { docUrl } from "@/lib/storage-url";
+import NHGWelcome from "@/components/NHGWelcome";
+import NHGFaq from "@/components/NHGFaq";
 
-const readingGuides: Record<number, { label: string; guide: string; intro: string }> = {
-  1: { label: "Intro & Chapt 1", guide: "/docs/nhg/reading-guides/1NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/Chapter 1 KF Introduction.pdf" },
-  2: { label: "Chap 2 & 3", guide: "/docs/nhg/reading-guides/2NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/3NHG-Intro-Students-2023z.pdf" },
-  3: { label: "Chap 4", guide: "/docs/nhg/reading-guides/4NHG-pdf-Reading-Guide-2023z.pdf", intro: "/docs/nhg/introductions/4NHG-Intro-students-FINI-2023z.pdf" },
-  4: { label: "Chap 5", guide: "/docs/nhg/reading-guides/5NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/5NHG-Intro-student-2023z.pdf" },
-  5: { label: "Chap 6", guide: "/docs/nhg/reading-guides/6NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/6NHG-Intro-students-2023z.pdf" },
-  6: { label: "Chap 7 & 8", guide: "/docs/nhg/reading-guides/7NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/7NHG-Intro-students-2023z.pdf" },
-  7: { label: "Chap 9 & 10", guide: "/docs/nhg/reading-guides/9NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/9-10NHG-Intro-students-2023z.pdf" },
-  8: { label: "Chap 11", guide: "/docs/nhg/reading-guides/11NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/11NHG-Students-Intro-2023z.pdf" },
+const readingGuides: Record<number, { label: string; chapters: string; guide: string; intro: string }> = {
+  1: { label: "Intro & Ch. 1", chapters: "The Search for Glory", guide: "/docs/nhg/reading-guides/1NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/Chapter 1 KF Introduction.pdf" },
+  2: { label: "Ch. 2 & 3", chapters: "Neurotic Claims & The Tyranny of the Should", guide: "/docs/nhg/reading-guides/2NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/3NHG-Intro-Students-2023z.pdf" },
+  3: { label: "Ch. 4", chapters: "Neurotic Pride", guide: "/docs/nhg/reading-guides/4NHG-pdf-Reading-Guide-2023z.pdf", intro: "/docs/nhg/introductions/4NHG-Intro-students-FINI-2023z.pdf" },
+  4: { label: "Ch. 5", chapters: "Self-Hate and Self-Contempt", guide: "/docs/nhg/reading-guides/5NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/5NHG-Intro-student-2023z.pdf" },
+  5: { label: "Ch. 6", chapters: "Alienation from Self", guide: "/docs/nhg/reading-guides/6NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/6NHG-Intro-students-2023z.pdf" },
+  6: { label: "Ch. 7 & 8", chapters: "General Measures to Relieve Tension & The Expansive Solutions", guide: "/docs/nhg/reading-guides/7NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/7NHG-Intro-students-2023z.pdf" },
+  7: { label: "Ch. 9 & 10", chapters: "The Self-Effacing Solution & Resignation", guide: "/docs/nhg/reading-guides/9NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/9-10NHG-Intro-students-2023z.pdf" },
+  8: { label: "Ch. 11", chapters: "The Road of Psychoanalytic Therapy", guide: "/docs/nhg/reading-guides/11NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/11NHG-Students-Intro-2023z.pdf" },
 };
 
 const kfIntroDocuments = [
@@ -45,160 +47,147 @@ const facilitatorResources = [
   { label: "Review Study Questions", href: "/docs/nhg/facilitator/review-study-questions-v2a.pdf" },
 ];
 
+function formatDate(iso: string): string {
+  const d = new Date(iso + "T12:00:00Z");
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return `${months[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
+}
+
 export default async function NHGPage() {
   const nhg = await getNHGStatus();
 
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   let userTier: string | null = null;
+  let kfInvited = false;
   if (user) {
     const { data: profile } = await supabase
       .from("users")
-      .select("tier")
+      .select("tier, kf_invited")
       .eq("id", user.id)
       .single();
     userTier = profile?.tier ?? null;
+    kfInvited = profile?.kf_invited ?? false;
   }
   const isKFMember = userTier === "kf" || userTier === "admin";
 
   const activeWeek = nhg.currentWeek;
-  const upcomingWeek = nhg.nextWeek;
-  const currentGuide = activeWeek ? readingGuides[activeWeek.weekNumber] : null;
+  const nextStudyDate = nhg.schedule.length > 0 ? nhg.schedule[0].startDate : null;
+  const syllabusUrl = docUrl("/docs/nhg/kf-intro/NHG-Book-Study-Syllabus-2025 (1).pdf");
 
   return (
-    <div className="min-h-screen bg-[#4a5568] pt-20">
-      {/* Vibrant header */}
+    <div className="min-h-screen bg-[#e2e0dd]">
+      {/* Header — image extends behind navbar */}
       <section className="relative z-10">
         <div className="absolute inset-0">
-          <Image src="/forest-light.jpg" alt="Light breaking through a forest canopy" fill className="object-cover brightness-110 saturate-[1.15]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
+          <Image src="/forest-light.jpg" alt="Light breaking through a forest canopy" fill className="object-cover object-[center_40%] brightness-110 saturate-[1.15]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#e2e0dd]" />
         </div>
-        <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
-          <div className="mx-auto max-w-6xl">
-            <p className="text-sm font-medium text-violet-light/80 drop-shadow">NHG Book Study</p>
-            <h1 className="mt-1 font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">Neurosis and Human Growth</h1>
-            <p className="mt-1.5 text-sm font-medium text-white/80 drop-shadow">Your foundational study for the Karis journey.</p>
+        <div className="relative px-6 pb-10 pt-32 sm:pt-40 sm:pb-14">
+          <div className="mx-auto max-w-6xl flex items-end justify-between gap-6">
+            <div>
+              <h1 className="font-serif text-4xl font-bold text-white drop-shadow-lg sm:text-5xl lg:text-6xl">Neurosis and Human Growth</h1>
+              <p className="mt-2 text-base font-medium text-white/80 drop-shadow sm:text-lg">A foundational study for Karis Fellowships.</p>
+            </div>
+            {nextStudyDate && (
+              <p className="hidden text-right text-base font-semibold text-white/90 drop-shadow sm:block sm:text-lg">
+                Next study begins<br />
+                <span className="text-xl font-bold text-white sm:text-2xl">{formatDate(nextStudyDate)}</span>
+              </p>
+            )}
           </div>
         </div>
       </section>
 
-      <section className="px-6 pb-12 pt-4">
-        <div className="mx-auto max-w-6xl space-y-3">
-          {/* Current or Upcoming Week */}
-          <div className="grid gap-3 lg:grid-cols-3">
-            <div className="lg:col-span-2">
-              {activeWeek ? (
-                <div className="overflow-hidden rounded-xl bg-[#1e293b] p-8">
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <span className="inline-block rounded-full bg-violet px-3 py-1 text-xs font-bold text-white">
-                        This Week
-                      </span>
-                      <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
-                        {activeWeek.label}
-                      </h2>
-                      <p className="mt-1 text-white/50">{activeWeek.dateRange}</p>
-                    </div>
-                    {currentGuide && (
-                      <div className="flex flex-col gap-2">
-                        <a
-                          href={docUrl(currentGuide.guide)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-lg bg-violet/15 px-4 py-2.5 text-sm font-semibold text-violet-light transition-all hover:bg-violet/25"
-                        >
-                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                          Reading Guide
-                        </a>
-                        <a
-                          href={docUrl(currentGuide.intro)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-lg bg-amber/15 px-4 py-2.5 text-sm font-semibold text-amber transition-all hover:bg-amber/25"
-                        >
-                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                          Introduction
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ) : upcomingWeek ? (
-                <div className="overflow-hidden rounded-xl bg-[#1e293b] p-8">
-                  <span className="inline-block rounded-full bg-teal/20 px-3 py-1 text-xs font-bold text-teal-light">
-                    Upcoming
-                  </span>
-                  <h2 className="mt-3 text-2xl font-bold text-white">
-                    Next Study: {upcomingWeek.label}
-                  </h2>
-                  <p className="mt-1 text-white/50">Begins {upcomingWeek.dateRange}</p>
-                </div>
-              ) : (
-                <div className="overflow-hidden rounded-xl bg-[#1e293b] p-8">
-                  <h2 className="text-2xl font-bold text-white">NHG Book Study</h2>
-                  <p className="mt-2 text-white/50">Check back for the next study schedule.</p>
-                </div>
-              )}
-            </div>
-
-            {/* Call Info */}
-            <div className="rounded-xl bg-[#1e293b] p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                <h3 className="text-sm font-bold uppercase tracking-wider text-white/50">Meeting Call Info</h3>
+      <section className="px-6 pb-12 pt-2">
+        <div className="mx-auto max-w-6xl space-y-2">
+          {kfInvited && userTier === "nhg" && (
+            <a
+              href="/kf/register"
+              className="group flex items-center gap-4 rounded-2xl border border-teal/20 bg-teal/5 p-5 transition-all duration-500 hover:border-teal/40 hover:shadow-lg hover:shadow-teal/5"
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal/15">
+                <svg className="h-6 w-6 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
               </div>
-              <div className="space-y-3">
-                <div>
-                  <p className="text-xs text-white/35 uppercase tracking-wide">Phone</p>
-                  <p className="mt-0.5 text-lg font-bold text-violet-light">(701) 801-1220</p>
+              <div className="flex-1">
+                <p className="font-serif text-lg font-semibold text-charcoal">You&apos;ve been invited to join Karis Fellowships!</p>
+                <p className="mt-0.5 text-sm text-slate">Click here to complete your KF registration.</p>
+              </div>
+              <svg className="h-5 w-5 text-teal/50 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          )}
+
+          {/* Row 1: Start Here (compact left) + Call Info (fills right) */}
+          <div className="flex gap-2 items-stretch flex-col sm:flex-row">
+            <NHGWelcome syllabusUrl={syllabusUrl} nextStudyDate={null} />
+
+            <div className="flex-1 rounded-xl bg-violet/15 px-5 py-3">
+              <div className="flex items-center justify-between gap-6 h-full">
+                <div className="flex items-center gap-2">
+                  <svg className="h-4 w-4 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                  <span className="text-xs font-bold uppercase tracking-wider text-charcoal/40">Call In Info</span>
                 </div>
-                <div className="border-t border-white/10 pt-3 space-y-3">
+                <div className="flex items-center gap-6">
                   <div>
-                    <p className="text-sm font-semibold text-white/70">Saturday AM</p>
-                    <p className="mt-0.5 font-mono text-base font-bold text-violet-light/80">226-621-530#</p>
+                    <p className="text-[10px] text-charcoal/40 uppercase tracking-wide">Phone</p>
+                    <p className="font-bold text-violet">(701) 801-1220</p>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white/70">Weekend Intensive</p>
-                    <p className="mt-0.5 font-mono text-base font-bold text-violet-light/80">546-213-115#</p>
+                    <p className="text-[10px] text-charcoal/40 uppercase tracking-wide">Saturday AM</p>
+                    <p className="font-mono text-sm font-bold text-violet/80">226-621-530#</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-charcoal/40 uppercase tracking-wide">Weekend Intensive</p>
+                    <p className="font-mono text-sm font-bold text-violet/80">546-213-115#</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Row 2: Introduction Meeting info (left) + Syllabus (right) */}
+          <div className="grid gap-2 sm:grid-cols-2">
+            <div className="rounded-xl bg-violet/15 p-5">
+              <h3 className="text-base font-bold text-charcoal">Introduction Meeting</h3>
+              <ul className="mt-3 space-y-1.5 text-sm text-slate">
+                <li className="flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-violet/40" />
+                  <a href={syllabusUrl} target="_blank" rel="noopener noreferrer" className="text-violet/80 hover:text-violet transition-colors underline decoration-violet/20 underline-offset-2">Syllabus</a>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-violet/40" />
+                  KF Eligibility
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-violet/40" />
+                  A Few Pointers
+                </li>
+              </ul>
+            </div>
             <a
-              href={docUrl("/docs/nhg/kf-intro/NHG-Book-Study-Syllabus-2025 (1).pdf")}
+              href={syllabusUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group rounded-xl bg-[#1e293b] p-5 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
+              className="group flex items-center gap-4 rounded-xl bg-violet/15 p-5 transition-all hover:bg-violet/20 hover:-translate-y-0.5"
             >
-              <h3 className="font-bold text-white group-hover:text-violet-light transition-colors">NHG Book Study Syllabus</h3>
-              <p className="mt-1 text-xs text-white/40">Study overview and plan</p>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet/15">
+                <svg className="h-5 w-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+              </span>
+              <div>
+                <h3 className="text-base font-bold text-charcoal group-hover:text-violet transition-colors">NHG Book Study Syllabus</h3>
+                <p className="mt-0.5 text-xs text-slate/50">Download study overview and plan</p>
+              </div>
             </a>
-            <a
-              href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group rounded-xl bg-[#1e293b] p-5 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
-            >
-              <h3 className="font-bold text-white group-hover:text-violet-light transition-colors">Review Study Questions</h3>
-              <p className="mt-1 text-xs text-white/40">Open</p>
-            </a>
-            <Link
-              href="/nhg/recordings"
-              className="group rounded-xl bg-[#1e293b] p-5 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
-            >
-              <h3 className="font-bold text-white group-hover:text-violet-light transition-colors">Recordings</h3>
-              <p className="mt-1 text-xs text-white/40">Past NHG sessions</p>
-            </Link>
           </div>
 
-          {/* Full Study Schedule */}
-          <div className="pt-6">
-            <h2 className="text-lg font-bold text-white mb-3">Study Schedule</h2>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Study Schedule — "Coming Up" */}
+          <div className="pt-4">
+            <h2 className="text-xl font-bold text-charcoal mb-3">Coming Up</h2>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
               {nhg.schedule.map((week) => {
                 const isCurrent = activeWeek?.weekNumber === week.weekNumber;
                 const guide = readingGuides[week.weekNumber];
@@ -207,104 +196,116 @@ export default async function NHGPage() {
                     key={week.weekNumber}
                     className={`rounded-xl p-4 transition-all ${
                       isCurrent
-                        ? "bg-violet/15 ring-1 ring-violet/30"
-                        : "bg-[#1e293b]"
+                        ? "bg-violet/25 ring-1 ring-violet/40"
+                        : "bg-violet/15"
                     }`}
                   >
-                    <div className="flex items-center gap-3">
-                      <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
-                        isCurrent ? "bg-violet text-white" : "bg-violet/20 text-violet-light"
+                    <div className="flex items-start gap-3">
+                      <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-xl font-bold ${
+                        isCurrent ? "bg-violet text-white" : "bg-violet/20 text-violet"
                       }`}>
                         {week.weekNumber}
                       </span>
-                      <div>
-                        <h3 className={`text-sm font-semibold ${isCurrent ? "text-violet-light" : "text-white"}`}>
-                          {week.label}
+                      <div className="min-w-0">
+                        <h3 className={`text-base font-bold ${isCurrent ? "text-violet" : "text-charcoal"}`}>
+                          {guide?.label ?? week.label}
                         </h3>
-                        <p className="text-xs text-white/35">{week.dateRange}</p>
-                        {isCurrent && <span className="text-xs font-medium text-violet-light">This Week</span>}
+                        {guide && (
+                          <p className="mt-0.5 text-xs italic text-charcoal/50 leading-tight">{guide.chapters}</p>
+                        )}
+                        <p className="mt-1 text-sm font-semibold text-charcoal/60">{formatDate(week.startDate)}</p>
+                        {isCurrent && <span className="text-xs font-bold text-violet">This Week</span>}
                       </div>
                     </div>
                     {guide && (
-                      <div className="mt-3 flex gap-2">
-                        <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-violet-light/70 hover:text-violet-light transition-colors">
-                          Reading Guide
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="rounded bg-violet/10 px-2.5 py-1 text-xs font-semibold text-violet/80 hover:bg-violet/20 hover:text-violet transition-colors">
+                          Guide
                         </a>
-                        <span className="text-white/20">|</span>
-                        <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-amber/70 hover:text-amber transition-colors">
-                          Introduction
+                        <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="rounded bg-amber/10 px-2.5 py-1 text-xs font-semibold text-amber/80 hover:bg-amber/20 hover:text-amber transition-colors">
+                          Intro
                         </a>
+                        {week.weekNumber === 8 && (
+                          <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="rounded bg-teal/10 px-2.5 py-1 text-xs font-semibold text-teal/80 hover:bg-teal/20 hover:text-teal transition-colors">
+                            Review
+                          </a>
+                        )}
                       </div>
                     )}
                   </div>
                 );
               })}
-
-              {/* KF Introductory Meeting — week 9, optional */}
-              <div className="rounded-xl bg-[#1e293b] p-4">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-teal/20 text-sm font-bold text-teal-light">
-                    9
-                  </span>
-                  <div>
-                    <h3 className="text-sm font-semibold text-white">KF Introductory Meeting</h3>
-                    <p className="text-xs text-white/35">Optional</p>
-                  </div>
-                </div>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {kfIntroDocuments.map(({ label, href }) => (
-                    <a key={href} href={docUrl(href)} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-teal-light/70 hover:text-teal-light transition-colors">
-                      {label}
-                    </a>
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
 
-          {/* All Reading Guides */}
-          <div className="pt-6">
-            <h2 className="text-lg font-bold text-white mb-3">All Reading Guides</h2>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {Object.entries(readingGuides).map(([num, { label, guide, intro }]) => (
-                <div key={num} className="flex items-center justify-between rounded-xl bg-[#1e293b] p-3">
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-violet/15 text-xs font-bold text-violet-light">
-                      {num}
-                    </span>
-                    <span className="text-sm text-white/70">{label}</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <a href={docUrl(guide)} target="_blank" rel="noopener noreferrer" className="rounded-md bg-violet/10 px-2 py-1 text-xs font-semibold text-violet-light hover:bg-violet/20 transition-colors">
-                      Guide
-                    </a>
-                    <a href={docUrl(intro)} target="_blank" rel="noopener noreferrer" className="rounded-md bg-amber/10 px-2 py-1 text-xs font-semibold text-amber hover:bg-amber/20 transition-colors">
-                      Intro
-                    </a>
-                  </div>
-                </div>
+          {/* KF Introductory Meeting — full width */}
+          <div className="rounded-xl bg-violet/15 p-5">
+            <div className="flex items-center gap-3">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal/15 text-xl font-bold text-teal">
+                9
+              </span>
+              <div className="flex-1">
+                <h3 className="text-base font-bold text-charcoal">KF Introductory Meeting</h3>
+                <p className="text-xs text-slate/50">Optional</p>
+              </div>
+            </div>
+            <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1">
+              {kfIntroDocuments.map(({ label, href }) => (
+                <a key={href} href={docUrl(href)} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-teal/70 hover:text-teal transition-colors">
+                  {label}
+                </a>
               ))}
             </div>
           </div>
 
+          {/* Row: Weekend Intensive Schedule (left) + Meeting Recordings (right) */}
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Link
+              href="/nhg/schedules"
+              className="group flex items-center gap-4 rounded-xl bg-violet/15 p-5 transition-all hover:bg-violet/20 hover:-translate-y-0.5"
+            >
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet/15">
+                <svg className="h-5 w-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+              </span>
+              <div>
+                <h3 className="text-base font-bold text-charcoal group-hover:text-violet transition-colors">Weekend Intensive Schedule</h3>
+                <p className="mt-0.5 text-xs text-slate/50">View intensive meeting dates</p>
+              </div>
+            </Link>
+            <Link
+              href="/nhg/recordings"
+              className="group flex items-center gap-4 rounded-xl bg-violet/15 p-5 transition-all hover:bg-violet/20 hover:-translate-y-0.5"
+            >
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet/15">
+                <svg className="h-5 w-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>
+              </span>
+              <div>
+                <h3 className="text-base font-bold text-charcoal group-hover:text-violet transition-colors">Meeting Recordings</h3>
+                <p className="mt-0.5 text-xs text-slate/50">Past NHG sessions</p>
+              </div>
+            </Link>
+          </div>
+
+          {/* FAQs & Tips */}
+          <NHGFaq />
+
           {/* Facilitator Section — KF members only */}
           {isKFMember && (
-          <div className="pt-6">
-            <div className="rounded-xl bg-[#1e293b] p-8">
+          <div className="pt-4">
+            <div className="rounded-xl bg-violet/15 p-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-coral/20">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-coral/15">
                   <svg className="h-6 w-6 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-xl font-bold text-white">NHG Facilitator Resources</h2>
+                  <h2 className="text-2xl font-bold text-charcoal">NHG Facilitator Resources</h2>
 
-                  {/* Current Week Facilitator Guide */}
                   {activeWeek && facilitatorGuides[activeWeek.weekNumber] && (
                     <div className="mt-4 rounded-xl bg-coral/10 ring-1 ring-coral/20 p-5">
                       <span className="inline-block rounded-full bg-coral/20 px-3 py-1 text-xs font-bold text-coral">
                         This Week
                       </span>
-                      <h3 className="mt-2 text-lg font-semibold text-white">
+                      <h3 className="mt-2 text-lg font-semibold text-charcoal">
                         {facilitatorGuides[activeWeek.weekNumber].label}
                       </h3>
                       <a
@@ -319,9 +320,8 @@ export default async function NHGPage() {
                     </div>
                   )}
 
-                  {/* General Facilitator Resources */}
                   <div className="mt-6">
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">General Resources</h3>
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-charcoal/30">General Resources</h3>
                     <div className="mt-3 grid gap-2 sm:grid-cols-2">
                       {facilitatorResources.map(({ label, href }) => (
                         <a
@@ -329,22 +329,21 @@ export default async function NHGPage() {
                           href={docUrl(href)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group flex items-center gap-3 rounded-xl bg-white/5 p-3 transition-all hover:bg-white/10 hover:-translate-y-0.5"
+                          className="group flex items-center gap-3 rounded-xl bg-violet/10 p-3 transition-all hover:bg-violet/15 hover:-translate-y-0.5"
                         >
                           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-coral/15">
                             <svg className="h-4 w-4 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                           </span>
-                          <span className="text-sm font-medium text-white/70 group-hover:text-coral transition-colors">{label}</span>
+                          <span className="text-sm font-medium text-charcoal/70 group-hover:text-coral transition-colors">{label}</span>
                         </a>
                       ))}
                     </div>
                   </div>
 
-                  {/* All Weekly Facilitator Guides */}
                   <div className="mt-6">
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">All Weekly Guides</h3>
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-charcoal/30">All Weekly Guides</h3>
                     <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                      {Object.entries(facilitatorGuides).map(([num, { label, href }]) => {
+                      {Object.entries(facilitatorGuides).map(([num, { href }]) => {
                         const isCurrent = activeWeek?.weekNumber === Number(num);
                         return (
                           <a
@@ -355,7 +354,7 @@ export default async function NHGPage() {
                             className={`flex items-center gap-3 rounded-xl p-3 transition-all hover:-translate-y-0.5 ${
                               isCurrent
                                 ? "bg-coral/15 ring-1 ring-coral/30"
-                                : "bg-white/5 hover:bg-white/10"
+                                : "bg-violet/10 hover:bg-violet/15"
                             }`}
                           >
                             <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
@@ -364,7 +363,7 @@ export default async function NHGPage() {
                               {num}
                             </span>
                             <span className={`text-sm font-medium transition-colors ${
-                              isCurrent ? "text-coral" : "text-white/60 hover:text-coral"
+                              isCurrent ? "text-coral" : "text-charcoal/60 hover:text-coral"
                             }`}>
                               Week {num}
                               {isCurrent && <span className="ml-1 text-xs text-coral/70">(This Week)</span>}

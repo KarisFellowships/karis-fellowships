@@ -11,6 +11,8 @@ interface Member {
   tier: string;
   active: boolean;
   nhg_paid: boolean;
+  kf_invited: boolean;
+  kf_registered_year: number | null;
   created_at: string;
 }
 

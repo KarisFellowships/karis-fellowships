@@ -29,7 +29,15 @@ export async function POST(request: Request) {
 
   const { userId, updates } = body as {
     userId: string;
-    updates: { tier?: string; active?: boolean };
+    updates: {
+      tier?: string;
+      active?: boolean;
+      kf_invited?: boolean;
+      nhg_completed_date?: string;
+      kf_registered_year?: number;
+      kf_first_year?: number;
+      volunteer_interest?: string;
+    };
   };
 
   if (!userId || !updates) {
@@ -42,6 +50,21 @@ export async function POST(request: Request) {
   }
   if (typeof updates.active === "boolean") {
     allowed.active = updates.active;
+  }
+  if (typeof updates.kf_invited === "boolean") {
+    allowed.kf_invited = updates.kf_invited;
+  }
+  if (updates.nhg_completed_date) {
+    allowed.nhg_completed_date = updates.nhg_completed_date;
+  }
+  if (updates.kf_registered_year) {
+    allowed.kf_registered_year = updates.kf_registered_year;
+  }
+  if (updates.kf_first_year) {
+    allowed.kf_first_year = updates.kf_first_year;
+  }
+  if (updates.volunteer_interest !== undefined) {
+    allowed.volunteer_interest = updates.volunteer_interest;
   }
 
   if (Object.keys(allowed).length === 0) {

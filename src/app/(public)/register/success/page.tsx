@@ -6,7 +6,7 @@ export default function RegisterSuccessPage() {
     <>
       <PageHeader
         title="Registration Complete"
-        subtitle="Thank you for registering and for your generous gift!"
+        subtitle="Thank you for registering!"
         accent="teal"
         image="/forest-light.jpg"
         imageAlt="Light breaking through the forest"
@@ -22,7 +22,7 @@ export default function RegisterSuccessPage() {
             You&apos;re all set!
           </h2>
           <p className="mt-4 leading-relaxed text-slate">
-            Check your email to confirm your account. Once confirmed, you can log in to access your NHG Book Study materials.
+            Your account has been created and you can now log in to access your NHG Book Study materials. A payment receipt has been sent to your email.
           </p>
           <Link
             href="/login"

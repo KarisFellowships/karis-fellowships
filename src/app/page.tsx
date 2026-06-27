@@ -3,6 +3,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroVideo from "@/components/HeroVideo";
+import ExpandableCard from "@/components/ExpandableCard";
 
 export default function Home() {
   return (
@@ -26,25 +27,66 @@ export default function Home() {
             </h2>
             <p className="mt-6 text-base leading-[1.8] text-slate">
               We train, educate, and support Christians to grow into the people
-              God created them to be and to walk in authentic relationship with
-              their Creator. Discontent with mere theory, we teach not only the
-              why but the how &mdash; step by mindful step.
+              God created them to be and to be able to walk in authentic
+              relationship with their Creator. We do this through unique online
+              book studies and support programs, Bible exploration, training in
+              practical tools, and healing gifts. We discover the purpose of our
+              salvation and how to develop the Fruit of the Spirit in our lives.
+              (Philippians 2:12, Galatians 5:22-23).
             </p>
           </div>
 
-          <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { title: "Mature", color: "bg-teal", desc: "Our standard for spirituality and growth is the Fruit of the Spirit evident in our lives (Galatians 5:22-23). We dig for the roots of our sickness unto death and learn to respond to life out of new principles of thinking, feeling, and acting." },
-              { title: "Love", color: "bg-coral", desc: "Love is the goal of our instruction (I Timothy 1:3-7). Without love we are nothing and can do nothing (1 Corinthians 13). We are training to become the love of God in the world\u2014actually living it, not just talking about it." },
-              { title: "Truth", color: "bg-sky", desc: "Truth is the cornerstone of Karis Fellowships. We learn to admit the truth about who we are without shame and condemnation (Psalm 15:2, Romans 8:1, John 8:31-32). We learn to give up our illusions about ourselves, others, the world, and God." },
-              { title: "Freedom", color: "bg-violet", desc: "With its many commands of \u2018do not fear,\u2019 the Bible makes it clear that we have a problem with fear. Our greatest deliverance is from the bondage to the \u2018fear of death\u2019 (Hebrews 2:14-18). Mature love casts out all fear, and our goal is to have no fear but the fear of God (1 John 4:18)." },
-            ].map(({ title, color, desc }) => (
-              <div key={title} className="group rounded-xl border border-border/50 bg-white p-8 transition-all duration-500 hover:shadow-lg hover:shadow-black/5">
-                <div className={`mb-6 h-0.5 w-8 rounded-full ${color} transition-all duration-500 group-hover:w-14`} />
-                <h3 className="font-serif text-2xl font-semibold text-foreground">{title}</h3>
-                <p className="mt-4 text-sm leading-[1.8] text-slate">{desc}</p>
-              </div>
-            ))}
+          <p className="mt-16 text-center font-serif text-2xl font-light text-charcoal sm:text-3xl">
+            We train together to consistently experience and demonstrate:
+          </p>
+
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <ExpandableCard
+              title="Fruit of the Spirit"
+              color="bg-teal"
+              desc="Our standard for spirituality and growth is the Fruit of the Spirit evident in our lives (Galatians 5:22-23). We dig for the roots of our sickness unto death and learn to respond to life out of new principles of thinking, feeling, and acting."
+              expanded={[
+                "The evidence of mature, developed spiritual connection and growth is the Fruit of the Holy Spirit demonstrated in our lives (Galatians 5:22-23).",
+                "The Christian life of many believers might be compared to a Christmas tree, laden with the pretty ornaments of church attendance, religious activities, a spiritual vocabulary, the right theology and beliefs, Bible study, prayer, and a continual effort to say and do what is expected of a Christian. These ornaments might look good on the tree, but they are not produced by the tree because the tree itself is dead.",
+                "Other Christian lives might be compared to a fruit tree planted by streams of water. This tree is not so pretty, but it is alive. The living tree is designed by God to produce fruit, and when it is rooted and unfettered, grounded and nurtured, it effortlessly yields that fruit.",
+                "Our actively engaged lives encounter lots of difficulties which reveal the quality of our faith and maturity. People often withdraw from an active life to avoid encountering situations that reveal their fears and inadequacies. This is not the kind of life that Karis Fellowships envisions for you.",
+                "Through KF training, we learn to welcome discoveries about our disconnection from the Spirit and engage in training that will replenish our capacity to produce fruit. We learn how we lost the connection to the Spirit and how to regain it.",
+                "God intends that we be complete, mature, and fully equipped people in order to fulfill the purpose we were designed to achieve.",
+                "To do so, we learn to respond to life with new principles for examining ourselves and our situations, and responding with authority, self-confidence, and even joy (James 1:2-4).",
+              ]}
+            />
+            <ExpandableCard
+              title="Love as the Goal"
+              color="bg-coral"
+              desc="Love is the goal of our instruction (I Timothy 1:3-7). Without love we are nothing and can do nothing (1 Corinthians 13). We are training to become the love of God in the world - actually living it, not just talking about it (1 John 5:1-4)."
+              expanded={[
+                "Many of us were taught to talk about the Christian life, but did not know how to live it or how to love. We learned to perform as Christians rather than becoming new creatures in Christ (2 Corinthians 5:16). In Karis Fellowships we are learning what it is to be a new creation.",
+              ]}
+            />
+            <ExpandableCard
+              title="Commitment to the Truth"
+              color="bg-sky"
+              desc="Truth is the cornerstone of Karis Fellowships. We learn to admit the truth about who we are without shame and condemnation (Psalm 15:2, Romans 8:1, John 8:31-32)."
+              expanded={[
+                "This gives us the security and starting point we need to grow into the people God created us to be. We are people who desire the truth in all things that we might be true people living real lives. We learn to give up our illusions about ourselves, others, the world, and God. We learn to respond, love, feel, and make choices based on real evidence.",
+              ]}
+            />
+            <ExpandableCard
+              title="Freedom from Fear"
+              color="bg-violet"
+              desc="We see in our lives that this work ultimately leads to more and more freedom. With its many commands of &quot;do not fear,&quot; the Bible makes it clear that we have a problem with fear. Our greatest deliverance is from the bondage to the &quot;fear of death&quot; (Hebrews 2:14-18)."
+              expanded={[
+                "Mature love casts out all fear, and our goal is to have no fear but the fear of God (1 John 4:18). This freedom then leads to expressing the unique qualities that each of us is actually designed to have, rather than what we imagine we should be in order to feel secure. We call this unique expression of our designed nature our \u201Cglory.\u201D",
+              ]}
+            />
+          </div>
+
+          <div className="group mx-auto mt-10 max-w-2xl rounded-xl border border-border/50 bg-white p-10 text-center transition-all duration-500 hover:shadow-lg hover:shadow-black/5">
+            <div className="mx-auto mb-6 h-0.5 w-8 rounded-full bg-amber-400 transition-all duration-500 group-hover:w-14" />
+            <h3 className="font-serif text-2xl font-semibold text-foreground">Your Unique Glory</h3>
+            <p className="mt-4 text-sm leading-[1.8] text-slate">
+              In our glory, we are expressing the character of God and our own unique qualities and work as His creatures. We come more and more into balance, living in correspondence and harmony within ourselves, with our community, and with the Creation. It is our designed nature to be in deep communion, correspondence, and harmony with God and His will. Through our glory we bring the will of God to Earth, as it is in Heaven.
+            </p>
           </div>
         </div>
       </section>
@@ -60,8 +102,17 @@ export default function Home() {
             <svg className="h-8 w-8 text-teal-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 3v4" /><path d="M12 17v4" /><path d="M3 12h4" /><path d="M17 12h4" /><path d="M12 12l3-5" /><path d="M12 12l-1.5 3" /><circle cx="12" cy="12" r="1.5" /></svg>
             <h2 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-white/95 sm:text-5xl">How It Works</h2>
             <div className="mt-14 space-y-10">
+              <div className="flex gap-6">
+                <span className="mt-1 font-serif text-3xl font-light text-teal-light/40">01</span>
+                <div>
+                  <Link href="/register" className="group/link font-serif text-xl font-semibold text-white/90 transition-colors duration-300 hover:text-teal-light">
+                    NHG Book Study
+                    <svg className="ml-2 inline-block h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover/link:translate-x-1 group-hover/link:opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" /></svg>
+                  </Link>
+                  <p className="mt-2 text-sm leading-[1.8] text-white/60">It starts with a conference call-based book study to help you discover where you are now–exactly how you are enslaved to pride, fear, and illusion.</p>
+                </div>
+              </div>
               {[
-                { step: "01", title: "NHG Book Study", desc: "It starts with a conference call-based book study to help you discover where you are now\u2013exactly how you are enslaved to pride, fear, and illusion." },
                 { step: "02", title: "Join Karis Fellowships", desc: "After you complete this book study, you may join Karis Fellowships, a one-year training program designed to equip and support you for recovery from a life based on pride to one based on Biblical love." },
                 { step: "03", title: "Weekly Meetings", desc: "Our KF members attend small, weekly meetings via conference call for grounding and re-centering, encouragement, confession, sharing, Bible teaching, training, healing, and prayer." },
               ].map(({ step, title, desc }) => (
@@ -137,7 +188,7 @@ export default function Home() {
               { quote: "The life of peace and calm that I truly never believed would ever be possible for me is with each day being realized more and more. I am amazed at all the ways God has set me free.", author: "Graduate student" },
               { quote: "Anxiety. Guilt. Fear. If I could describe my life prior to Karis Fellowships, those would be the words. Now, after training for just over a year, I have a sense of hope for the very first time.", author: "Young professional" },
             ].map(({ quote, author }, i) => (
-              <div key={i} className="flex flex-col rounded-xl border border-white/[0.08] bg-white/[0.03] p-8 transition-all duration-500 hover:bg-white/[0.06]">
+              <div key={i} className="flex flex-col rounded-xl border border-white/[0.08] bg-white/[0.03] p-8 transition-all duration-500 hover:bg-white/[0.10] hover:border-teal-light/20 hover:shadow-lg hover:shadow-teal-light/5">
                 <span className="font-serif text-4xl leading-none text-teal-light/30">&ldquo;</span>
                 <p className="mt-2 flex-1 text-[15px] leading-[1.8] text-white/65">{quote}</p>
                 <p className="mt-6 text-[11px] font-medium uppercase tracking-[0.2em] text-white/35">&mdash; {author}</p>
@@ -155,7 +206,7 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-6xl">
           <div className="ml-auto max-w-xl">
-            <svg className="h-8 w-8 text-teal-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M2 17c4-2 7-6 10-12" /><path d="M6 14c2.5 0 4-2 3.5-4.5C7 9 5.5 11 6 14z" /><path d="M9 10c2 1 4 0 4.5-2.5C11.5 7 9.5 7.5 9 10z" /><path d="M12 17c-4-2-7-6-10-12" /><path d="M8 14c-2.5 0-4-2-3.5-4.5C7 9 8.5 11 8 14z" /></svg>
+            <svg className="h-8 w-8 text-teal-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="2" /><path d="M12 2c0 4-2 6-2 10" /><path d="M12 2c0 4 2 6 2 10" /><path d="M2 12c4 0 6-2 10-2" /><path d="M2 12c4 0 6 2 10 2" /><path d="M22 12c-4 0-6-2-10-2" /><path d="M22 12c-4 0-6 2-10 2" /><path d="M12 22c0-4-2-6-2-10" /><path d="M12 22c0-4 2-6 2-10" /></svg>
             <h2 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-white/95 sm:text-5xl">Who We Are</h2>
 
             <div className="mt-10 space-y-5">
@@ -195,7 +246,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="font-serif text-4xl font-semibold text-white/95 sm:text-5xl md:text-6xl">Ready to Begin?</h2>
           <p className="mx-auto mt-6 max-w-lg text-base leading-[1.8] text-white/60">Your first step is to participate in the Neurosis and Human Growth (NHG) book study. You may register any time and study at your own pace.</p>
-          <Link href="/register" className="mt-12 inline-flex items-center gap-3 rounded-lg bg-white px-10 py-4 text-[13px] font-medium tracking-widest text-teal-deep uppercase transition-all duration-500 hover:bg-teal-light hover:text-teal-deep">
+          <Link href="/register" className="mt-12 inline-flex items-center gap-3 rounded-lg bg-white/85 backdrop-blur-sm px-10 py-4 text-[13px] font-medium tracking-widest text-teal-deep uppercase transition-all duration-500 hover:bg-white/95 hover:text-teal-deep">
             Register for NHG
             <svg className="h-3.5 w-3.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" /></svg>
           </Link>

@@ -1,0 +1,22 @@
+# Large uncompressed video (hero uses TreeVideoClipped.mp4)
+public/treesvideo.mov
+
+# Lesson/document PDFs and DOCXs served from Supabase Storage, not needed in deployment
+public/docs/
+
+# Content source files (local only, used by seed scripts)
+content/
+
+# Cursor reference materials
+.cursor/*.jpg
+.cursor/*.jpeg
+.cursor/*.png
+.cursor/*.mp4
+.cursor/*.mov
+.cursor/*.pdf
+.cursor/*.xlsx
+.cursor/KF Weekly Meetings/
+.cursor/NHG/
+
+# Root-level recordings
+Recording *.mp4

@@ -9,6 +9,8 @@ interface Member {
   tier: string;
   active: boolean;
   nhg_paid: boolean;
+  kf_invited: boolean;
+  kf_registered_year: number | null;
   created_at: string;
 }
 
@@ -34,7 +36,7 @@ export default function MembersTab({ initialMembers }: { initialMembers: Member[
     return list;
   }, [members, search, filterTier]);
 
-  async function updateMember(userId: string, updates: { tier?: string; active?: boolean }) {
+  async function updateMember(userId: string, updates: { tier?: string; active?: boolean; kf_invited?: boolean }) {
     setLoading(userId);
     try {
       const res = await fetch("/api/admin/update-member", {
@@ -99,6 +101,7 @@ export default function MembersTab({ initialMembers }: { initialMembers: Member[
               <th className="px-3 py-2">Tier</th>
               <th className="px-3 py-2">Status</th>
               <th className="px-3 py-2">NHG Paid</th>
+              <th className="px-3 py-2">KF Status</th>
               <th className="px-3 py-2">Joined</th>
               <th className="px-3 py-2">Actions</th>
             </tr>
@@ -115,16 +118,25 @@ export default function MembersTab({ initialMembers }: { initialMembers: Member[
                   </span>
                 </td>
                 <td className="px-3 py-3 text-white/60">{m.nhg_paid ? "Yes" : "No"}</td>
+                <td className="px-3 py-3">
+                  {m.kf_registered_year === new Date().getFullYear() ? (
+                    <span className="text-xs font-semibold text-emerald-400">Registered {m.kf_registered_year}</span>
+                  ) : m.kf_invited ? (
+                    <span className="text-xs font-semibold text-amber-300">Invited</span>
+                  ) : (
+                    <span className="text-xs text-white/30">—</span>
+                  )}
+                </td>
                 <td className="px-3 py-3 text-white/40 text-xs">
                   {new Date(m.created_at).toLocaleDateString()}
                 </td>
                 <td className="px-3 py-3">
                   <div className="flex items-center gap-1.5">
-                    {m.tier === "nhg" && (
+                    {m.tier === "nhg" && !m.kf_invited && (
                       <ActionBtn
-                        label="↑ KF"
+                        label="Invite to KF"
                         loading={loading === m.id}
-                        onClick={() => updateMember(m.id, { tier: "kf" })}
+                        onClick={() => updateMember(m.id, { kf_invited: true })}
                         className="bg-teal/20 text-teal-light hover:bg-teal/40"
                       />
                     )}
@@ -148,7 +160,7 @@ export default function MembersTab({ initialMembers }: { initialMembers: Member[
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-3 py-8 text-center text-sm text-white/30">
+                <td colSpan={8} className="px-3 py-8 text-center text-sm text-white/30">
                   No members found.
                 </td>
               </tr>

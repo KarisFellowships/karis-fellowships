@@ -32,18 +32,26 @@ const CANCEL_URLS: Record<DonationType, string> = {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { type, amount, userId, userEmail } = body as {
+    const { type, amount, userId, userEmail, registrationData } = body as {
       type: string;
       amount: number;
-      userId: string;
+      userId?: string;
       userEmail?: string;
+      registrationData?: {
+        email: string;
+        password: string;
+        name: string;
+        country: string;
+        state: string;
+        city: string;
+        phone: string;
+        meeting_choice: string;
+        karis_link: string;
+        hope_to_gain: string;
+        registered_before: string;
+        questions_comments: string;
+      };
     };
-
-    const supabase = await createServerClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user || user.id !== userId) {
-      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-    }
 
     if (!DONATION_TYPES.includes(type as DonationType)) {
       return NextResponse.json({ error: "Invalid payment type" }, { status: 400 });
@@ -51,16 +59,33 @@ export async function POST(request: NextRequest) {
     if (!amount || amount < 100) {
       return NextResponse.json({ error: "Minimum amount is $1" }, { status: 400 });
     }
-    if (!userId) {
-      return NextResponse.json({ error: "User ID required" }, { status: 400 });
-    }
 
     const donationType = type as DonationType;
+    const isNewRegistration = donationType === "nhg_registration" && registrationData;
+
+    if (!isNewRegistration) {
+      if (!userId) {
+        return NextResponse.json({ error: "User ID required" }, { status: 400 });
+      }
+      const supabase = await createServerClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user || user.id !== userId) {
+        return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+      }
+    }
+
     const origin = request.nextUrl.origin;
+
+    const metadata: Record<string, string> = { type: donationType };
+    if (isNewRegistration) {
+      metadata.registration_data = JSON.stringify(registrationData);
+    } else if (userId) {
+      metadata.userId = userId;
+    }
 
     const sessionParams: Stripe.Checkout.SessionCreateParams = {
       payment_method_types: ["card"],
-      metadata: { userId, type: donationType },
+      metadata,
       success_url: `${origin}${SUCCESS_URLS[donationType]}`,
       cancel_url: `${origin}${CANCEL_URLS[donationType]}`,
       line_items: [
@@ -79,8 +104,17 @@ export async function POST(request: NextRequest) {
       mode: donationType === "gift_recurring" ? "subscription" : "payment",
     };
 
-    if (userEmail) {
+    if (isNewRegistration) {
+      sessionParams.customer_email = registrationData.email;
+    } else if (userEmail) {
       sessionParams.customer_email = userEmail;
+    }
+
+    if (sessionParams.mode === "payment") {
+      const receiptEmail = isNewRegistration ? registrationData.email : userEmail;
+      if (receiptEmail) {
+        sessionParams.payment_intent_data = { receipt_email: receiptEmail };
+      }
     }
 
     const session = await stripe.checkout.sessions.create(sessionParams);

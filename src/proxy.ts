@@ -57,7 +57,7 @@ export async function proxy(request: NextRequest) {
   if (needsProfile) {
     const { data: profile } = await supabase
       .from("users")
-      .select("tier, active, nhg_paid")
+      .select("tier, active, nhg_paid, kf_invited, kf_registered_year")
       .eq("id", user.id)
       .single();
 
@@ -71,7 +71,24 @@ export async function proxy(request: NextRequest) {
     }
 
     if (isProtected(pathname, KF_ONLY_ROUTES) && profile.tier === "nhg") {
-      return NextResponse.redirect(new URL("/nhg", request.url));
+      if (profile.kf_invited && pathname === "/kf/register") {
+        // Allow invited NHG users to access the KF registration page
+      } else if (profile.kf_invited) {
+        return NextResponse.redirect(new URL("/kf/register", request.url));
+      } else {
+        return NextResponse.redirect(new URL("/nhg", request.url));
+      }
+    }
+
+    const currentYear = new Date().getFullYear();
+    if (
+      isProtected(pathname, KF_ONLY_ROUTES) &&
+      profile.tier === "kf" &&
+      pathname !== "/kf/register" &&
+      profile.kf_invited &&
+      profile.kf_registered_year !== currentYear
+    ) {
+      return NextResponse.redirect(new URL("/kf/register", request.url));
     }
 
     if (

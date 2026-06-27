@@ -3,11 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase-browser";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -42,8 +40,7 @@ export default function LoginPage() {
       // Default to /nhg if profile fetch fails
     }
 
-    router.push(destination);
-    router.refresh();
+    window.location.href = destination;
   }
 
   return (

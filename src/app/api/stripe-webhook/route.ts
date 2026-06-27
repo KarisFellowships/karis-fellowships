@@ -26,18 +26,63 @@ export async function POST(request: NextRequest) {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
-    const userId = session.metadata?.userId;
     const type = session.metadata?.type;
     const amount = session.amount_total ?? 0;
 
-    if (!userId || !type) {
-      console.error("Missing metadata on session:", session.id);
+    if (!type) {
+      console.error("Missing type metadata on session:", session.id);
       return NextResponse.json({ received: true });
     }
 
     const supabase = createAdminClient();
 
     try {
+      let userId = session.metadata?.userId;
+
+      if (type === "nhg_registration" && session.metadata?.registration_data) {
+        const regData = JSON.parse(session.metadata.registration_data);
+
+        const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
+          email: regData.email,
+          password: regData.password,
+          email_confirm: true,
+          user_metadata: {
+            name: regData.name,
+            country: regData.country,
+            state: regData.state,
+            city: regData.city,
+            phone: regData.phone,
+            meeting_choice: regData.meeting_choice,
+            karis_link: regData.karis_link,
+            hope_to_gain: regData.hope_to_gain,
+            registered_before: regData.registered_before,
+            questions_comments: regData.questions_comments,
+          },
+        });
+
+        if (createError) {
+          console.error("Failed to create user account:", createError);
+          return NextResponse.json({ received: true });
+        }
+
+        userId = newUser.user.id;
+
+        const { error: profileError } = await supabase.from("users").upsert({
+          id: userId,
+          email: regData.email,
+          name: regData.name,
+          tier: "nhg",
+          active: true,
+          nhg_paid: true,
+        }, { onConflict: "id" });
+        if (profileError) console.error("Failed to create user profile:", profileError);
+      }
+
+      if (!userId) {
+        console.error("Missing userId on session:", session.id);
+        return NextResponse.json({ received: true });
+      }
+
       const { error: insertError } = await supabase.from("donations").insert({
         user_id: userId,
         amount,
