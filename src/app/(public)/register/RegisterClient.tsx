@@ -87,8 +87,8 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
         }),
       });
       const { url, error: checkoutError } = await res.json();
-      if (checkoutError || !url) {
-        setError("Something went wrong setting up payment. Please try again.");
+      if (!res.ok || checkoutError || !url) {
+        setError(checkoutError || "Something went wrong setting up payment. Please try again.");
         setLoading(false);
         return;
       }
