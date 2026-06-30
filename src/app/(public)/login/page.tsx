@@ -90,6 +90,15 @@ export default function LoginPage() {
               />
             </div>
 
+            <div className="-mt-2 text-right">
+              <Link
+                href="/forgot-password"
+                className="text-xs text-white/50 underline underline-offset-4 transition-colors hover:text-white/80"
+              >
+                Forgot your password?
+              </Link>
+            </div>
+
             {error && (
               <p className="rounded-lg bg-coral/10 px-4 py-3 text-sm text-coral">
                 {error}
