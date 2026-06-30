@@ -124,7 +124,7 @@ export default async function DashboardPage() {
                   Prepare for KF{currentLesson.lessonNumber} with the weekly guide.
                 </p>
                 <a
-                  href="/docs/meeting-prep-guide.pdf"
+                  href={docUrl("/docs/kf-resources/meeting-prep-guide.pdf")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center gap-2 rounded-lg bg-amber/15 px-4 py-2.5 text-sm font-semibold text-amber transition-all hover:bg-amber/25"
@@ -144,7 +144,7 @@ export default async function DashboardPage() {
                   This document is used at every meeting. It contains the introductions to read for each section.
                 </p>
                 <a
-                  href="/docs/KF-Meeting-Schedule.pdf"
+                  href={docUrl("/docs/kf-resources/KF-Meeting-Schedule.pdf")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center gap-2 rounded-lg bg-sky/15 px-4 py-2.5 text-sm font-semibold text-sky transition-all hover:bg-sky/25"
@@ -176,7 +176,7 @@ export default async function DashboardPage() {
                 Facilitator Guide
               </a>
               <a
-                href={`/docs/questions/kf${currentLesson.lessonNumber}-questions.pdf`}
+                href={docUrl(`/docs/questions/kf${currentLesson.lessonNumber}-questions.pdf`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg bg-violet/15 px-4 py-2 text-sm font-semibold text-violet-light transition-all hover:bg-violet/25"
