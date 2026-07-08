@@ -76,12 +76,12 @@ export default async function NHGPage() {
   const syllabusUrl = docUrl("/docs/nhg/kf-intro/NHG-Book-Study-Syllabus-2025 (1).pdf");
 
   return (
-    <div className="min-h-screen bg-[#e2e0dd]">
+    <div className="min-h-screen bg-[#4a5568]">
       {/* Header — image extends behind navbar */}
       <section className="relative z-10">
         <div className="absolute inset-0">
           <Image src="/forest-light.jpg" alt="Light breaking through a forest canopy" fill className="object-cover object-[center_40%] brightness-110 saturate-[1.15]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#e2e0dd]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
         </div>
         <div className="relative px-6 pb-10 pt-32 sm:pt-40 sm:pb-14">
           <div className="mx-auto max-w-6xl flex items-end justify-between gap-6">
@@ -104,46 +104,45 @@ export default async function NHGPage() {
           {kfInvited && userTier === "nhg" && (
             <a
               href="/kf/register"
-              className="group flex items-center gap-4 rounded-2xl border border-teal/20 bg-teal/5 p-5 transition-all duration-500 hover:border-teal/40 hover:shadow-lg hover:shadow-teal/5"
+              className="group flex items-center gap-4 rounded-2xl border border-teal/30 bg-teal/10 p-5 transition-all duration-500 hover:border-teal/50 hover:shadow-lg hover:shadow-teal/5"
             >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal/15">
-                <svg className="h-6 w-6 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal/20">
+                <svg className="h-6 w-6 text-teal-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
               </div>
               <div className="flex-1">
-                <p className="font-serif text-lg font-semibold text-charcoal">You&apos;ve been invited to join Karis Fellowships!</p>
-                <p className="mt-0.5 text-sm text-slate">Click here to complete your KF registration.</p>
+                <p className="font-serif text-lg font-semibold text-white">You&apos;ve been invited to join Karis Fellowships!</p>
+                <p className="mt-0.5 text-sm text-white/70">Click here to complete your KF registration.</p>
               </div>
-              <svg className="h-5 w-5 text-teal/50 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-5 w-5 text-teal-light/60 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
               </svg>
             </a>
           )}
 
-          {/* Row 1: Start Here (compact left) + Call Info (fills right) */}
-          <div className="flex gap-2 items-stretch flex-col sm:flex-row">
-            <NHGWelcome syllabusUrl={syllabusUrl} nextStudyDate={null} />
+          {/* Start Here — full-width accordion */}
+          <NHGWelcome syllabusUrl={syllabusUrl} nextStudyDate={null} />
 
-            <div className="flex-1 rounded-xl bg-violet/15 px-5 py-3">
-              <div className="flex items-center justify-between gap-6 h-full">
-                <div className="flex items-center gap-2">
-                  <svg className="h-4 w-4 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                  <span className="text-xs font-bold uppercase tracking-wider text-charcoal/40">Call In Info</span>
+          {/* Call In Info */}
+          <div className="rounded-xl bg-[#2b2150] px-5 py-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-2">
+                <svg className="h-4 w-4 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                <span className="text-xs font-bold uppercase tracking-wider text-white/40">Call In Info</span>
+              </div>
+              <div className="flex flex-wrap items-center gap-6">
+                <div>
+                  <p className="text-[10px] uppercase tracking-wide text-white/40">Phone</p>
+                  <p className="font-bold text-violet-light">(701) 801-1220</p>
                 </div>
-                <div className="flex items-center gap-6">
-                  <div>
-                    <p className="text-[10px] text-charcoal/40 uppercase tracking-wide">Phone</p>
-                    <p className="font-bold text-violet">(701) 801-1220</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-charcoal/40 uppercase tracking-wide">Saturday AM</p>
-                    <p className="font-mono text-sm font-bold text-violet/80">226-621-530#</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-charcoal/40 uppercase tracking-wide">Weekend Intensive</p>
-                    <p className="font-mono text-sm font-bold text-violet/80">546-213-115#</p>
-                  </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-wide text-white/40">Saturday AM</p>
+                  <p className="font-mono text-sm font-bold text-violet-light/80">226-621-530#</p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-wide text-white/40">Weekend Intensive</p>
+                  <p className="font-mono text-sm font-bold text-violet-light/80">546-213-115#</p>
                 </div>
               </div>
             </div>
@@ -151,19 +150,19 @@ export default async function NHGPage() {
 
           {/* Row 2: Introduction Meeting info (left) + Syllabus (right) */}
           <div className="grid gap-2 sm:grid-cols-2">
-            <div className="rounded-xl bg-violet/15 p-5">
-              <h3 className="text-base font-bold text-charcoal">Introduction Meeting</h3>
-              <ul className="mt-3 space-y-1.5 text-sm text-slate">
+            <div className="rounded-xl bg-[#2b2150] p-5">
+              <h3 className="text-base font-bold text-white">Introduction Meeting</h3>
+              <ul className="mt-3 space-y-1.5 text-sm text-white/70">
                 <li className="flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-violet/40" />
-                  <a href={syllabusUrl} target="_blank" rel="noopener noreferrer" className="text-violet/80 hover:text-violet transition-colors underline decoration-violet/20 underline-offset-2">Syllabus</a>
+                  <span className="h-1 w-1 rounded-full bg-violet-light/50" />
+                  <a href={syllabusUrl} target="_blank" rel="noopener noreferrer" className="text-violet-light hover:text-white transition-colors underline decoration-violet-light/30 underline-offset-2">Syllabus</a>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-violet/40" />
+                  <span className="h-1 w-1 rounded-full bg-violet-light/50" />
                   KF Eligibility
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-violet/40" />
+                  <span className="h-1 w-1 rounded-full bg-violet-light/50" />
                   A Few Pointers
                 </li>
               </ul>
@@ -172,21 +171,21 @@ export default async function NHGPage() {
               href={syllabusUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-xl bg-violet/15 p-5 transition-all hover:bg-violet/20 hover:-translate-y-0.5"
+              className="group flex items-center gap-4 rounded-xl bg-[#2b2150] p-5 transition-all hover:bg-[#332661] hover:-translate-y-0.5"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet/15">
-                <svg className="h-5 w-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
+                <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
               </span>
               <div>
-                <h3 className="text-base font-bold text-charcoal group-hover:text-violet transition-colors">NHG Book Study Syllabus</h3>
-                <p className="mt-0.5 text-xs text-slate/50">Download study overview and plan</p>
+                <h3 className="text-base font-bold text-white group-hover:text-violet-light transition-colors">NHG Book Study Syllabus</h3>
+                <p className="mt-0.5 text-xs text-white/50">Download study overview and plan</p>
               </div>
             </a>
           </div>
 
           {/* Study Schedule — "Coming Up" */}
           <div className="pt-4">
-            <h2 className="text-xl font-bold text-charcoal mb-3">Coming Up</h2>
+            <h2 className="text-xl font-bold text-white mb-3">Coming Up</h2>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
               {nhg.schedule.map((week) => {
                 const isCurrent = activeWeek?.weekNumber === week.weekNumber;
@@ -196,37 +195,37 @@ export default async function NHGPage() {
                     key={week.weekNumber}
                     className={`rounded-xl p-4 transition-all ${
                       isCurrent
-                        ? "bg-violet/25 ring-1 ring-violet/40"
-                        : "bg-violet/15"
+                        ? "bg-[#39295f] ring-1 ring-violet-light/40"
+                        : "bg-[#2b2150]"
                     }`}
                   >
                     <div className="flex items-start gap-3">
                       <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-xl font-bold ${
-                        isCurrent ? "bg-violet text-white" : "bg-violet/20 text-violet"
+                        isCurrent ? "bg-violet-light text-[#2b2150]" : "bg-violet-light/15 text-violet-light"
                       }`}>
                         {week.weekNumber}
                       </span>
                       <div className="min-w-0">
-                        <h3 className={`text-base font-bold ${isCurrent ? "text-violet" : "text-charcoal"}`}>
+                        <h3 className={`text-base font-bold ${isCurrent ? "text-violet-light" : "text-white"}`}>
                           {guide?.label ?? week.label}
                         </h3>
                         {guide && (
-                          <p className="mt-0.5 text-xs italic text-charcoal/50 leading-tight">{guide.chapters}</p>
+                          <p className="mt-0.5 text-xs italic text-white/50 leading-tight">{guide.chapters}</p>
                         )}
-                        <p className="mt-1 text-sm font-semibold text-charcoal/60">{formatDate(week.startDate)}</p>
-                        {isCurrent && <span className="text-xs font-bold text-violet">This Week</span>}
+                        <p className="mt-1 text-sm font-semibold text-white/60">{formatDate(week.startDate)}</p>
+                        {isCurrent && <span className="text-xs font-bold text-violet-light">This Week</span>}
                       </div>
                     </div>
                     {guide && (
                       <div className="mt-3 flex flex-wrap gap-1.5">
-                        <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="rounded bg-violet/10 px-2.5 py-1 text-xs font-semibold text-violet/80 hover:bg-violet/20 hover:text-violet transition-colors">
+                        <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="rounded bg-violet-light/15 px-2.5 py-1 text-xs font-semibold text-violet-light hover:bg-violet-light/25 transition-colors">
                           Guide
                         </a>
-                        <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="rounded bg-amber/10 px-2.5 py-1 text-xs font-semibold text-amber/80 hover:bg-amber/20 hover:text-amber transition-colors">
+                        <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="rounded bg-amber/15 px-2.5 py-1 text-xs font-semibold text-amber hover:bg-amber/25 transition-colors">
                           Intro
                         </a>
                         {week.weekNumber === 8 && (
-                          <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="rounded bg-teal/10 px-2.5 py-1 text-xs font-semibold text-teal/80 hover:bg-teal/20 hover:text-teal transition-colors">
+                          <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="rounded bg-teal/15 px-2.5 py-1 text-xs font-semibold text-teal-light hover:bg-teal/25 transition-colors">
                             Review
                           </a>
                         )}
@@ -239,19 +238,19 @@ export default async function NHGPage() {
           </div>
 
           {/* KF Introductory Meeting — full width */}
-          <div className="rounded-xl bg-violet/15 p-5">
+          <div className="rounded-xl bg-[#2b2150] p-5">
             <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal/15 text-xl font-bold text-teal">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal/20 text-xl font-bold text-teal-light">
                 9
               </span>
               <div className="flex-1">
-                <h3 className="text-base font-bold text-charcoal">KF Introductory Meeting</h3>
-                <p className="text-xs text-slate/50">Optional</p>
+                <h3 className="text-base font-bold text-white">KF Introductory Meeting</h3>
+                <p className="text-xs text-white/50">Optional</p>
               </div>
             </div>
             <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1">
               {kfIntroDocuments.map(({ label, href }) => (
-                <a key={href} href={docUrl(href)} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-teal/70 hover:text-teal transition-colors">
+                <a key={href} href={docUrl(href)} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-teal-light hover:text-white transition-colors">
                   {label}
                 </a>
               ))}
@@ -262,26 +261,26 @@ export default async function NHGPage() {
           <div className="grid gap-2 sm:grid-cols-2">
             <Link
               href="/nhg/schedules"
-              className="group flex items-center gap-4 rounded-xl bg-violet/15 p-5 transition-all hover:bg-violet/20 hover:-translate-y-0.5"
+              className="group flex items-center gap-4 rounded-xl bg-[#2b2150] p-5 transition-all hover:bg-[#332661] hover:-translate-y-0.5"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet/15">
-                <svg className="h-5 w-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
+                <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
               </span>
               <div>
-                <h3 className="text-base font-bold text-charcoal group-hover:text-violet transition-colors">Weekend Intensive Schedule</h3>
-                <p className="mt-0.5 text-xs text-slate/50">View intensive meeting dates</p>
+                <h3 className="text-base font-bold text-white group-hover:text-violet-light transition-colors">Weekend Intensive Schedule</h3>
+                <p className="mt-0.5 text-xs text-white/50">View intensive meeting dates</p>
               </div>
             </Link>
             <Link
               href="/nhg/recordings"
-              className="group flex items-center gap-4 rounded-xl bg-violet/15 p-5 transition-all hover:bg-violet/20 hover:-translate-y-0.5"
+              className="group flex items-center gap-4 rounded-xl bg-[#2b2150] p-5 transition-all hover:bg-[#332661] hover:-translate-y-0.5"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet/15">
-                <svg className="h-5 w-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
+                <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>
               </span>
               <div>
-                <h3 className="text-base font-bold text-charcoal group-hover:text-violet transition-colors">Meeting Recordings</h3>
-                <p className="mt-0.5 text-xs text-slate/50">Past NHG sessions</p>
+                <h3 className="text-base font-bold text-white group-hover:text-violet-light transition-colors">Meeting Recordings</h3>
+                <p className="mt-0.5 text-xs text-white/50">Past NHG sessions</p>
               </div>
             </Link>
           </div>
@@ -292,20 +291,20 @@ export default async function NHGPage() {
           {/* Facilitator Section — KF members only */}
           {isKFMember && (
           <div className="pt-4">
-            <div className="rounded-xl bg-violet/15 p-8">
+            <div className="rounded-xl bg-[#2b2150] p-8">
               <div className="flex items-start gap-4">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-coral/15">
                   <svg className="h-6 w-6 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-charcoal">NHG Facilitator Resources</h2>
+                  <h2 className="text-2xl font-bold text-white">NHG Facilitator Resources</h2>
 
                   {activeWeek && facilitatorGuides[activeWeek.weekNumber] && (
-                    <div className="mt-4 rounded-xl bg-coral/10 ring-1 ring-coral/20 p-5">
+                    <div className="mt-4 rounded-xl bg-coral/15 ring-1 ring-coral/30 p-5">
                       <span className="inline-block rounded-full bg-coral/20 px-3 py-1 text-xs font-bold text-coral">
                         This Week
                       </span>
-                      <h3 className="mt-2 text-lg font-semibold text-charcoal">
+                      <h3 className="mt-2 text-lg font-semibold text-white">
                         {facilitatorGuides[activeWeek.weekNumber].label}
                       </h3>
                       <a
@@ -321,7 +320,7 @@ export default async function NHGPage() {
                   )}
 
                   <div className="mt-6">
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-charcoal/30">General Resources</h3>
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">General Resources</h3>
                     <div className="mt-3 grid gap-2 sm:grid-cols-2">
                       {facilitatorResources.map(({ label, href }) => (
                         <a
@@ -329,19 +328,19 @@ export default async function NHGPage() {
                           href={docUrl(href)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group flex items-center gap-3 rounded-xl bg-violet/10 p-3 transition-all hover:bg-violet/15 hover:-translate-y-0.5"
+                          className="group flex items-center gap-3 rounded-xl bg-white/5 p-3 transition-all hover:bg-white/10 hover:-translate-y-0.5"
                         >
                           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-coral/15">
                             <svg className="h-4 w-4 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                           </span>
-                          <span className="text-sm font-medium text-charcoal/70 group-hover:text-coral transition-colors">{label}</span>
+                          <span className="text-sm font-medium text-white/70 group-hover:text-coral transition-colors">{label}</span>
                         </a>
                       ))}
                     </div>
                   </div>
 
                   <div className="mt-6">
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-charcoal/30">All Weekly Guides</h3>
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">All Weekly Guides</h3>
                     <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                       {Object.entries(facilitatorGuides).map(([num, { href }]) => {
                         const isCurrent = activeWeek?.weekNumber === Number(num);
@@ -354,7 +353,7 @@ export default async function NHGPage() {
                             className={`flex items-center gap-3 rounded-xl p-3 transition-all hover:-translate-y-0.5 ${
                               isCurrent
                                 ? "bg-coral/15 ring-1 ring-coral/30"
-                                : "bg-violet/10 hover:bg-violet/15"
+                                : "bg-white/5 hover:bg-white/10"
                             }`}
                           >
                             <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
@@ -363,7 +362,7 @@ export default async function NHGPage() {
                               {num}
                             </span>
                             <span className={`text-sm font-medium transition-colors ${
-                              isCurrent ? "text-coral" : "text-charcoal/60 hover:text-coral"
+                              isCurrent ? "text-coral" : "text-white/60 hover:text-coral"
                             }`}>
                               Week {num}
                               {isCurrent && <span className="ml-1 text-xs text-coral/70">(This Week)</span>}
