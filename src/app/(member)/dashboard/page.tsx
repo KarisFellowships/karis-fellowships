@@ -60,9 +60,9 @@ export default async function DashboardPage() {
             {/* This Week — square card with ship-voyage image */}
             <Link
               href={`/kf/meetings/kf${currentLesson.lessonNumber}`}
-              className="group relative block overflow-hidden rounded-xl"
+              className="group relative block overflow-hidden rounded-xl lg:h-full"
             >
-              <div className="relative aspect-square">
+              <div className="relative aspect-square lg:aspect-auto lg:h-full lg:min-h-[20rem]">
                 <Image
                   src="/ship-voyage.jpg"
                   alt="Sailboat heading out to open sea"

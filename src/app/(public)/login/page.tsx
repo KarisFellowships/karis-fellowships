@@ -47,8 +47,8 @@ export default function LoginPage() {
     <div className="flex min-h-screen">
       <div className="relative hidden w-1/2 lg:block">
         <Image
-          src="/ocean-horizon.jpg"
-          alt="Vast ocean horizon"
+          src="/forest-canopy.jpg"
+          alt="Sunlight breaking through a forest"
           fill
           className="object-cover"
         />
