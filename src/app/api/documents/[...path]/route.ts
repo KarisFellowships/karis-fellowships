@@ -8,12 +8,16 @@ const BUCKET = "documents";
 const SIGNED_URL_TTL_SECONDS = 60;
 
 // Mirrors the route gating in src/proxy.ts:
-// - nhg/ material is available to paid NHG members (and KF/admin).
+// - nhg/facilitator/ material is KF/admin only (it's for the people running the
+//   meetings), even though it lives under the nhg/ folder.
+// - Other nhg/ material (reading guides, introductions) is available to paid
+//   NHG members and to KF/admin.
 // - Everything else (lessons, questions, toolbox, kf-resources, facilitator,
 //   other-studies) is KF-tier content.
-function isAllowed(prefix: string, tier: string | null, nhgPaid: boolean): boolean {
+function isAllowed(pathSegments: string[], tier: string | null, nhgPaid: boolean): boolean {
   const kfOrAdmin = tier === "kf" || tier === "admin";
-  if (prefix === "nhg") return kfOrAdmin || (tier === "nhg" && nhgPaid);
+  if (pathSegments[0] === "nhg" && pathSegments[1] === "facilitator") return kfOrAdmin;
+  if (pathSegments[0] === "nhg") return kfOrAdmin || (tier === "nhg" && nhgPaid);
   return kfOrAdmin;
 }
 
@@ -43,7 +47,7 @@ export async function GET(
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  if (!isAllowed(path[0], profile.tier, !!profile.nhg_paid)) {
+  if (!isAllowed(path, profile.tier, !!profile.nhg_paid)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
