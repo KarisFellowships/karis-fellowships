@@ -1,14 +1,31 @@
 import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
+import type { NavTier } from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroVideo from "@/components/HeroVideo";
 import ExpandableCard from "@/components/ExpandableCard";
+import { createServerClient } from "@/lib/supabase-server";
 
-export default function Home() {
+export default async function Home() {
+  // Reflect the visitor's login state in the header (the home page renders its
+  // own Navbar, outside the (public) layout) so a logged-in member stays logged
+  // in when they land here. The session is unaffected either way.
+  const supabase = await createServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  let tier: NavTier = null;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("users")
+      .select("tier")
+      .eq("id", user.id)
+      .single();
+    tier = (profile?.tier as NavTier) ?? "nhg";
+  }
+
   return (
     <div className="min-h-screen text-foreground">
-      <Navbar />
+      <Navbar isLoggedIn={!!user} tier={tier} />
 
       <HeroVideo />
 
