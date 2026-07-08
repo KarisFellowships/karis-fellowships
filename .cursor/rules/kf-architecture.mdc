@@ -12,8 +12,8 @@ alwaysApply: true
 - The current component/layout/auth/Stripe work is NOT wasted — a CMS only changes where text comes from, not the templates.
 
 ## Document Storage
-- Admin-swappable documents live in Supabase Storage bucket "documents" (toolbox, nhg, other-studies, facilitator, lessons, questions, kf-resources).
-- Use `docUrl()` from `src/lib/storage-url.ts` to convert static `/docs/...` paths to Supabase Storage public URLs.
+- Admin-swappable documents live in the PRIVATE Supabase Storage bucket "documents" (toolbox, nhg, other-studies, facilitator, lessons, questions, kf-resources).
+- The bucket is PRIVATE (as of the 2026 launch hardening). Use `docUrl()` from `src/lib/storage-url.ts` to convert static `/docs/...` paths into URLs for the authenticated `/api/documents/[...path]` route, which verifies the member's tier and redirects to a short-lived signed URL. Do NOT build public Storage URLs.
 - The admin panel Documents tab manages these files (upload, replace, delete).
 
 ## Admin Panel
