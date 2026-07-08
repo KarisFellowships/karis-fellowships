@@ -52,7 +52,7 @@ export default function LoginPage() {
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-slate-dark/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-dark/25 via-slate-dark/40 to-slate-dark" />
         <div className="absolute inset-0 flex items-center justify-center px-12 pt-16">
           <span className="font-serif text-3xl font-light leading-snug text-white/80">
             &ldquo;Train hard, fight easy.&rdquo;
