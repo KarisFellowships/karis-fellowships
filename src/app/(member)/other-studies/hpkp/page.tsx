@@ -3,6 +3,7 @@ import StudyDonationBanner from "@/components/StudyDonationBanner";
 import Link from "next/link";
 import { createServerClient } from "@/lib/supabase-server";
 import { docUrl } from "@/lib/storage-url";
+import { getMeetingCodes, phoneNumber, firstCode } from "@/lib/meeting-codes";
 
 const readingGuides = [
   { label: "Chapters 1 & 2 Reading Guide (PDF)", href: "/docs/other-studies/hpkp/1-pdf-Rdg-Gd-Ch-1-2-HPKP-2025z.pdf" },
@@ -31,6 +32,9 @@ const furtherReading = [
 ];
 
 export default async function HPKPPage() {
+  const codes = await getMeetingCodes();
+  const callPhone = phoneNumber(codes);
+  const accessCode = firstCode(codes, "hpkp");
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   let hasDonated = false;
@@ -75,11 +79,11 @@ export default async function HPKPPage() {
             <div className="flex flex-wrap items-center gap-6">
               <div>
                 <p className="text-xs text-white/35 uppercase tracking-wide">Phone</p>
-                <p className="mt-0.5 text-lg font-bold text-amber">(701) 801-1220</p>
+                <p className="mt-0.5 text-lg font-bold text-amber">{callPhone}</p>
               </div>
               <div>
                 <p className="text-xs text-white/35 uppercase tracking-wide">Access Code</p>
-                <p className="mt-0.5 font-mono text-lg font-bold text-amber/80">903-351-258#</p>
+                <p className="mt-0.5 font-mono text-lg font-bold text-amber/80">{accessCode}</p>
               </div>
             </div>
           </div>

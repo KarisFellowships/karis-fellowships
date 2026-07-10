@@ -3,6 +3,7 @@ import StudyDonationBanner from "@/components/StudyDonationBanner";
 import Link from "next/link";
 import { createServerClient } from "@/lib/supabase-server";
 import { docUrl } from "@/lib/storage-url";
+import { getMeetingCodes, phoneNumber, firstCode } from "@/lib/meeting-codes";
 
 const studyGuides = [
   { label: "Chapter 1 Study Guide", href: "/docs/other-studies/romans/1-Chap.-Study-Guide-Romans-2014-v3n.docx", type: "docx" },
@@ -32,6 +33,9 @@ const summaries = [
 ];
 
 export default async function RomansPage() {
+  const codes = await getMeetingCodes();
+  const callPhone = phoneNumber(codes);
+  const accessCode = firstCode(codes, "romans");
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   let hasDonated = false;
@@ -76,11 +80,11 @@ export default async function RomansPage() {
             <div className="flex flex-wrap items-center gap-6">
               <div>
                 <p className="text-xs text-white/35 uppercase tracking-wide">Phone</p>
-                <p className="mt-0.5 text-lg font-bold text-teal-light">(701) 801-1220</p>
+                <p className="mt-0.5 text-lg font-bold text-teal-light">{callPhone}</p>
               </div>
               <div>
                 <p className="text-xs text-white/35 uppercase tracking-wide">Access Code</p>
-                <p className="mt-0.5 font-mono text-lg font-bold text-teal-light/80">158-890-796#</p>
+                <p className="mt-0.5 font-mono text-lg font-bold text-teal-light/80">{accessCode}</p>
               </div>
             </div>
           </div>

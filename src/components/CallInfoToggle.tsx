@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
-const meetings = [
-  { day: "Sunday", time: "8:00 am CST", code: "548-008-425#" },
-  { day: "Monday", time: "10:00 am CST", code: "591-492-083#" },
-  { day: "Tuesday", time: "7:30 pm CST", code: "209-466-826#" },
-];
+interface Meeting {
+  day: string;
+  time: string;
+  code: string;
+}
 
-export default function CallInfoToggle() {
+export default function CallInfoToggle({ phone, meetings }: { phone: string; meetings: Meeting[] }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -28,11 +28,11 @@ export default function CallInfoToggle() {
       {open && (
         <div className="mt-2 rounded-xl bg-[#1e293b] p-5 animate-fade-up">
           <p className="text-xs uppercase tracking-wide text-white/35">Phone</p>
-          <p className="mt-0.5 text-lg font-bold text-teal-light">(701) 801-1220</p>
+          <p className="mt-0.5 text-lg font-bold text-teal-light">{phone}</p>
           <div className="mt-3 border-t border-white/10 pt-3 space-y-2">
             {meetings.map(({ day, time, code }) => (
               <div key={day} className="flex items-center justify-between">
-                <span className="text-sm text-white/60">{day} &middot; {time}</span>
+                <span className="text-sm text-white/60">{day}{time ? ` · ${time}` : ""}</span>
                 <span className="font-mono text-sm font-bold text-teal-light/80">{code}</span>
               </div>
             ))}

@@ -1,14 +1,11 @@
 import PageHeader from "@/components/PageHeader";
 import Link from "next/link";
+import { getMeetingCodes, phoneNumber, kfMeetings } from "@/lib/meeting-codes";
 
-const meetings = [
-  { day: "Sunday", time: "8:00 am CST", code: "548-008-425#" },
-  { day: "Monday", time: "10:00 am CST", code: "591-492-083#" },
-  { day: "Tuesday", time: "7:30 pm CST", code: "209-466-826#" },
-];
-const callPhone = "(701) 801-1220";
-
-export default function KFCallInfoPage() {
+export default async function KFCallInfoPage() {
+  const codes = await getMeetingCodes();
+  const callPhone = phoneNumber(codes);
+  const meetings = kfMeetings(codes);
   return (
     <div className="min-h-screen bg-[#4a5568]">
       <PageHeader title="Call & Playback Info" subtitle="Conference call details for KF weekly meetings." accent="amber" image="/sunrise-ocean.jpg" imageAlt="Sunrise over calm water" />

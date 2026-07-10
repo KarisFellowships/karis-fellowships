@@ -6,6 +6,7 @@ import { docUrl } from "@/lib/storage-url";
 import NHGWelcome from "@/components/NHGWelcome";
 import NHGFaq from "@/components/NHGFaq";
 import IntroMeetingBlock from "@/components/IntroMeetingBlock";
+import { getMeetingCodes, phoneNumber, sectionCodes } from "@/lib/meeting-codes";
 
 const readingGuides: Record<number, { label: string; chapters: string; guide: string; intro: string }> = {
   1: { label: "Intro & Ch. 1", chapters: "The Search for Glory", guide: "/docs/nhg/reading-guides/1NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/Chapter 1 KF Introduction.pdf" },
@@ -56,6 +57,9 @@ function formatDate(iso: string): string {
 
 export default async function NHGPage() {
   const nhg = await getNHGStatus();
+  const meetingCodes = await getMeetingCodes();
+  const callPhone = phoneNumber(meetingCodes);
+  const nhgCodes = sectionCodes(meetingCodes, "nhg");
 
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -146,16 +150,14 @@ export default async function NHGPage() {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-wide text-white/40">Phone</p>
-                  <p className="font-bold text-violet-light">(701) 801-1220</p>
+                  <p className="font-bold text-violet-light">{callPhone}</p>
                 </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-wide text-white/40">Saturday AM</p>
-                  <p className="font-mono text-sm font-bold text-violet-light/80">226-621-530#</p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-wide text-white/40">Weekend Intensive</p>
-                  <p className="font-mono text-sm font-bold text-violet-light/80">546-213-115#</p>
-                </div>
+                {nhgCodes.map((c) => (
+                  <div key={c.id}>
+                    <p className="text-[10px] uppercase tracking-wide text-white/40">{c.label}</p>
+                    <p className="font-mono text-sm font-bold text-violet-light/80">{c.code}</p>
+                  </div>
+                ))}
               </div>
             </div>
             <a

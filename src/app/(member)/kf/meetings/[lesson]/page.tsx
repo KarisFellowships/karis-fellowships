@@ -5,6 +5,7 @@ import Link from "next/link";
 import lessonsData from "@/data/lessons.json";
 import { getAllLessons } from "@/lib/date-engine";
 import CallInfoToggle from "@/components/CallInfoToggle";
+import { getMeetingCodes, phoneNumber, kfMeetings } from "@/lib/meeting-codes";
 import LessonContent from "@/components/LessonContent";
 import { docUrl } from "@/lib/storage-url";
 
@@ -28,6 +29,7 @@ export default async function LessonPage({ params }: Props) {
   const allLessons = await getAllLessons();
   const thisLesson = allLessons.find((l) => l.lessonNumber === num);
   const dateRange = thisLesson?.dateRange ?? "";
+  const codes = await getMeetingCodes();
 
   const htmlPath = path.join(process.cwd(), "src", "data", "lessons-html", `kf${lessonNumber}.html`);
   let lessonHtml = "";
@@ -124,7 +126,7 @@ export default async function LessonPage({ params }: Props) {
           </div>
 
           {/* Call Info toggle */}
-          <CallInfoToggle />
+          <CallInfoToggle phone={phoneNumber(codes)} meetings={kfMeetings(codes)} />
 
           {/* Full lesson content from DOCX */}
           <LessonContent html={lessonHtml} />

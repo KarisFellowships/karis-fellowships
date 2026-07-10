@@ -3,6 +3,8 @@
 import { useState } from "react";
 import MembersTab from "./MembersTab";
 import DocumentsTab from "./DocumentsTab";
+import MeetingCodesTab from "./MeetingCodesTab";
+import ScheduleTab from "./ScheduleTab";
 
 interface Member {
   id: string;
@@ -19,6 +21,8 @@ interface Member {
 const tabs = [
   { id: "members", label: "Members" },
   { id: "documents", label: "Documents" },
+  { id: "codes", label: "Meetings & Codes" },
+  { id: "schedule", label: "Schedule" },
 ] as const;
 
 type TabId = (typeof tabs)[number]["id"];
@@ -47,6 +51,8 @@ export default function AdminPanel({ initialMembers }: { initialMembers: Member[
       <div className="mt-4">
         {activeTab === "members" && <MembersTab initialMembers={initialMembers} />}
         {activeTab === "documents" && <DocumentsTab />}
+        {activeTab === "codes" && <MeetingCodesTab />}
+        {activeTab === "schedule" && <ScheduleTab />}
       </div>
     </>
   );

@@ -1,19 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getCurrentLesson, getAllLessons } from "@/lib/date-engine";
+import { getMeetingCodes, phoneNumber, kfMeetings } from "@/lib/meeting-codes";
 import SearchBar from "@/components/SearchBar";
 import { docUrl } from "@/lib/storage-url";
-
-const meetings = [
-  { day: "Sunday", time: "8:00 am CST", code: "548-008-425#" },
-  { day: "Monday", time: "10:00 am CST", code: "591-492-083#" },
-  { day: "Tuesday", time: "7:30 pm CST", code: "209-466-826#" },
-];
-const callPhone = "(701) 801-1220";
 
 export default async function DashboardPage() {
   const currentLesson = await getCurrentLesson();
   const allLessons = await getAllLessons();
+  const codes = await getMeetingCodes();
+  const callPhone = phoneNumber(codes);
+  const meetings = kfMeetings(codes);
   const lessonMap = new Map(allLessons.map((l) => [l.lessonNumber, l]));
 
   // Build recent lessons: the 6 lessons immediately before the current week
