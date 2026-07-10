@@ -53,7 +53,7 @@ export default function NHGWelcome({ syllabusUrl, nextStudyDate }: Props) {
             <div className="grid gap-4 sm:grid-cols-3">
               {/* Step 1 */}
               <div className="rounded-xl bg-white/[0.04] p-5">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-light/15 font-serif text-2xl font-bold text-violet-light">1</span>
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet to-[#c084fc] font-serif text-2xl font-bold text-white shadow-lg shadow-violet/40">1</span>
                 <h3 className="mt-4 font-serif text-base font-semibold text-white">
                   <a href={AMAZON_URL} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-violet-light">Buy the Book</a>
                 </h3>
@@ -78,7 +78,7 @@ export default function NHGWelcome({ syllabusUrl, nextStudyDate }: Props) {
 
               {/* Step 2 */}
               <div className="rounded-xl bg-white/[0.04] p-5">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-light/15 font-serif text-2xl font-bold text-violet-light">2</span>
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet to-[#c084fc] font-serif text-2xl font-bold text-white shadow-lg shadow-violet/40">2</span>
                 <h3 className="mt-4 font-serif text-base font-semibold text-white">Download Syllabus &amp; Start Reading</h3>
                 <p className="mt-1 text-sm leading-[1.8] text-white/70">
                   You can always find your reading guides in the NHG menu below.
@@ -96,7 +96,7 @@ export default function NHGWelcome({ syllabusUrl, nextStudyDate }: Props) {
 
               {/* Step 3 */}
               <div className="rounded-xl bg-white/[0.04] p-5">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-light/15 font-serif text-2xl font-bold text-violet-light">3</span>
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet to-[#c084fc] font-serif text-2xl font-bold text-white shadow-lg shadow-violet/40">3</span>
                 <h3 className="mt-4 font-serif text-base font-semibold text-white">Prepare to Call in to a Meeting</h3>
                 <p className="mt-1 text-sm leading-[1.8] text-white/70">
                   You will call a long-distance US number for meetings. The phone number and access codes are in the call info card on this page.
