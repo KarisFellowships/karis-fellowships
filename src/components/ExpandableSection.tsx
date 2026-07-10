@@ -27,9 +27,9 @@ export default function ExpandableSection({
 
       <button
         onClick={() => setOpen(!open)}
-        className="mt-4 group/btn inline-flex items-center gap-2 font-serif text-sm italic text-violet-light/70 transition-all duration-300 hover:gap-3 hover:text-violet-light"
+        className="mt-4 group/btn inline-flex items-center gap-2 font-serif text-sm italic text-white/70 transition-all duration-300 hover:gap-3 hover:text-white"
       >
-        <span className="inline-block h-px w-4 bg-violet-light/30 transition-all duration-300 group-hover/btn:w-6 group-hover/btn:bg-violet-light/50" />
+        <span className="inline-block h-px w-4 bg-white/40 transition-all duration-300 group-hover/btn:w-6 group-hover/btn:bg-white/70" />
         {open ? label : collapsedLabel}
         <svg
           className={`h-3.5 w-3.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
