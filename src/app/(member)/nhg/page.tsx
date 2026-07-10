@@ -194,84 +194,79 @@ export default async function NHGPage() {
           <div className="pt-4">
             <h2 className="text-xl font-bold text-white mb-3">Coming Up</h2>
 
-            {featuredWeek && (
-              <div className="group relative overflow-hidden rounded-2xl">
-                <div className="relative aspect-[16/10] sm:aspect-[5/2]">
+            <div className="grid gap-2 lg:grid-cols-3 lg:items-start">
+              {featuredWeek && (
+                <Link
+                  href={featuredGuide ? docUrl(featuredGuide.guide) : syllabusUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative block aspect-square overflow-hidden rounded-2xl"
+                >
                   <Image
-                    src="/starry-mountain.jpg"
-                    alt="A starlit mountain range at night"
+                    src="/mountain-dawn.jpg"
+                    alt="Sunrise over a mountain range above the clouds"
                     fill
                     priority
                     className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#241c46] via-[#2b2150]/55 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#2b2150]/70 via-transparent to-transparent" />
-                  <div className="relative flex h-full flex-col justify-end p-6 sm:p-8">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#241c46] via-[#2b2150]/35 to-transparent" />
+                  <div className="absolute inset-x-0 top-0 p-6">
                     <span className="inline-flex w-fit items-center rounded-full bg-violet px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-violet/30">
                       {featuredIsCurrent ? "This Week" : featuredWeek.dateRange}
                     </span>
-                    <h2 className="mt-3 font-serif text-3xl font-bold text-white drop-shadow-lg sm:text-4xl">
+                    <h2 className="mt-3 font-serif text-2xl font-bold text-white drop-shadow-lg sm:text-3xl">
                       {featuredGuide?.label ?? featuredWeek.label}
                     </h2>
                     {featuredGuide && (
-                      <p className="mt-1 text-sm italic text-white/85 drop-shadow sm:text-base">{featuredGuide.chapters}</p>
-                    )}
-                    {featuredIsCurrent && (
-                      <p className="mt-1 text-sm font-medium text-white/70 drop-shadow">{featuredWeek.dateRange}</p>
-                    )}
-                    {featuredGuide && (
-                      <div className="mt-5 flex flex-wrap gap-2">
-                        <a href={docUrl(featuredGuide.guide)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-[#2b2150] transition-all hover:bg-white/90">
-                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                          Guide
-                        </a>
-                        <a href={docUrl(featuredGuide.intro)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-white/15 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/25">
-                          Intro
-                        </a>
-                      </div>
+                      <p className="mt-1 text-xs italic text-white/85 drop-shadow sm:text-sm">{featuredGuide.chapters}</p>
                     )}
                   </div>
-                </div>
-              </div>
-            )}
+                  <div className="absolute inset-x-0 bottom-0 p-6">
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-colors group-hover:text-violet-light">
+                      {featuredGuide ? "Open Reading Guide" : "Open Syllabus"} &rarr;
+                    </span>
+                  </div>
+                </Link>
+              )}
 
-            <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-              {otherWeeks.map((week) => {
-                const guide = readingGuides[week.weekNumber];
-                return (
-                  <div key={week.weekNumber} className="rounded-xl bg-[#2b2150] p-4 transition-all">
-                    <div className="flex items-start gap-3">
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-violet-light/15 text-xl font-bold text-violet-light">
-                        {week.weekNumber}
-                      </span>
-                      <div className="min-w-0">
-                        <h3 className="text-base font-bold text-white">
-                          {guide?.label ?? week.label}
-                        </h3>
-                        {guide && (
-                          <p className="mt-0.5 text-xs italic text-white/50 leading-tight">{guide.chapters}</p>
-                        )}
-                        <p className="mt-1 text-sm font-semibold text-white/60">{formatDate(week.startDate)}</p>
+              <div className="grid gap-2 sm:grid-cols-2 lg:col-span-2">
+                {otherWeeks.map((week) => {
+                  const guide = readingGuides[week.weekNumber];
+                  return (
+                    <div key={week.weekNumber} className="rounded-xl bg-[#2b2150] p-4 transition-all">
+                      <div className="flex items-start gap-3">
+                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-violet-light/15 text-xl font-bold text-violet-light">
+                          {week.weekNumber}
+                        </span>
+                        <div className="min-w-0">
+                          <h3 className="text-base font-bold text-white">
+                            {guide?.label ?? week.label}
+                          </h3>
+                          {guide && (
+                            <p className="mt-0.5 text-xs italic text-white/50 leading-tight">{guide.chapters}</p>
+                          )}
+                          <p className="mt-1 text-sm font-semibold text-white/60">{formatDate(week.startDate)}</p>
+                        </div>
                       </div>
-                    </div>
-                    {guide && (
-                      <div className="mt-3 flex flex-wrap gap-1.5">
-                        <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="rounded bg-violet-light/15 px-2.5 py-1 text-xs font-semibold text-violet-light hover:bg-violet-light/25 transition-colors">
-                          Guide
-                        </a>
-                        <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="rounded bg-amber/15 px-2.5 py-1 text-xs font-semibold text-amber hover:bg-amber/25 transition-colors">
-                          Intro
-                        </a>
-                        {week.weekNumber === 8 && (
-                          <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="rounded bg-teal/15 px-2.5 py-1 text-xs font-semibold text-teal-light hover:bg-teal/25 transition-colors">
-                            Review
+                      {guide && (
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="rounded bg-violet-light/15 px-2.5 py-1 text-xs font-semibold text-violet-light hover:bg-violet-light/25 transition-colors">
+                            Guide
                           </a>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+                          <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="rounded bg-amber/15 px-2.5 py-1 text-xs font-semibold text-amber hover:bg-amber/25 transition-colors">
+                            Intro
+                          </a>
+                          {week.weekNumber === 8 && (
+                            <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="rounded bg-teal/15 px-2.5 py-1 text-xs font-semibold text-teal-light hover:bg-teal/25 transition-colors">
+                              Review
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
