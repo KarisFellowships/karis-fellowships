@@ -6,6 +6,7 @@ These rules mirror the Cursor rules in `.cursor/rules/*.mdc` — **keep both in 
 ## 1. Language protection — verbatim copy only
 - ALL user-facing text (headings, descriptions, taglines, body copy, testimonials, bios, FAQ answers) must come **verbatim** from karisfellowships.com or the original KF documents.
 - NEVER invent, paraphrase, or reword copy. NEVER alter the language in KF documents: lessons, NHG materials, toolbox docs, meditations, worksheets, facilitator guides, or question documents.
+- **Lesson fidelity (wording AND formatting):** for lesson content, never change or remove ANY wording, and reproduce the source document's formatting exactly — indentation, spacing, question/step numbering, and centered/single-spaced hymns. Only ADD formatting to match the source; never edit or drop content. Reusable helpers live in `globals.css`: `.lesson-indent` (block indent) and `.lesson-hymn` (centered, single-spaced).
 - If a label is needed that doesn't exist on the site, use the simplest functional word ("Open", "Download", "Back") and flag it for the user to review.
 - When unsure, ask the user. Do not guess. (Full reference text lives in the Cursor global skill `karis-language/website-text.md`, which is not always available locally — when it isn't, do not touch existing copy and flag anything new.)
 

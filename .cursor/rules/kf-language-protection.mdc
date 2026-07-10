@@ -8,6 +8,7 @@ alwaysApply: true
 - ALL user-facing text (headings, descriptions, taglines, body copy, testimonials, bios, FAQ answers) must come **verbatim** from karisfellowships.com or the original KF documents.
 - NEVER invent, paraphrase, or reword any text. Use exact wording from the source.
 - NEVER alter language in KF documents: lessons, NHG materials, toolbox docs, meditations, worksheets, facilitator guides, or question documents.
+- Lesson fidelity: never change or remove any wording in a lesson, and reproduce the source's formatting exactly (indentation, spacing, question/step numbering, centered single-spaced hymns). Only ADD formatting to match the source — never edit or drop content.
 - If a label is needed that doesn't exist on the site, use the simplest functional word (e.g., "Open," "Download," "Back") and flag it for user review.
 - When unsure, ask the user. Do not guess.
 - Consult `~/.cursor/skills/karis-language/website-text.md` for the full reference text library.
