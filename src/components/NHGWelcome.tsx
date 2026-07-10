@@ -102,7 +102,7 @@ export default function NHGWelcome({ syllabusUrl, nextStudyDate }: Props) {
               <div className="rounded-xl bg-white/[0.04] p-5">
                 <div className="flex items-center gap-3 rounded-xl bg-gradient-to-br from-violet to-[#c084fc] px-4 py-3 shadow-md shadow-violet/30">
                   <span className="font-serif text-2xl font-bold leading-none text-white">3</span>
-                  <h3 className="font-serif text-xl font-bold leading-tight text-white sm:text-2xl">Prepare to Call in to a Meeting</h3>
+                  <h3 className="font-serif text-xl font-bold leading-tight text-white sm:text-2xl">Prepare to Call<br />in to a Meeting</h3>
                 </div>
                 <p className="mt-1 text-sm leading-[1.8] text-white/70">
                   You will call a long-distance US number for meetings. The phone number and access codes are in the call info card on this page.
@@ -111,7 +111,6 @@ export default function NHGWelcome({ syllabusUrl, nextStudyDate }: Props) {
                   <div className="space-y-2 text-sm leading-[1.8] text-white/70">
                     <p>If you&apos;re not sure how to call affordably from your location, consider these options:</p>
                     <ul className="list-disc space-y-1 pl-5">
-                      <li><a href="https://www.skype.com" target="_blank" rel="noopener noreferrer" className="text-violet-light underline underline-offset-2 decoration-violet-light/30 hover:text-white transition-colors">Skype</a> &mdash; 2.3 cents/min or $2.99/month</li>
                       <li><a href="https://voice.google.com" target="_blank" rel="noopener noreferrer" className="text-violet-light underline underline-offset-2 decoration-violet-light/30 hover:text-white transition-colors">Google Voice</a> &mdash; free calls to our number</li>
                       <li>WePhone &mdash; 1 cent/minute</li>
                       <li>ViberOut &mdash; 1.9 cents/minute</li>
