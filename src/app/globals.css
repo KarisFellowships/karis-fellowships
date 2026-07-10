@@ -235,6 +235,21 @@ html {
   padding-top: 1rem;
 }
 
+/* ── Lesson formatting that mirrors the source document ── */
+
+/* Indented narrative blocks (e.g. Nancy's first-person accounts) */
+.lesson-content .lesson-indent { margin-left: 3rem; }
+.lesson-content--light .lesson-indent { margin-left: 4rem; }
+
+/* Hymns: centered and single-spaced, exactly as printed */
+.lesson-content .lesson-hymn { margin: 1.25rem 0; }
+.lesson-content .lesson-hymn p,
+.lesson-content--light .lesson-hymn p {
+  margin: 0;
+  text-align: center;
+  line-height: 1.45;
+}
+
 /* Major section headings (timestamp lines like 0:01 OPENING) */
 .lesson-content--light .lesson-section-heading {
   margin-left: 0;
