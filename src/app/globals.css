@@ -103,7 +103,7 @@ html {
 .lesson-content {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.9375rem;
-  line-height: 1.9;
+  line-height: 1.5;
 }
 
 .lesson-content h1 {
@@ -249,6 +249,10 @@ html {
   text-align: center;
   line-height: 1.45;
 }
+
+/* Bulleted lists sit indented beneath the body text, single-spaced */
+.lesson-content--light ul { margin-left: 2rem; }
+.lesson-content--light ul li { margin-bottom: 0.25rem; }
 
 /* Major section headings (timestamp lines like 0:01 OPENING) */
 .lesson-content--light .lesson-section-heading {
