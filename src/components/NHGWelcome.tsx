@@ -53,10 +53,12 @@ export default function NHGWelcome({ syllabusUrl, nextStudyDate }: Props) {
             <div className="grid gap-4 sm:grid-cols-3">
               {/* Step 1 */}
               <div className="rounded-xl bg-white/[0.04] p-5">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet to-[#c084fc] font-serif text-2xl font-bold text-white shadow-lg shadow-violet/40">1</span>
-                <h3 className="mt-4 font-serif text-base font-semibold text-white">
-                  <a href={AMAZON_URL} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-violet-light">Buy the Book</a>
-                </h3>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet to-[#c084fc] font-serif text-2xl font-bold text-white shadow-lg shadow-violet/40">1</span>
+                  <h3 className="font-serif text-xl font-bold text-white sm:text-2xl">
+                    <a href={AMAZON_URL} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-violet-light">Buy the Book</a>
+                  </h3>
+                </div>
                 <p className="mt-1 text-sm leading-[1.8] text-white/70">
                   You need the 1991 edition of{" "}
                   <a href={AMAZON_URL} target="_blank" rel="noopener noreferrer" className="italic text-violet-light underline decoration-violet-light/30 underline-offset-2 transition-colors hover:text-white">Neurosis and Human Growth</a>{" "}
@@ -78,8 +80,10 @@ export default function NHGWelcome({ syllabusUrl, nextStudyDate }: Props) {
 
               {/* Step 2 */}
               <div className="rounded-xl bg-white/[0.04] p-5">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet to-[#c084fc] font-serif text-2xl font-bold text-white shadow-lg shadow-violet/40">2</span>
-                <h3 className="mt-4 font-serif text-base font-semibold text-white">Download Syllabus &amp; Start Reading</h3>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet to-[#c084fc] font-serif text-2xl font-bold text-white shadow-lg shadow-violet/40">2</span>
+                  <h3 className="font-serif text-xl font-bold text-white sm:text-2xl">Download Syllabus &amp; Start Reading</h3>
+                </div>
                 <p className="mt-1 text-sm leading-[1.8] text-white/70">
                   You can always find your reading guides in the NHG menu below.
                 </p>
@@ -96,8 +100,10 @@ export default function NHGWelcome({ syllabusUrl, nextStudyDate }: Props) {
 
               {/* Step 3 */}
               <div className="rounded-xl bg-white/[0.04] p-5">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet to-[#c084fc] font-serif text-2xl font-bold text-white shadow-lg shadow-violet/40">3</span>
-                <h3 className="mt-4 font-serif text-base font-semibold text-white">Prepare to Call in to a Meeting</h3>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet to-[#c084fc] font-serif text-2xl font-bold text-white shadow-lg shadow-violet/40">3</span>
+                  <h3 className="font-serif text-xl font-bold text-white sm:text-2xl">Prepare to Call in to a Meeting</h3>
+                </div>
                 <p className="mt-1 text-sm leading-[1.8] text-white/70">
                   You will call a long-distance US number for meetings. The phone number and access codes are in the call info card on this page.
                 </p>

@@ -5,6 +5,7 @@ import { createServerClient } from "@/lib/supabase-server";
 import { docUrl } from "@/lib/storage-url";
 import NHGWelcome from "@/components/NHGWelcome";
 import NHGFaq from "@/components/NHGFaq";
+import IntroMeetingBlock from "@/components/IntroMeetingBlock";
 
 const readingGuides: Record<number, { label: string; chapters: string; guide: string; intro: string }> = {
   1: { label: "Intro & Ch. 1", chapters: "The Search for Glory", guide: "/docs/nhg/reading-guides/1NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/Chapter 1 KF Introduction.pdf" },
@@ -131,14 +132,14 @@ export default async function NHGPage() {
           {/* Start Here — full-width accordion */}
           <NHGWelcome syllabusUrl={syllabusUrl} nextStudyDate={null} />
 
-          {/* Call In Info */}
-          <div className="rounded-xl bg-[#2b2150] px-5 py-3">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-center gap-2">
-                <svg className="h-4 w-4 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                <span className="text-xs font-bold uppercase tracking-wider text-white/40">Call In Info</span>
-              </div>
-              <div className="flex flex-wrap items-center gap-6">
+          {/* Call In Info (numbers spread across the width) + compact Syllabus */}
+          <div className="flex flex-col gap-2 lg:flex-row">
+            <div className="flex-1 rounded-xl bg-[#2b2150] px-5 py-4">
+              <div className="flex h-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center gap-2">
+                  <svg className="h-4 w-4 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                  <span className="text-xs font-bold uppercase tracking-wider text-white/40">Call In Info</span>
+                </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-wide text-white/40">Phone</p>
                   <p className="font-bold text-violet-light">(701) 801-1220</p>
@@ -153,40 +154,16 @@ export default async function NHGPage() {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Row 2: Introduction Meeting info (left) + Syllabus (right) */}
-          <div className="grid gap-2 sm:grid-cols-2">
-            <div className="rounded-xl bg-[#2b2150] p-5">
-              <h3 className="text-base font-bold text-white">Introduction Meeting</h3>
-              <ul className="mt-3 space-y-1.5 text-sm text-white/70">
-                <li className="flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-violet-light/50" />
-                  <a href={syllabusUrl} target="_blank" rel="noopener noreferrer" className="text-violet-light hover:text-white transition-colors underline decoration-violet-light/30 underline-offset-2">Syllabus</a>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-violet-light/50" />
-                  KF Eligibility
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-violet-light/50" />
-                  A Few Pointers
-                </li>
-              </ul>
-            </div>
             <a
               href={syllabusUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-xl bg-[#2b2150] p-5 transition-all hover:bg-[#332661] hover:-translate-y-0.5"
+              className="group flex items-center gap-3 rounded-xl bg-[#2b2150] px-5 py-4 transition-all hover:bg-[#332661]"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
                 <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
               </span>
-              <div>
-                <h3 className="text-base font-bold text-white group-hover:text-violet-light transition-colors">NHG Book Study Syllabus</h3>
-                <p className="mt-0.5 text-xs text-white/50">Download study overview and plan</p>
-              </div>
+              <span className="text-sm font-bold text-white transition-colors group-hover:text-violet-light">NHG Book Study Syllabus</span>
             </a>
           </div>
 
@@ -196,37 +173,43 @@ export default async function NHGPage() {
 
             <div className="grid gap-2 lg:grid-cols-3 lg:items-start">
               {featuredWeek && (
-                <Link
-                  href={featuredGuide ? docUrl(featuredGuide.guide) : syllabusUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative block aspect-square overflow-hidden rounded-2xl"
-                >
-                  <Image
-                    src="/forest-path.jpg"
-                    alt="A person walking along a sunlit forest path"
-                    fill
-                    priority
-                    className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#241c46] via-[#2b2150]/40 to-black/25" />
-                  <div className="absolute inset-x-0 top-0 p-6">
-                    <span className="inline-flex w-fit items-center rounded-full bg-violet px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-violet/30">
-                      {featuredIsCurrent ? "This Week" : formatDate(featuredWeek.startDate)}
-                    </span>
-                    <h2 className="mt-3 font-serif text-2xl font-bold text-white drop-shadow-lg sm:text-3xl">
-                      {featuredGuide?.label ?? featuredWeek.label}
-                    </h2>
-                    {featuredGuide && (
+                featuredGuide ? (
+                  <Link
+                    href={docUrl(featuredGuide.guide)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative block aspect-square overflow-hidden rounded-2xl"
+                  >
+                    <Image
+                      src="/mountain-dawn.jpg"
+                      alt="Sunrise over a mountain range above the clouds"
+                      fill
+                      priority
+                      className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#241c46] via-[#2b2150]/40 to-black/25" />
+                    <div className="absolute inset-x-0 top-0 p-6">
+                      <span className="inline-flex w-fit items-center rounded-full bg-violet px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-violet/30">
+                        {featuredIsCurrent ? "This Week" : formatDate(featuredWeek.startDate)}
+                      </span>
+                      <h2 className="mt-3 font-serif text-2xl font-bold text-white drop-shadow-lg sm:text-3xl">
+                        {featuredGuide.label}
+                      </h2>
                       <p className="mt-1 text-xs italic text-white/85 drop-shadow sm:text-sm">{featuredGuide.chapters}</p>
-                    )}
-                  </div>
-                  <div className="absolute inset-x-0 bottom-0 p-6">
-                    <span className="inline-flex items-center gap-2 rounded-lg bg-white/15 px-4 py-2.5 text-base font-semibold text-white backdrop-blur-sm transition-all group-hover:bg-white/25 sm:text-lg">
-                      {featuredGuide ? "Open Reading Guide" : "Open Syllabus"} &rarr;
-                    </span>
-                  </div>
-                </Link>
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 p-6">
+                      <span className="inline-flex items-center gap-2 rounded-lg bg-white/15 px-4 py-2.5 text-base font-semibold text-white backdrop-blur-sm transition-all group-hover:bg-white/25 sm:text-lg">
+                        Open Reading Guide &rarr;
+                      </span>
+                    </div>
+                  </Link>
+                ) : (
+                  <IntroMeetingBlock
+                    title={featuredWeek.label}
+                    date={formatDate(featuredWeek.startDate)}
+                    syllabusUrl={syllabusUrl}
+                  />
+                )
               )}
 
               <div className="grid gap-2 sm:grid-cols-2 lg:col-span-2">
