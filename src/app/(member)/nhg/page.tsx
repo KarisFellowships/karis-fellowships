@@ -203,16 +203,16 @@ export default async function NHGPage() {
                   className="group relative block aspect-square overflow-hidden rounded-2xl"
                 >
                   <Image
-                    src="/mountain-dawn.jpg"
-                    alt="Sunrise over a mountain range above the clouds"
+                    src="/forest-path.jpg"
+                    alt="A person walking along a sunlit forest path"
                     fill
                     priority
                     className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#241c46] via-[#2b2150]/35 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#241c46] via-[#2b2150]/40 to-black/25" />
                   <div className="absolute inset-x-0 top-0 p-6">
                     <span className="inline-flex w-fit items-center rounded-full bg-violet px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-violet/30">
-                      {featuredIsCurrent ? "This Week" : featuredWeek.dateRange}
+                      {featuredIsCurrent ? "This Week" : formatDate(featuredWeek.startDate)}
                     </span>
                     <h2 className="mt-3 font-serif text-2xl font-bold text-white drop-shadow-lg sm:text-3xl">
                       {featuredGuide?.label ?? featuredWeek.label}
@@ -222,7 +222,7 @@ export default async function NHGPage() {
                     )}
                   </div>
                   <div className="absolute inset-x-0 bottom-0 p-6">
-                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-colors group-hover:text-violet-light">
+                    <span className="inline-flex items-center gap-2 rounded-lg bg-white/15 px-4 py-2.5 text-base font-semibold text-white backdrop-blur-sm transition-all group-hover:bg-white/25 sm:text-lg">
                       {featuredGuide ? "Open Reading Guide" : "Open Syllabus"} &rarr;
                     </span>
                   </div>
