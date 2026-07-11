@@ -1,11 +1,18 @@
 "use client";
 
+import { useEffect } from "react";
+
 export default function Error({
+  error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  useEffect(() => {
+    console.error("Application error:", error);
+  }, [error]);
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-slate-dark px-6 text-center">
       <p className="text-6xl font-bold text-coral">Oops</p>
@@ -21,6 +28,9 @@ export default function Error({
       >
         Try Again
       </button>
+      {error.digest && (
+        <p className="mt-6 text-xs text-white/30">Reference code: {error.digest}</p>
+      )}
     </div>
   );
 }

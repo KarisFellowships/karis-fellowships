@@ -1,10 +1,12 @@
-import { createServerClient } from "@/lib/supabase-server";
+import { createAdminClient } from "@/lib/supabase-admin";
+import { requireAdmin } from "@/lib/require-tier";
 import AdminPanel from "./AdminPanel";
 
 export default async function AdminPage() {
-  const supabase = await createServerClient();
+  await requireAdmin();
+  const admin = createAdminClient();
 
-  const { data: members } = await supabase
+  const { data: members } = await admin
     .from("users")
     .select("id, email, name, tier, active, nhg_paid, kf_invited, kf_registered_year, created_at")
     .order("created_at", { ascending: false });

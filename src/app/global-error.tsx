@@ -1,11 +1,18 @@
 "use client";
 
+import { useEffect } from "react";
+
 export default function GlobalError({
+  error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  useEffect(() => {
+    console.error("Critical application error:", error);
+  }, [error]);
+
   return (
     <html lang="en">
       <body style={{ margin: 0, background: "#1e293b", fontFamily: "system-ui, sans-serif" }}>
@@ -45,6 +52,11 @@ export default function GlobalError({
           >
             Try Again
           </button>
+          {error.digest && (
+            <p style={{ marginTop: "1.5rem", fontSize: "0.75rem", color: "rgba(255,255,255,0.3)" }}>
+              Reference code: {error.digest}
+            </p>
+          )}
         </div>
       </body>
     </html>

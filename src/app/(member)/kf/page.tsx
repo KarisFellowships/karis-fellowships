@@ -2,8 +2,10 @@ import ContentCard from "@/components/ContentCard";
 import Image from "next/image";
 import Link from "next/link";
 import { getCurrentLesson } from "@/lib/date-engine";
+import { requireKF } from "@/lib/require-tier";
 
 export default async function KFPage() {
+  await requireKF();
   const currentLesson = await getCurrentLesson();
   return (
     <div className="min-h-screen bg-[#4a5568] pt-20">

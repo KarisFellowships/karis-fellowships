@@ -27,7 +27,9 @@ export async function getCurrentLesson(): Promise<CurrentLesson> {
       .select("lesson_number, start_date, end_date")
       .lte("start_date", today)
       .gte("end_date", today)
-      .single();
+      .order("start_date", { ascending: false })
+      .limit(1)
+      .maybeSingle();
 
     if (error || !data) {
       return getFallbackLesson(today);
@@ -115,12 +117,14 @@ export async function getAllLessons(): Promise<CurrentLesson[]> {
 }
 
 function getFallbackLesson(today: string): CurrentLesson {
-  // Anchor: KF1 week starts 2025-09-07 (Sunday)
+  // Graceful-degradation only (used if the DB is unreachable). Anchor reconciled
+  // with the live kf_schedule: the week of 2025-09-07 is KF25, not KF1.
   const anchor = new Date("2025-09-07T12:00:00Z");
+  const anchorLesson = 25;
   const current = new Date(today + "T12:00:00Z");
   const msPerWeek = 7 * 24 * 60 * 60 * 1000;
   const weeksSinceAnchor = Math.floor((current.getTime() - anchor.getTime()) / msPerWeek);
-  const lessonNumber = ((weeksSinceAnchor % 52) + 52) % 52 + 1;
+  const lessonNumber = (((anchorLesson - 1 + weeksSinceAnchor) % 52) + 52) % 52 + 1;
   const weekStart = new Date(anchor.getTime() + Math.floor(weeksSinceAnchor) * msPerWeek);
   const weekEnd = new Date(weekStart.getTime() + 6 * 24 * 60 * 60 * 1000);
   const startStr = weekStart.toISOString().split("T")[0];

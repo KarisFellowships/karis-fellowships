@@ -2,10 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { getCurrentLesson, getAllLessons } from "@/lib/date-engine";
 import { getMeetingCodes, phoneNumber, kfMeetings } from "@/lib/meeting-codes";
+import { requireKF } from "@/lib/require-tier";
 import SearchBar from "@/components/SearchBar";
 import { docUrl } from "@/lib/storage-url";
 
 export default async function DashboardPage() {
+  await requireKF();
   const currentLesson = await getCurrentLesson();
   const allLessons = await getAllLessons();
   const codes = await getMeetingCodes();
