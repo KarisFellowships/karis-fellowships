@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { checkRateLimit, clientIp } from "@/lib/rate-limit";
 
 const ADMIN_EMAIL = "admin@karisfellowships.com";
 
@@ -29,6 +30,14 @@ export async function POST(request: Request) {
 
   if (website) {
     return NextResponse.json({ success: true });
+  }
+
+  const ip = clientIp(request.headers);
+  if (!(await checkRateLimit(`contact:${ip}`, 5, 600))) {
+    return NextResponse.json(
+      { error: "Too many messages. Please try again in a few minutes." },
+      { status: 429 }
+    );
   }
 
   if (!name?.trim() || !email?.trim() || !message?.trim()) {

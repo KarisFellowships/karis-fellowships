@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase-admin";
+import { sendAdminAlert } from "@/lib/alerts";
 import type Stripe from "stripe";
 
 export async function POST(request: NextRequest) {
@@ -55,8 +56,19 @@ export async function POST(request: NextRequest) {
       // event be marked processed below so Stripe stops retrying it.
       if (!type) {
         console.error("Missing type metadata on session:", session.id);
+        await sendAdminAlert("Payment received but could not be provisioned (missing type)", [
+          `Stripe session: ${session.id}`,
+          `Amount: ${amount}`,
+          "Stripe will NOT retry this — investigate and provision manually.",
+        ]);
       } else if (!userId) {
         console.error("Missing userId metadata on session:", session.id);
+        await sendAdminAlert("Payment received but could not be provisioned (missing userId)", [
+          `Stripe session: ${session.id}`,
+          `Type: ${type}`,
+          `Amount: ${amount}`,
+          "Stripe will NOT retry this — investigate and provision manually.",
+        ]);
       } else {
         // Idempotent: the partial unique index on stripe_session_id means a replayed
         // session cannot create a second donation row.
@@ -104,6 +116,11 @@ export async function POST(request: NextRequest) {
     // to retry; the side effects above are idempotent, so a retry is safe and the
     // customer's payment will not be silently lost (orphaned-payment fix).
     console.error("Webhook processing error (Stripe will retry):", err);
+    await sendAdminAlert("Webhook processing failed (Stripe will retry)", [
+      `Event: ${event.id} (${event.type})`,
+      `Error: ${err instanceof Error ? err.message : String(err)}`,
+      "Stripe retries with backoff; if this repeats, a payment may be stuck unprovisioned.",
+    ]);
     return NextResponse.json({ error: "Processing failed" }, { status: 500 });
   }
 }

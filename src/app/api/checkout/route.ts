@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createServerClient } from "@/lib/supabase-server";
 import { createAdminClient } from "@/lib/supabase-admin";
+import { checkRateLimit, clientIp } from "@/lib/rate-limit";
 import type Stripe from "stripe";
 
 const DONATION_TYPES = [
@@ -73,6 +74,14 @@ function validateRegistration(r: RegistrationData): string | null {
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = clientIp(request.headers);
+    if (!(await checkRateLimit(`checkout:${ip}`, 8, 600))) {
+      return NextResponse.json(
+        { error: "Too many attempts. Please wait a few minutes and try again." },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const { type, amount, userId, userEmail, registrationData } = body as {
       type: string;
