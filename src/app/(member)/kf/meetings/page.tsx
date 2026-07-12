@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCurrentLesson, getAllLessons } from "@/lib/date-engine";
+import { requireKF } from "@/lib/require-tier";
 
 export default async function KFMeetingsPage() {
+  await requireKF();
   const currentLesson = await getCurrentLesson();
   const allLessons = await getAllLessons();
   const lessonMap = new Map(allLessons.map((l) => [l.lessonNumber, l]));

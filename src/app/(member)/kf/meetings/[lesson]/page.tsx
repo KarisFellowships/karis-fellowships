@@ -6,6 +6,7 @@ import lessonsData from "@/data/lessons.json";
 import { getAllLessons } from "@/lib/date-engine";
 import CallInfoToggle from "@/components/CallInfoToggle";
 import { getMeetingCodes, phoneNumber, kfMeetings } from "@/lib/meeting-codes";
+import { requireKF } from "@/lib/require-tier";
 import LessonContent from "@/components/LessonContent";
 import { docUrl } from "@/lib/storage-url";
 
@@ -19,6 +20,7 @@ const downloadIcon = (
 
 export default async function LessonPage({ params }: Props) {
   const { lesson } = await params;
+  await requireKF();
   const lessonNumber = lesson.replace("kf", "");
   const num = parseInt(lessonNumber);
   const prevLesson = num > 0 ? num - 1 : null;

@@ -1,7 +1,9 @@
 import PageHeader from "@/components/PageHeader";
 import Link from "next/link";
+import { requireKF } from "@/lib/require-tier";
 
-export default function KFStartHerePage() {
+export default async function KFStartHerePage() {
+  await requireKF();
   return (
     <div className="min-h-screen bg-[#4a5568]">
       <PageHeader title="KF — Start Here" subtitle="Welcome to Karis Fellowships. Here's how the weekly meetings work." accent="teal" image="/ocean-horizon.jpg" imageAlt="Vast ocean horizon" />

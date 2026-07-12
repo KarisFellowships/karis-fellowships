@@ -1,8 +1,10 @@
 import PageHeader from "@/components/PageHeader";
 import Link from "next/link";
 import { getMeetingCodes, phoneNumber, kfMeetings } from "@/lib/meeting-codes";
+import { requireKF } from "@/lib/require-tier";
 
 export default async function KFCallInfoPage() {
+  await requireKF();
   const codes = await getMeetingCodes();
   const callPhone = phoneNumber(codes);
   const meetings = kfMeetings(codes);

@@ -1,6 +1,8 @@
 import PageHeader from "@/components/PageHeader";
+import { requireKF } from "@/lib/require-tier";
 
-export default function KFRecordingsPage() {
+export default async function KFRecordingsPage() {
+  await requireKF();
   return (
     <div className="min-h-screen bg-[#4a5568]">
       <PageHeader title="KF Recordings" subtitle="Listen to recordings from past KF weekly meetings." accent="sky" image="/ocean-horizon.jpg" imageAlt="Calm ocean horizon" />

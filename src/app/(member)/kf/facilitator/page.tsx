@@ -2,8 +2,10 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { getCurrentLesson } from "@/lib/date-engine";
 import { docUrl } from "@/lib/storage-url";
+import { requireKF } from "@/lib/require-tier";
 
 export default async function KFFacilitatorPage() {
+  await requireKF();
   const { lessonNumber: currentLesson } = await getCurrentLesson();
   return (
     <div className="min-h-screen bg-[#4a5568]">
