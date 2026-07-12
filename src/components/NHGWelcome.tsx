@@ -61,9 +61,9 @@ export default function NHGWelcome({ syllabusUrl, nextStudyDate }: Props) {
             <div className="grid gap-3 sm:grid-cols-3 sm:items-stretch">
               {/* Step 1 */}
               <div className={cardWrap}>
-                <div className="relative aspect-[16/10]">
-                  <Image src="/nhg-book.jpg" alt="An open book in warm light" fill className="object-cover object-center" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#241c46] via-[#241c46]/40 to-black/10" />
+                <div className="relative aspect-[16/10] bg-[#1a1436]">
+                  <Image src="/nhg-book.jpg" alt="Cover of Neurosis and Human Growth by Karen Horney" fill className="object-contain object-center" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#241c46] via-transparent to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 flex items-baseline gap-2.5 p-4">
                     <span className={num}>1</span>
                     <h3 className={heading}>
