@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import MembersTab from "./MembersTab";
+import RegistrationsTab from "./RegistrationsTab";
 import DocumentsTab from "./DocumentsTab";
 import MeetingCodesTab from "./MeetingCodesTab";
 import ScheduleTab from "./ScheduleTab";
@@ -20,6 +21,7 @@ interface Member {
 
 const tabs = [
   { id: "members", label: "Members" },
+  { id: "registrations", label: "Registrations" },
   { id: "documents", label: "Documents" },
   { id: "codes", label: "Meetings & Codes" },
   { id: "schedule", label: "Schedule" },
@@ -50,6 +52,7 @@ export default function AdminPanel({ initialMembers }: { initialMembers: Member[
 
       <div className="mt-4">
         {activeTab === "members" && <MembersTab initialMembers={initialMembers} />}
+        {activeTab === "registrations" && <RegistrationsTab />}
         {activeTab === "documents" && <DocumentsTab />}
         {activeTab === "codes" && <MeetingCodesTab />}
         {activeTab === "schedule" && <ScheduleTab />}

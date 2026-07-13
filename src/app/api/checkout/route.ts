@@ -154,6 +154,26 @@ export async function POST(request: NextRequest) {
       // (tier=nhg, active=true, nhg_paid=false). The webhook flips nhg_paid on payment.
       checkoutUserId = created.user.id;
       checkoutEmail = reg.email.trim();
+
+      // Persist the registration answers to a queryable, admin-visible table.
+      // Best-effort: a failure here must not block the payment the user is about to make.
+      const { error: regError } = await admin.from("registrations").insert({
+        user_id: created.user.id,
+        email: reg.email.trim(),
+        name: reg.name,
+        country: reg.country,
+        state: reg.state,
+        city: reg.city,
+        phone: reg.phone,
+        meeting_choice: reg.meeting_choice,
+        karis_link: reg.karis_link,
+        hope_to_gain: reg.hope_to_gain,
+        registered_before: reg.registered_before,
+        questions_comments: reg.questions_comments,
+      });
+      if (regError) {
+        console.error("Failed to save registration record (non-fatal):", regError.message);
+      }
     } else {
       // Existing-user flows (payment-required, gifts, study donations): require auth.
       if (!checkoutUserId) {
