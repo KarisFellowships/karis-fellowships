@@ -220,7 +220,11 @@ export default async function NHGPage() {
               </div>
 
               <div className="lg:col-span-2">
-                <h2 className="mb-3 text-xl font-semibold text-white">Weekly Schedule</h2>
+                <h2 className="mb-3 text-xl font-semibold text-white">Weekly Schedule &amp; Reading Guides</h2>
+                <div className="mb-4 space-y-3 text-sm leading-relaxed text-white/60">
+                  <p>The NHG book study we are offering weekly meetings that run for eight (8) weeks as well as a weekend intensive of meetings. All weekly meetings will be held on Saturday at 9 am CST. The Weekend Intensive schedule is located near the end of this page.</p>
+                  <p>A book study facilitator will read the relevant KF Intros at each meeting, but you may also read them for yourself here.</p>
+                </div>
                 <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-[#3f3573] to-[#352b64] px-5 sm:px-7">
                 <div className="grid sm:grid-cols-2 sm:gap-x-10">
                   {otherWeeks.map((week) => {
