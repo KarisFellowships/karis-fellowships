@@ -50,11 +50,11 @@ export default function IntroMeetingBlock({
     <div className="overflow-hidden rounded-2xl bg-[#2b2150]">
       <div className="relative aspect-[16/9]">
         <Image
-          src="/forest-path.jpg"
-          alt="A person walking along a sunlit forest path"
+          src="/mountain-dawn.jpg"
+          alt="Sunrise over a mountain range above the clouds"
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-top"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#2b2150] via-[#2b2150]/40 to-black/20" />
         <div className="absolute inset-x-0 bottom-0 p-5">
