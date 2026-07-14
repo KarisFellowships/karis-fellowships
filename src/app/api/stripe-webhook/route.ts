@@ -108,6 +108,14 @@ export async function POST(request: NextRequest) {
       .insert({ id: event.id, type: event.type });
     if (markError && (markError as { code?: string }).code !== "23505") {
       console.error("Failed to record processed stripe_event:", markError);
+      // The payment was already recorded (and duplicate protection is also enforced
+      // by the donations unique index), so this is a visibility gap, not a lost
+      // payment — but alert so a silent recurrence gets noticed.
+      await sendAdminAlert("Payment processed, but the event-log write failed", [
+        `Event: ${event.id} (${event.type})`,
+        `Error: ${markError.message}`,
+        "Payment WAS recorded; duplicate protection still holds via the donations unique index.",
+      ]);
     }
 
     return NextResponse.json({ received: true });
