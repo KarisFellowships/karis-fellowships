@@ -218,38 +218,44 @@ export default async function NHGPage() {
                 )
               )}
 
-              <div className="grid items-start gap-2 sm:grid-cols-2 lg:col-span-2">
-                {otherWeeks.map((week) => {
-                  const guide = readingGuides[week.weekNumber];
-                  return (
-                    <div key={week.weekNumber} className="rounded-xl bg-[#2b2150] p-3.5">
-                      <div className="flex items-baseline justify-between gap-2">
-                        <h3 className="font-serif text-base font-bold leading-tight text-white">{guide?.label ?? week.label}</h3>
-                        <span className="shrink-0 text-[11px] font-medium text-white/40">{formatDate(week.startDate)}</span>
-                      </div>
-                      {guide && (
-                        <p className="mt-0.5 text-xs italic leading-snug text-white/45">{guide.chapters}</p>
-                      )}
-                      {guide && (
-                        <div className="mt-2.5 flex flex-wrap gap-1.5">
-                          <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-md bg-violet-light/15 px-2.5 py-1 text-[11px] font-semibold text-violet-light transition-colors hover:bg-violet-light/25">
-                            <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                            Guide
-                          </a>
-                          <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-md bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/85 transition-colors hover:bg-white/20">
-                            <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            Introduction
-                          </a>
-                          {week.weekNumber === 8 && (
-                            <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-md bg-teal/15 px-2.5 py-1 text-[11px] font-semibold text-teal-light transition-colors hover:bg-teal/25">
-                              Review
-                            </a>
+              <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-b from-[#2b2150] to-[#241c46] px-5 sm:px-7 lg:col-span-2">
+                <div className="grid sm:grid-cols-2 sm:gap-x-10">
+                  {otherWeeks.map((week) => {
+                    const guide = readingGuides[week.weekNumber];
+                    const num = String(week.weekNumber).padStart(2, "0");
+                    return (
+                      <div
+                        key={week.weekNumber}
+                        className="flex gap-4 border-t border-white/[0.07] py-5 first:border-t-0 sm:[&:nth-child(2)]:border-t-0"
+                      >
+                        <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/40">{num}</span>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-[10px] font-medium uppercase tracking-[0.15em] text-violet-light/60">
+                            {guide?.label ?? week.label} &middot; {formatDate(week.startDate)}
+                          </p>
+                          <h3 className="mt-1 font-serif text-lg font-bold leading-snug text-white sm:text-xl">
+                            {guide?.chapters ?? guide?.label ?? week.label}
+                          </h3>
+                          {guide && (
+                            <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-semibold">
+                              <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="text-teal-light transition-colors hover:text-teal">
+                                Reading Guide &rarr;
+                              </a>
+                              <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="text-white/55 transition-colors hover:text-white/85">
+                                Introduction
+                              </a>
+                              {week.weekNumber === 8 && (
+                                <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="text-amber transition-colors hover:text-amber/80">
+                                  Review
+                                </a>
+                              )}
+                            </div>
                           )}
                         </div>
-                      )}
-                    </div>
-                  );
-                })}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
