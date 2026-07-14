@@ -175,7 +175,7 @@ export default async function NHGPage() {
 
           {/* Study Schedule — "Coming Up" */}
           <div className="pt-4">
-            <h2 className="text-xl font-bold text-white mb-3">Coming Up</h2>
+            <h2 className="text-xl font-bold text-white mb-3">Weekly Schedule</h2>
 
             <div className="grid gap-2 lg:grid-cols-3 lg:items-start">
               {featuredWeek && (
@@ -230,12 +230,13 @@ export default async function NHGPage() {
                       >
                         <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/40">{num}</span>
                         <div className="min-w-0 flex-1">
-                          <p className="text-[10px] font-medium uppercase tracking-[0.15em] text-violet-light/60">
-                            {guide?.label ?? week.label} &middot; {formatDate(week.startDate)}
-                          </p>
-                          <h3 className="mt-1 font-serif text-lg font-bold leading-snug text-white sm:text-xl">
-                            {guide?.chapters ?? guide?.label ?? week.label}
+                          {guide && (
+                            <p className="text-xs italic leading-snug text-violet-light/70">{guide.chapters}</p>
+                          )}
+                          <h3 className="mt-0.5 font-serif text-lg font-bold leading-snug text-white sm:text-xl">
+                            {guide?.label ?? week.label}
                           </h3>
+                          <p className="mt-0.5 text-sm font-medium text-white/50">{formatDate(week.startDate)}</p>
                           {guide && (
                             <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-semibold">
                               <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="text-teal-light transition-colors hover:text-teal">
