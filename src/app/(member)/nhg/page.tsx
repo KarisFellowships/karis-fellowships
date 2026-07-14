@@ -9,14 +9,14 @@ import IntroMeetingBlock from "@/components/IntroMeetingBlock";
 import { getMeetingCodes, phoneNumber, sectionCodes } from "@/lib/meeting-codes";
 
 const readingGuides: Record<number, { label: string; chapters: string; guide: string; intro: string }> = {
-  1: { label: "Intro & Ch. 1", chapters: "The Search for Glory", guide: "/docs/nhg/reading-guides/1NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/Chapter 1 KF Introduction.pdf" },
-  2: { label: "Ch. 2 & 3", chapters: "Neurotic Claims & The Tyranny of the Should", guide: "/docs/nhg/reading-guides/2NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/3NHG-Intro-Students-2023z.pdf" },
-  3: { label: "Ch. 4", chapters: "Neurotic Pride", guide: "/docs/nhg/reading-guides/4NHG-pdf-Reading-Guide-2023z.pdf", intro: "/docs/nhg/introductions/4NHG-Intro-students-FINI-2023z.pdf" },
-  4: { label: "Ch. 5", chapters: "Self-Hate and Self-Contempt", guide: "/docs/nhg/reading-guides/5NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/5NHG-Intro-student-2023z.pdf" },
-  5: { label: "Ch. 6", chapters: "Alienation from Self", guide: "/docs/nhg/reading-guides/6NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/6NHG-Intro-students-2023z.pdf" },
-  6: { label: "Ch. 7 & 8", chapters: "General Measures to Relieve Tension & The Expansive Solutions", guide: "/docs/nhg/reading-guides/7NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/7NHG-Intro-students-2023z.pdf" },
-  7: { label: "Ch. 9 & 10", chapters: "The Self-Effacing Solution & Morbid Dependency", guide: "/docs/nhg/reading-guides/9NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/9-10NHG-Intro-students-2023z.pdf" },
-  8: { label: "Ch. 11", chapters: "Resignation", guide: "/docs/nhg/reading-guides/11NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/11NHG-Students-Intro-2023z.pdf" },
+  1: { label: "Intro & Chapter 1", chapters: "The Search for Glory", guide: "/docs/nhg/reading-guides/1NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/Chapter 1 KF Introduction.pdf" },
+  2: { label: "Chapters 2 & 3", chapters: "Neurotic Claims & The Tyranny of the Should", guide: "/docs/nhg/reading-guides/2NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/3NHG-Intro-Students-2023z.pdf" },
+  3: { label: "Chapter 4", chapters: "Neurotic Pride", guide: "/docs/nhg/reading-guides/4NHG-pdf-Reading-Guide-2023z.pdf", intro: "/docs/nhg/introductions/4NHG-Intro-students-FINI-2023z.pdf" },
+  4: { label: "Chapter 5", chapters: "Self-Hate and Self-Contempt", guide: "/docs/nhg/reading-guides/5NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/5NHG-Intro-student-2023z.pdf" },
+  5: { label: "Chapter 6", chapters: "Alienation from Self", guide: "/docs/nhg/reading-guides/6NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/6NHG-Intro-students-2023z.pdf" },
+  6: { label: "Chapters 7 & 8", chapters: "General Measures to Relieve Tension & The Expansive Solutions", guide: "/docs/nhg/reading-guides/7NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/7NHG-Intro-students-2023z.pdf" },
+  7: { label: "Chapters 9 & 10", chapters: "The Self-Effacing Solution & Morbid Dependency", guide: "/docs/nhg/reading-guides/9NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/9-10NHG-Intro-students-2023z.pdf" },
+  8: { label: "Chapter 11", chapters: "Resignation", guide: "/docs/nhg/reading-guides/11NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/11NHG-Students-Intro-2023z.pdf" },
 };
 
 const kfIntroDocuments = [
@@ -175,10 +175,10 @@ export default async function NHGPage() {
 
           {/* Study Schedule — "Coming Up" */}
           <div className="pt-4">
-            <h2 className="text-xl font-bold text-white mb-3">Weekly Schedule</h2>
-
-            <div className="grid gap-2 lg:grid-cols-3 lg:items-start">
-              {featuredWeek && (
+            <div className="grid gap-x-6 gap-y-6 lg:grid-cols-3 lg:items-start">
+              <div className="lg:col-span-1">
+                <h2 className="mb-3 text-xl font-semibold text-white">Coming Up</h2>
+                {featuredWeek && (
                 featuredGuide ? (
                   <Link
                     href={docUrl(featuredGuide.guide)}
@@ -216,9 +216,12 @@ export default async function NHGPage() {
                     syllabusUrl={syllabusUrl}
                   />
                 )
-              )}
+                )}
+              </div>
 
-              <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-b from-[#2b2150] to-[#241c46] px-5 sm:px-7 lg:col-span-2">
+              <div className="lg:col-span-2">
+                <h2 className="mb-3 text-xl font-semibold text-white">Weekly Schedule</h2>
+                <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-[#3f3573] to-[#352b64] px-5 sm:px-7">
                 <div className="grid sm:grid-cols-2 sm:gap-x-10">
                   {otherWeeks.map((week) => {
                     const guide = readingGuides[week.weekNumber];
@@ -226,14 +229,14 @@ export default async function NHGPage() {
                     return (
                       <div
                         key={week.weekNumber}
-                        className="flex gap-4 border-t border-white/[0.07] py-5 first:border-t-0 sm:[&:nth-child(2)]:border-t-0"
+                        className="flex gap-4 border-t border-white/10 py-5 first:border-t-0 sm:[&:nth-child(2)]:border-t-0"
                       >
-                        <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/40">{num}</span>
+                        <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/50">{num}</span>
                         <div className="min-w-0 flex-1">
                           {guide && (
                             <p className="text-xs italic leading-snug text-violet-light/70">{guide.chapters}</p>
                           )}
-                          <h3 className="mt-0.5 font-serif text-lg font-bold leading-snug text-white sm:text-xl">
+                          <h3 className="mt-0.5 font-serif text-lg font-semibold leading-snug text-white sm:text-xl">
                             {guide?.label ?? week.label}
                           </h3>
                           <p className="mt-0.5 text-sm font-medium text-white/50">{formatDate(week.startDate)}</p>
@@ -257,6 +260,7 @@ export default async function NHGPage() {
                     );
                   })}
                 </div>
+              </div>
               </div>
             </div>
           </div>
