@@ -129,23 +129,21 @@ export default function NHGWelcome({ syllabusUrl, nextStudyDate }: Props) {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#241c46] via-[#241c46]/40 to-black/10" />
                   <div className="absolute inset-x-0 bottom-0 flex items-baseline gap-2.5 p-4">
                     <span className={num}>3</span>
-                    <h3 className={heading}>Prepare to Call<br />in to a Meeting</h3>
+                    <h3 className={heading}>Prepare to Call<br />into a Meeting</h3>
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   <p className={body}>
-                    You will call a long-distance US number for meetings. The phone number and access codes are in the call info card on this page.
+                    We use a conference call service called StartMeeting. Follow these steps with a landline, cell phone, or any other provider.
                   </p>
                   <div className="mt-auto pt-4">
-                    <ExpandableSection collapsedLabel="Calling options">
-                      <div className="space-y-2 text-sm leading-[1.8] text-white/75">
-                        <p>If you&apos;re not sure how to call affordably from your location, consider these options:</p>
-                        <ul className="list-disc space-y-1 pl-5">
-                          <li><a href="https://voice.google.com" target="_blank" rel="noopener noreferrer" className={bodyLink}>Google Voice</a> &mdash; free calls to our number</li>
-                          <li>WePhone &mdash; 1 cent/minute</li>
-                          <li>ViberOut &mdash; 1.9 cents/minute</li>
-                        </ul>
-                      </div>
+                    <ExpandableSection collapsedLabel="Call in tips">
+                      <ol className="list-decimal space-y-1.5 pl-5 text-sm leading-[1.7] text-white/75">
+                        <li>Begin 3 to 5 minutes before the meeting start time.</li>
+                        <li>Dial the phone number shown in the Call In Info on this page. You will hear a voice recording that welcomes you to StartMeeting.</li>
+                        <li>Slowly enter the Meeting ID (the access code for your study, shown in the Call In Info), followed by the # sign.</li>
+                        <li>You can use *6 to mute/unmute yourself on any touch-tone phone during a call.</li>
+                      </ol>
                     </ExpandableSection>
                   </div>
                 </div>

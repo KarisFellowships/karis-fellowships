@@ -249,7 +249,7 @@ export default async function NHGPage() {
                                 Reading Guide &rarr;
                               </a>
                               <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="text-white/55 transition-colors hover:text-white/85">
-                                Introduction
+                                KF Introduction
                               </a>
                               {week.weekNumber === 8 && (
                                 <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="text-amber transition-colors hover:text-amber/80">
