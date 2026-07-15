@@ -21,7 +21,6 @@ const readingGuides: Record<number, { label: string; chapters: string; guide: st
 };
 
 const kfIntroDocuments = [
-  { label: "NHG Book Study Syllabus", href: "/docs/nhg/kf-intro/NHG-Book-Study-Syllabus-2025 (1).pdf" },
   { label: "KF Meeting Schedule", href: "/docs/nhg/kf-intro/KF-Meeting-Schedule-2024z.pdf" },
   { label: "Meeting Prep Guide", href: "/docs/nhg/kf-intro/MPG-pdf-2021z.pdf" },
   { label: "Love or Pride", href: "/docs/nhg/kf-intro/Love-or-Pride-FINI-2021.pdf" },
