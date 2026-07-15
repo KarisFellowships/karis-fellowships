@@ -103,7 +103,7 @@ html {
 .lesson-content {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.9375rem;
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 .lesson-content h1 {
@@ -203,7 +203,7 @@ html {
 }
 
 .lesson-content--light p {
-  margin-left: 2rem;
+  margin-left: 0;
 }
 
 .lesson-content--light strong {
@@ -239,7 +239,7 @@ html {
 
 /* Indented narrative blocks (e.g. Nancy's first-person accounts) */
 .lesson-content .lesson-indent { margin-left: 3rem; }
-.lesson-content--light .lesson-indent { margin-left: 4rem; }
+.lesson-content--light .lesson-indent { margin-left: 2rem; }
 
 /* Hymns: centered and single-spaced, exactly as printed */
 .lesson-content .lesson-hymn { margin: 1.25rem 0; }

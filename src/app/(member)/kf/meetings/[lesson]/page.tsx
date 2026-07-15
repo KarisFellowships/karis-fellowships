@@ -59,7 +59,7 @@ export default async function LessonPage({ params }: Props) {
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-[#4a5568]" />
         </div>
         <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto max-w-5xl">
             <p className="text-sm font-semibold text-white/90 drop-shadow-md">{dateRange}</p>
             <h1 className="mt-1 font-serif text-3xl font-semibold text-white drop-shadow-md sm:text-4xl" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
               {num === 0 ? "KF Introductory Meeting" : `KF${lessonNumber} Meeting`}
@@ -69,7 +69,7 @@ export default async function LessonPage({ params }: Props) {
       </section>
 
       <section className="px-6 pb-12 pt-4">
-        <div className="mx-auto max-w-4xl space-y-3">
+        <div className="mx-auto max-w-5xl space-y-3">
           {/* 4 resource boxes */}
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {/* Meeting Version */}
