@@ -6,6 +6,7 @@ import { docUrl } from "@/lib/storage-url";
 import NHGWelcome from "@/components/NHGWelcome";
 import NHGFaq from "@/components/NHGFaq";
 import IntroMeetingBlock from "@/components/IntroMeetingBlock";
+import WeekendIntensiveSchedule from "@/components/WeekendIntensiveSchedule";
 import { getMeetingCodes, phoneNumber, sectionCodes } from "@/lib/meeting-codes";
 
 const readingGuides: Record<number, { label: string; chapters: string; guide: string; intro: string }> = {
@@ -55,6 +56,35 @@ function formatDate(iso: string): string {
   return `${months[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
 }
 
+function addDays(iso: string, n: number): string {
+  const d = new Date(iso + "T12:00:00Z");
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+function formatWeekendDay(iso: string): string {
+  const d = new Date(iso + "T12:00:00Z");
+  const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  return `${days[d.getUTCDay()]}, ${months[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
+}
+
+// Weekend Intensive: the same reading guides as the weekly study, condensed into
+// one weekend. The dates come from the schedule (so they rotate each year); the
+// day-of-weekend offsets, chapter groupings, and times are fixed.
+const weekendIntensiveDayPlan: { offset: number; sessions: { label: string; time: string }[] }[] = [
+  { offset: 0, sessions: [{ label: "Chapters 1 & 2", time: "7pm – 9pm" }] },
+  { offset: 1, sessions: [
+    { label: "Chapters 3 & 4", time: "8am – 10am" },
+    { label: "Chapters 5 & 6", time: "11am – 1pm" },
+    { label: "Chapters 7 & 8", time: "7pm – 9pm" },
+  ] },
+  { offset: 2, sessions: [
+    { label: "Chapters 9 & 10", time: "3pm – 5pm" },
+    { label: "Chapters 11 & Review", time: "7pm – 8pm" },
+  ] },
+];
+
 export default async function NHGPage() {
   const nhg = await getNHGStatus();
   const meetingCodes = await getMeetingCodes();
@@ -90,6 +120,38 @@ export default async function NHGPage() {
   const otherWeeks = nhg.schedule.filter(
     (w) => w.weekNumber !== featuredWeek?.weekNumber && !/weekend intensive/i.test(w.label)
   );
+
+  // KF Introductory Meeting (KF0) — the step into KF after the study. Its date
+  // is pulled from the seeded KF schedule for this cohort's year, so it rotates
+  // each year with the projection (never hardcoded).
+  const cohortSample = featuredWeek ?? nhg.schedule[0] ?? null;
+  const cohortYear = cohortSample
+    ? new Date(cohortSample.startDate + "T12:00:00Z").getUTCFullYear()
+    : null;
+  let kfIntroDate: string | null = null;
+  if (cohortYear) {
+    const { data: kfIntroRow } = await supabase
+      .from("kf_schedule")
+      .select("start_date")
+      .eq("lesson_number", 0)
+      .gte("start_date", `${cohortYear}-01-01`)
+      .lte("start_date", `${cohortYear}-12-31`)
+      .order("start_date", { ascending: true })
+      .limit(1)
+      .maybeSingle();
+    if (kfIntroRow?.start_date) kfIntroDate = formatDate(kfIntroRow.start_date as string);
+  }
+
+  // Weekend Intensive: dates from the schedule (week labeled "Weekend
+  // Intensive"), access code from the meeting_codes table.
+  const weekendIntensive = nhg.schedule.find((w) => /weekend intensive/i.test(w.label)) ?? null;
+  const weekendIntensiveCode = nhgCodes.find((c) => /weekend intensive/i.test(c.label))?.code ?? null;
+  const weekendIntensiveDays = weekendIntensive
+    ? weekendIntensiveDayPlan.map((d) => ({
+        date: formatWeekendDay(addDays(weekendIntensive.startDate, d.offset)),
+        sessions: d.sessions,
+      }))
+    : [];
 
   return (
     <div className="min-h-screen bg-[#4a5568]">
@@ -268,40 +330,33 @@ export default async function NHGPage() {
             </div>
           </div>
 
-          {/* KF Introductory Meeting — full width */}
-          <div className="rounded-xl bg-[#2b2150] p-5">
-            <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal/20 text-xl font-bold text-teal-light">
-                9
-              </span>
-              <div className="flex-1">
-                <h3 className="text-base font-bold text-white">KF Introductory Meeting</h3>
-                <p className="text-xs text-white/50">Optional</p>
+          {/* KF Introductory Meeting — the step into KF, after the study.
+              Styled to match the weekly reading journey (serif numeral + heading). */}
+          <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-[#3f3573] to-[#352b64] p-5 sm:p-7">
+            <div className="flex gap-4">
+              <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/50">09</span>
+              <div className="min-w-0 flex-1">
+                <h3 className="font-serif text-lg font-semibold leading-snug text-white sm:text-xl">KF Introductory Meeting</h3>
+                {kfIntroDate && (
+                  <p className="mt-0.5 text-sm font-medium text-white/50">{kfIntroDate}</p>
+                )}
+                <p className="mt-2.5 text-sm leading-relaxed text-white/65">
+                  This meeting follows the same format as a weekly Karis Fellowships Meetings. Familiarize yourself and bring these documents with you to the meeting.
+                </p>
+                <div className="mt-3.5 flex flex-wrap gap-x-4 gap-y-1.5 text-xs font-semibold">
+                  {kfIntroDocuments.map(({ label, href }) => (
+                    <a key={href} href={docUrl(href)} target="_blank" rel="noopener noreferrer" className="text-teal-light transition-colors hover:text-white">
+                      {label}
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1">
-              {kfIntroDocuments.map(({ label, href }) => (
-                <a key={href} href={docUrl(href)} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-teal-light hover:text-white transition-colors">
-                  {label}
-                </a>
-              ))}
             </div>
           </div>
 
           {/* Row: Weekend Intensive Schedule (left) + Meeting Recordings (right) */}
-          <div className="grid gap-2 sm:grid-cols-2">
-            <Link
-              href="/nhg/schedules"
-              className="group flex items-center gap-4 rounded-xl bg-[#2b2150] p-5 transition-all hover:bg-[#332661] hover:-translate-y-0.5"
-            >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
-                <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-              </span>
-              <div>
-                <h3 className="text-base font-bold text-white group-hover:text-violet-light transition-colors">Weekend Intensive Schedule</h3>
-                <p className="mt-0.5 text-xs text-white/50">View intensive meeting dates</p>
-              </div>
-            </Link>
+          <div className="grid gap-2 sm:grid-cols-2 sm:items-start">
+            <WeekendIntensiveSchedule accessCode={weekendIntensiveCode} days={weekendIntensiveDays} />
             <Link
               href="/nhg/recordings"
               className="group flex items-center gap-4 rounded-xl bg-[#2b2150] p-5 transition-all hover:bg-[#332661] hover:-translate-y-0.5"
