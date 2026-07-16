@@ -325,7 +325,7 @@ export default async function NHGPage() {
                         <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/50">{num}</span>
                         <div className="min-w-0 flex-1">
                           {guide && (
-                            <p className="text-xs italic leading-snug text-violet-light/70">{guide.chapters}</p>
+                            <p className="min-h-[2.25rem] text-xs italic leading-snug text-violet-light/70">{guide.chapters}</p>
                           )}
                           <h3 className="mt-0.5 font-serif text-lg font-semibold leading-snug text-white sm:text-xl">
                             {guide?.label ?? week.label}
