@@ -309,11 +309,11 @@ export default async function NHGPage() {
 
               <div className="flex flex-col lg:col-span-2">
                 <h2 className="mb-3 text-xl font-semibold text-white">Weekly Schedule &amp; Reading Guides</h2>
-                <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-[#3f3573] to-[#352b64] px-5 sm:px-7">
-                  <p className="border-b border-white/10 py-5 text-sm leading-relaxed text-white/65">
+                <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-[#3f3573] to-[#352b64] px-5 pb-6 sm:px-7">
+                  <p className="mb-2 border-b border-white/10 py-6 text-sm leading-relaxed text-white/65">
                     We meet weekly for eight weeks as well as a weekend intensive of the same meetings. All weekly meetings are Saturday at 9 am CST, see the weekend intensive schedule below. While in the meeting a facilitator will read the KF Introduction and guide you through the reading guides.
                   </p>
-                <div className="grid flex-1 content-between sm:grid-cols-2 sm:gap-x-10">
+                <div className="grid sm:grid-cols-2 sm:gap-x-10">
                   {otherWeeks.map((week) => {
                     const guide = readingGuides[week.weekNumber];
                     const num = String(week.weekNumber).padStart(2, "0");
