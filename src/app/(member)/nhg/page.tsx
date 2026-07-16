@@ -236,7 +236,7 @@ export default async function NHGPage() {
 
           {/* Study Schedule — "Coming Up" */}
           <div className="pt-4">
-            <div className="grid gap-x-6 gap-y-6 lg:grid-cols-3 lg:items-stretch">
+            <div className="grid gap-x-6 gap-y-6 lg:grid-cols-3 lg:items-start">
               <div className="lg:col-span-1">
                 <h2 className="mb-3 text-xl font-semibold text-white">Coming Up</h2>
                 {featuredWeek && (
@@ -307,9 +307,9 @@ export default async function NHGPage() {
                 </div>
               </div>
 
-              <div className="flex flex-col lg:col-span-2">
+              <div className="lg:col-span-2">
                 <h2 className="mb-3 text-xl font-semibold text-white">Weekly Schedule &amp; Reading Guides</h2>
-                <div className="flex flex-1 flex-col justify-center rounded-2xl border border-white/10 bg-gradient-to-b from-[#3f3573] to-[#352b64] px-5 py-4 sm:px-7">
+                <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-[#3f3573] to-[#352b64] px-5 pb-4 sm:px-7">
                   <p className="mb-2 border-b border-white/10 py-6 text-sm leading-relaxed text-white/65">
                     We meet weekly for eight weeks as well as a weekend intensive of the same meetings. All weekly meetings are Saturday at 9 am CST, see the weekend intensive schedule below. While in the meeting a facilitator will read the KF Introduction and guide you through the reading guides.
                   </p>
