@@ -36,7 +36,7 @@ export default async function RegisterPage() {
       />
 
       <section className="px-6 py-10 sm:px-8 sm:py-12">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-7xl">
           <RegisterClient dateInfo={dateInfo} />
         </div>
       </section>

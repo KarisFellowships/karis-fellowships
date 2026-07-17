@@ -16,7 +16,7 @@
   --coral: #f06050;
   --coral-light: #fde8e6;
 
-  --slate: #475569;
+  --slate: #334155;
   --slate-light: #f1f5f9;
   --slate-dark: #1e293b;
 
@@ -70,6 +70,15 @@ body {
 
 html {
   scroll-behavior: smooth;
+  /* Site-wide readability: scale the base up so all rem-based text (and widths)
+     read larger. Bump this a touch more if it still feels small. */
+  font-size: 17px;
+}
+
+/* Body copy default: a hair heavier than Montserrat's thin-looking 400 so text
+   doesn't read as faint. Headings set their own weight and are unaffected. */
+body {
+  font-weight: 450;
 }
 
 @keyframes fadeUp {

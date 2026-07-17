@@ -114,8 +114,8 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                 </svg>
               </div>
               <div>
-                <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-teal/60">Upcoming Book Study</p>
-                <p className="mt-1.5 text-sm text-slate/60">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">Upcoming Book Study</p>
+                <p className="mt-1.5 text-base text-slate">
                   9 weeks &middot; Covers chapters 1&ndash;11 of <em>Neurosis and Human Growth</em>
                   <br />Weekly or Weekend Intensive Option
                 </p>
@@ -123,19 +123,19 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
             </div>
             <div className="flex flex-col gap-3 text-right sm:shrink-0">
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-teal/50">Intro Meeting</p>
-                <p className="text-sm font-semibold text-foreground">{dateInfo.introMeeting}</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-teal">Intro Meeting</p>
+                <p className="text-base font-semibold text-foreground">{dateInfo.introMeeting}</p>
               </div>
               {dateInfo.weeklyStart && (
                 <div>
-                  <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-violet/50">Study Begins</p>
-                  <p className="text-sm font-semibold text-foreground">{dateInfo.weeklyStart}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.15em] text-violet">Study Begins</p>
+                  <p className="text-base font-semibold text-foreground">{dateInfo.weeklyStart}</p>
                 </div>
               )}
               {dateInfo.weekendIntensive && (
                 <div>
-                  <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-coral/50">Weekend Intensive</p>
-                  <p className="text-sm font-semibold text-foreground">{dateInfo.weekendIntensive}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.15em] text-coral">Weekend Intensive</p>
+                  <p className="text-base font-semibold text-foreground">{dateInfo.weekendIntensive}</p>
                 </div>
               )}
             </div>
@@ -159,7 +159,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
           ) : (
             <form onSubmit={handleRegister} className="mt-6 space-y-4">
               <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Email Address <span className="text-coral">*</span></label>
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Email Address <span className="text-coral">*</span></label>
                 <input
                   type="email"
                   value={email}
@@ -170,7 +170,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Password <span className="text-coral">*</span></label>
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Password <span className="text-coral">*</span></label>
                 <input
                   type="password"
                   value={password}
@@ -182,7 +182,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">First Name <span className="text-coral">*</span></label>
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">First Name <span className="text-coral">*</span></label>
                 <input
                   type="text"
                   value={firstName}
@@ -195,7 +195,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
 
               <div className="grid gap-3 sm:grid-cols-3">
                 <div>
-                  <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Country <span className="text-coral">*</span></label>
+                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Country <span className="text-coral">*</span></label>
                   <input
                     type="text"
                     value={country}
@@ -206,7 +206,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">State</label>
+                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">State</label>
                   <input
                     type="text"
                     value={state}
@@ -216,7 +216,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">City</label>
+                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">City</label>
                   <input
                     type="text"
                     value={city}
@@ -228,7 +228,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
               </div>
 
               <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Phone Number <span className="text-coral">*</span></label>
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Phone Number <span className="text-coral">*</span></label>
                 <input
                   type="tel"
                   value={phone}
@@ -240,7 +240,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
               </div>
 
               <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Which meeting would you like to attend? <span className="text-coral">*</span></label>
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Which meeting would you like to attend? <span className="text-coral">*</span></label>
                 <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:gap-4">
                   {[
                     { value: "weekly_study", label: "Weekly Study" },
@@ -263,7 +263,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
               </div>
 
               <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Name of Your Karis Link <span className="text-coral">*</span></label>
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Name of Your Karis Link <span className="text-coral">*</span></label>
                 <input
                   type="text"
                   value={karisLink}
@@ -275,7 +275,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
               </div>
 
               <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">What do you hope to gain through the Neurosis and Human Growth book study? <span className="text-coral">*</span></label>
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">What do you hope to gain through the Neurosis and Human Growth book study? <span className="text-coral">*</span></label>
                 <textarea
                   value={hopeToGain}
                   onChange={(e) => setHopeToGain(e.target.value)}
@@ -286,7 +286,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
               </div>
 
               <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Have you registered for the NHG study before? <span className="text-coral">*</span></label>
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Have you registered for the NHG study before? <span className="text-coral">*</span></label>
                 <div className="mt-2 flex gap-4">
                   {["Yes", "No"].map((opt) => (
                     <label key={opt} className="flex cursor-pointer items-center gap-2.5 rounded-xl border border-border/50 bg-ivory/30 px-5 py-3 text-sm text-slate transition-all hover:border-teal/30 has-[:checked]:border-teal/50 has-[:checked]:bg-teal/5">
@@ -306,7 +306,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
               </div>
 
               <div>
-                <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Questions or Comments</label>
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Questions or Comments</label>
                 <textarea
                   value={questionsComments}
                   onChange={(e) => setQuestionsComments(e.target.value)}
@@ -322,7 +322,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                     After submitting, you will be prompted to make a donation to help cover our technology costs. We suggest <span className="font-semibold text-foreground">$30</span>, but any amount is appreciated.
                   </p>
                   <div className="mt-4">
-                    <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Donation Amount</label>
+                    <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Donation Amount</label>
                     <div className="mt-2 flex flex-wrap gap-2">
                       {["10", "25", "30", "50"].map((amt) => (
                         <button
@@ -432,7 +432,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
             { title: "Weekly Study", color: "border-l-violet/50", desc: "An 8-week study with weekly 1.5-2 hour conference calls." },
           ].map(({ title, color, desc }) => (
             <div key={title} className={`rounded-xl border border-border/30 border-l-[3px] ${color} bg-white px-5 py-4`}>
-              <h4 className="text-sm font-semibold text-foreground">{title}</h4>
+              <h4 className="text-base font-semibold text-foreground">{title}</h4>
               <p className="mt-1 text-xs leading-relaxed text-slate/70">{desc}</p>
             </div>
           ))}
@@ -440,7 +440,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
 
         {/* After the Study */}
         <div className="mt-6 rounded-xl bg-slate-dark/5 px-5 py-4">
-          <h4 className="text-sm font-semibold text-foreground">After the Study</h4>
+          <h4 className="text-base font-semibold text-foreground">After the Study</h4>
           <p className="mt-1.5 text-xs leading-relaxed text-slate/70">
             If you attend the NHG conference calls, complete your reading guides, and your registration is accepted by the KF board, you are eligible to join Karis Fellowships.
           </p>

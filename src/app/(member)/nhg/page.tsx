@@ -177,7 +177,7 @@ export default async function NHGPage() {
       </section>
 
       <section className="px-6 pb-12 pt-2">
-        <div className="mx-auto max-w-6xl space-y-2">
+        <div className="mx-auto max-w-7xl space-y-2">
           {kfInvited && userTier === "nhg" && (
             <a
               href="/kf/register"
@@ -272,7 +272,7 @@ export default async function NHGPage() {
                   </Link>
                 ) : (
                   <IntroMeetingBlock
-                    title={featuredWeek.label}
+                    title={featuredWeek.label.startsWith("NHG") ? featuredWeek.label : `NHG ${featuredWeek.label}`}
                     date={formatDate(featuredWeek.startDate)}
                     syllabusUrl={syllabusUrl}
                   />
