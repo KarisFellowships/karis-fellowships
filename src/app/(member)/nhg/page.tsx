@@ -111,13 +111,13 @@ export default async function NHGPage() {
 
   // Featured week = the current week (once the study is running) or the next
   // upcoming week before it starts. Rendered as a large cinematic card.
-  const featuredWeek = nhg.currentWeek ?? nhg.nextWeek ?? nhg.schedule[0] ?? null;
+  const featuredWeek = nhg.comingUpWeek ?? nhg.currentWeek ?? nhg.nextWeek ?? nhg.schedule[0] ?? null;
   const featuredGuide = featuredWeek ? readingGuides[featuredWeek.weekNumber] : undefined;
   const featuredIsCurrent = !!nhg.currentWeek && nhg.currentWeek.weekNumber === featuredWeek?.weekNumber;
   // The weekly cards: exclude the featured week and the Weekend Intensive
   // (same reading guides on a weekend schedule — shown via its own link).
   const otherWeeks = nhg.schedule.filter(
-    (w) => w.weekNumber !== featuredWeek?.weekNumber && !/weekend intensive/i.test(w.label)
+    (w) => w.weekNumber >= 1 && w.weekNumber !== featuredWeek?.weekNumber && !/weekend intensive/i.test(w.label)
   );
 
   // KF Introductory Meeting (KF0) — the step into KF after the study. Its date
