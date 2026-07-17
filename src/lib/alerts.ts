@@ -41,7 +41,16 @@ export async function sendAdminAlert(subject: string, lines: string[]): Promise<
     // Cap how long we wait so a slow/hung Resend can never delay the webhook
     // response past Stripe's delivery timeout (which would otherwise cause retries).
     const timeout = new Promise<void>((resolve) => setTimeout(resolve, 2500));
-    await Promise.race([Promise.resolve(send).then(() => undefined), timeout]);
+    await Promise.race([
+      Promise.resolve(send)
+        .then(() => undefined)
+        .catch((sendErr) => {
+          // A late rejection (after the timeout won the race) must not surface as
+          // an unhandledRejection; swallow it the same as an early failure.
+          console.error("[alert] send rejected:", subject, sendErr);
+        }),
+      timeout,
+    ]);
   } catch (err) {
     // Swallow: alerting is best-effort and must not affect the caller.
     console.error("[alert] failed to send admin alert:", subject, err);

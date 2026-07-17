@@ -290,7 +290,7 @@ export default async function NHGPage() {
                         <p className="mt-0.5 text-sm font-medium text-white/50">{kfIntroDate}</p>
                       )}
                       <p className="mt-2.5 text-sm leading-relaxed text-white/65">
-                        This meeting follows the same format as a weekly Karis Fellowships Meetings. Familiarize yourself and bring these documents with you to the meeting.
+                        This meeting follows the same format as a weekly Karis Fellowships Meeting. Familiarize yourself and bring these documents with you to the meeting.
                       </p>
                       <ul className="mt-4 space-y-2.5">
                         {kfIntroDocuments.map(({ label, href }) => (

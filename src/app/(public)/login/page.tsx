@@ -25,21 +25,30 @@ export default function LoginPage() {
       return;
     }
 
-    let destination = "/nhg";
-    try {
-      const { data: profile } = await supabase
-        .from("users")
-        .select("tier")
-        .eq("id", authData.user.id)
-        .single();
+    // Distinguish "no profile row" from a normal profile. An authenticated user
+    // with no public.users row (or an inactive one) would otherwise be sent to a
+    // member route and bounced back here by middleware — a silent loop that looks
+    // like a broken login. Sign them out and show a clear message instead.
+    const { data: profile } = await supabase
+      .from("users")
+      .select("tier, active")
+      .eq("id", authData.user.id)
+      .maybeSingle();
 
-      if (profile?.tier && profile.tier !== "nhg") {
-        destination = "/dashboard";
-      }
-    } catch {
-      // Default to /nhg if profile fetch fails
+    if (!profile) {
+      await supabase.auth.signOut();
+      setError("Your account isn't fully set up yet. Please contact admin@karisfellowships.com.");
+      setLoading(false);
+      return;
+    }
+    if (!profile.active) {
+      await supabase.auth.signOut();
+      setError("Your account is inactive. Please contact admin@karisfellowships.com.");
+      setLoading(false);
+      return;
     }
 
+    const destination = profile.tier && profile.tier !== "nhg" ? "/dashboard" : "/nhg";
     window.location.href = destination;
   }
 

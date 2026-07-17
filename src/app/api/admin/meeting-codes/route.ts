@@ -49,12 +49,34 @@ export async function PUT(request: Request) {
 
   const client = createAdminClient();
 
+  // Fetch each row's section so access codes can be validated strictly while the
+  // general phone-number row keeps its own format. A malformed code (e.g. a
+  // dropped trailing #) would otherwise be served to members as a dead dial-in.
+  const ids = rows
+    .map((r) => (r && typeof (r as { id?: unknown }).id === "string" ? (r as { id: string }).id : null))
+    .filter((v): v is string => v !== null);
+  const { data: existingRows } = await client.from("meeting_codes").select("id, section").in("id", ids);
+  const sectionById = new Map<string, string>((existingRows ?? []).map((r) => [r.id as string, r.section as string]));
+  const isValidCode = (code: string, section: string | undefined): boolean => {
+    if (section === "general") return /^[\d\s()+.\-]{7,}$/.test(code); // phone-number row
+    return /^\d{3}-\d{3}-\d{3}#$/.test(code); // dial-in access code, e.g. 548-008-425#
+  };
+
   for (const raw of rows) {
     const r = raw as { id?: unknown; label?: unknown; time_label?: unknown; code?: unknown };
     if (typeof r.id !== "string") continue;
 
     const update: Record<string, unknown> = { updated_at: new Date().toISOString() };
-    if (typeof r.code === "string") update.code = r.code.trim();
+    if (typeof r.code === "string") {
+      const code = r.code.trim();
+      if (!isValidCode(code, sectionById.get(r.id))) {
+        return NextResponse.json(
+          { error: `Invalid code "${code}". Access codes must look like 548-008-425# (three digit groups + a trailing #).` },
+          { status: 400 }
+        );
+      }
+      update.code = code;
+    }
     if (typeof r.label === "string") update.label = r.label.trim();
     if (r.time_label === null) update.time_label = null;
     else if (typeof r.time_label === "string") {

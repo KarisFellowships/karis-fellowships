@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { checkRateLimit, clientIp } from "@/lib/rate-limit";
+import { sendAdminAlert } from "@/lib/alerts";
 
 const ADMIN_EMAIL = "admin@karisfellowships.com";
 
@@ -48,7 +49,19 @@ export async function POST(request: Request) {
   const safeEmail = escapeHtml(email.trim());
   const safeMessage = escapeHtml(message.trim());
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    console.error("Contact form: RESEND_API_KEY is not set; message NOT delivered.");
+    await sendAdminAlert("Contact form could not send (RESEND_API_KEY missing)", [
+      `From: ${safeName} <${safeEmail}>`,
+      "The email service key is not configured, so this inquiry was NOT delivered.",
+    ]);
+    return NextResponse.json(
+      { error: "Messaging is temporarily unavailable. Please email admin@karisfellowships.com directly." },
+      { status: 503 }
+    );
+  }
+  const resend = new Resend(key);
 
   try {
     await resend.emails.send({
@@ -80,6 +93,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Failed to send contact email:", error);
+    await sendAdminAlert("Contact form email failed to send", [
+      `From: ${safeName} <${safeEmail}>`,
+      `Error: ${error instanceof Error ? error.message : String(error)}`,
+      "A visitor's inquiry may have been lost — follow up if possible.",
+    ]);
     return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
   }
 }

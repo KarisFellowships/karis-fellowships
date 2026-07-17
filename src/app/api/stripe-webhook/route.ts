@@ -98,6 +98,46 @@ export async function POST(request: NextRequest) {
           }
         }
       }
+    } else if (event.type === "invoice.paid") {
+      // Recurring-gift RENEWALS. The first month is recorded via
+      // checkout.session.completed, so only subscription_cycle invoices are
+      // handled here — otherwise month 1 would be double-counted.
+      const invoice = event.data.object as Stripe.Invoice;
+      if (invoice.billing_reason === "subscription_cycle") {
+        const subRef = (invoice as unknown as { subscription?: string | { id?: string } | null }).subscription;
+        const subId = typeof subRef === "string" ? subRef : subRef?.id ?? null;
+        let meta: Record<string, string> = {};
+        if (subId) {
+          try {
+            const sub = await stripe.subscriptions.retrieve(subId);
+            meta = (sub.metadata ?? {}) as Record<string, string>;
+          } catch (subErr) {
+            console.error("invoice.paid: failed to load subscription", subId, subErr);
+          }
+        }
+        const userId = meta.userId;
+        const renewalType = meta.type || "gift_recurring";
+        const renewalAmount = invoice.amount_paid ?? 0;
+        if (!userId) {
+          await sendAdminAlert("Recurring gift renewal received but could not be linked to a user", [
+            `Invoice: ${invoice.id}`,
+            `Subscription: ${subId ?? "unknown"}`,
+            `Amount: ${renewalAmount}`,
+            "No userId on the subscription metadata — record this gift manually.",
+          ]);
+        } else {
+          // Idempotent on the invoice id (reuses the stripe_session_id dedupe key).
+          const { error: renewalError } = await supabase
+            .from("donations")
+            .upsert(
+              { user_id: userId, amount: renewalAmount, type: renewalType, stripe_session_id: invoice.id },
+              { onConflict: "stripe_session_id", ignoreDuplicates: true }
+            );
+          if (renewalError) {
+            throw new Error(`renewal donation upsert failed: ${renewalError.message}`);
+          }
+        }
+      }
     }
 
     // Mark processed ONLY after successful handling. Ignore a unique-violation
