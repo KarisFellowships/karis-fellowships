@@ -1,4 +1,5 @@
 import { createServerClient } from "./supabase-server";
+import { todayCentral } from "./today-central";
 
 export interface CurrentLesson {
   lessonNumber: number;
@@ -18,7 +19,7 @@ function formatDateRange(start: string, end: string): string {
 }
 
 export async function getCurrentLesson(): Promise<CurrentLesson> {
-  const today = new Date().toISOString().split("T")[0];
+  const today = todayCentral();
 
   try {
     const supabase = await createServerClient();
@@ -49,7 +50,7 @@ export async function getCurrentLesson(): Promise<CurrentLesson> {
 export async function getAllLessons(): Promise<CurrentLesson[]> {
   try {
     const supabase = await createServerClient();
-    const today = new Date().toISOString().split("T")[0];
+    const today = todayCentral();
     const year = new Date().getUTCFullYear();
 
     const { data, error } = await supabase

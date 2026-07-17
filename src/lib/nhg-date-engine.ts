@@ -1,4 +1,5 @@
 import { createServerClient } from "./supabase-server";
+import { todayCentral } from "./today-central";
 
 export interface NHGWeek {
   weekNumber: number;
@@ -36,7 +37,7 @@ function toNHGWeek(row: { week_number: number; label: string; start_date: string
 }
 
 export async function getNHGStatus(): Promise<NHGStatus> {
-  const today = new Date().toISOString().split("T")[0];
+  const today = todayCentral();
 
   try {
     const supabase = await createServerClient();
