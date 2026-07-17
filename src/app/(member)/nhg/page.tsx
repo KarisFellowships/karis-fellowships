@@ -236,7 +236,7 @@ export default async function NHGPage() {
 
           {/* Study Schedule — "Coming Up" */}
           <div className="pt-4">
-            <div className="grid gap-x-6 gap-y-6 lg:grid-cols-3 lg:items-start">
+            <div className="grid gap-x-6 gap-y-6 lg:grid-cols-3 lg:items-stretch">
               <div className="lg:col-span-1">
                 <h2 className="mb-3 text-xl font-semibold text-white">Coming Up</h2>
                 {featuredWeek && (
@@ -307,9 +307,9 @@ export default async function NHGPage() {
                 </div>
               </div>
 
-              <div className="lg:col-span-2">
+              <div className="flex flex-col lg:col-span-2">
                 <h2 className="mb-3 text-xl font-semibold text-white">Weekly Schedule &amp; Reading Guides</h2>
-                <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-[#3f3573] to-[#352b64] px-5 pb-4 sm:px-7">
+                <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-gradient-to-b from-[#3f3573] to-[#352b64] px-5 pb-4 sm:px-7">
                   <p className="mb-2 border-b border-white/10 py-6 text-sm leading-relaxed text-white/65">
                     We meet weekly for eight weeks as well as a weekend intensive of the same meetings. All weekly meetings are Saturday at 9 am CST, see the weekend intensive schedule below. While in the meeting a facilitator will read the KF Introduction and guide you through the reading guides.
                   </p>
@@ -325,7 +325,7 @@ export default async function NHGPage() {
                         <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/50">{num}</span>
                         <div className="min-w-0 flex-1">
                           {guide && (
-                            <p className="min-h-[2.25rem] text-xs italic leading-snug text-violet-light/70">{guide.chapters}</p>
+                            <p className="text-xs italic leading-snug text-violet-light/70">{guide.chapters}</p>
                           )}
                           <h3 className="mt-0.5 font-serif text-lg font-semibold leading-snug text-white sm:text-xl">
                             {guide?.label ?? week.label}
@@ -352,25 +352,23 @@ export default async function NHGPage() {
                   })}
                 </div>
               </div>
+                <div className="mt-2 grid gap-2 sm:grid-cols-2 sm:items-start">
+                  <WeekendIntensiveSchedule accessCode={weekendIntensiveCode} days={weekendIntensiveDays} />
+                  <Link
+                    href="/nhg/recordings"
+                    className="group flex items-center gap-4 rounded-xl bg-[#2b2150] p-5 transition-all hover:bg-[#332661] hover:-translate-y-0.5"
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
+                      <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>
+                    </span>
+                    <div>
+                      <h3 className="text-base font-bold text-white group-hover:text-violet-light transition-colors">Meeting Recordings</h3>
+                      <p className="mt-0.5 text-xs text-white/50">Past NHG sessions</p>
+                    </div>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Row: Weekend Intensive Schedule (left) + Meeting Recordings (right) */}
-          <div className="grid gap-2 sm:grid-cols-2 sm:items-start">
-            <WeekendIntensiveSchedule accessCode={weekendIntensiveCode} days={weekendIntensiveDays} />
-            <Link
-              href="/nhg/recordings"
-              className="group flex items-center gap-4 rounded-xl bg-[#2b2150] p-5 transition-all hover:bg-[#332661] hover:-translate-y-0.5"
-            >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
-                <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>
-              </span>
-              <div>
-                <h3 className="text-base font-bold text-white group-hover:text-violet-light transition-colors">Meeting Recordings</h3>
-                <p className="mt-0.5 text-xs text-white/50">Past NHG sessions</p>
-              </div>
-            </Link>
           </div>
 
           {/* FAQs & Tips */}
