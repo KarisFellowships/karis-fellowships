@@ -237,7 +237,9 @@ body {
   color: #111827;
 }
 
-.lesson-content--light ol {
+/* The footnotes list (bare <ol>) gets a divider above it; body lists (tagged
+   .lesson-list) must NOT inherit that. */
+.lesson-content--light ol:not(.lesson-list) {
   margin-left: 2rem;
   border-top: 1px solid #e2ddd5;
   margin-top: 1.5rem;
@@ -269,6 +271,21 @@ body {
 /* Bulleted lists sit indented beneath the body text, single-spaced */
 .lesson-content--light ul { margin-left: 2rem; }
 .lesson-content--light ul li { margin-bottom: 0.25rem; }
+
+/* Numbered/bulleted lists reproduced from the source document. Markers (disc /
+   decimal) and marker gutter come from the base .lesson-content rules; here we
+   just set the indent and item spacing, and keep them free of the footnote
+   divider styling scoped above. */
+.lesson-content ol.lesson-list,
+.lesson-content ul.lesson-list {
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+.lesson-content ol.lesson-list li,
+.lesson-content ul.lesson-list li {
+  margin-bottom: 0.35rem;
+  padding-left: 0.25rem;
+}
 
 /* Major section headings (timestamp lines like 0:01 OPENING) */
 .lesson-content--light .lesson-section-heading {
