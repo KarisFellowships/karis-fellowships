@@ -268,23 +268,22 @@ body {
   margin-left: 0;
 }
 
-/* Bulleted lists sit indented beneath the body text, single-spaced */
-.lesson-content--light ul { margin-left: 2rem; }
-.lesson-content--light ul li { margin-bottom: 0.25rem; }
-
-/* Numbered/bulleted lists reproduced from the source document. Markers (disc /
-   decimal) and marker gutter come from the base .lesson-content rules; here we
-   just set the indent and item spacing, and keep them free of the footnote
-   divider styling scoped above. */
+/* Numbered/bulleted lists reproduced from the source document (plus the older
+   bare <ul> bullets). Markers (disc / decimal) come from the base .lesson-content
+   rules. The marker sits at the body-text left margin with a hanging indent, so a
+   numbered label aligns with the body/explanatory text beneath it rather than
+   floating far to the right. Kept free of the footnote-divider styling above. */
 .lesson-content ol.lesson-list,
-.lesson-content ul.lesson-list {
-  margin-left: 2rem;
+.lesson-content ul.lesson-list,
+.lesson-content--light ul {
+  margin-left: 0;
+  padding-left: 1.6rem;
   margin-bottom: 1rem;
 }
 .lesson-content ol.lesson-list li,
-.lesson-content ul.lesson-list li {
+.lesson-content ul.lesson-list li,
+.lesson-content--light ul li {
   margin-bottom: 0.35rem;
-  padding-left: 0.25rem;
 }
 
 /* Major section headings (timestamp lines like 0:01 OPENING) */
