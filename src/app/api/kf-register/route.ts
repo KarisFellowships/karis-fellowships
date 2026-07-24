@@ -27,9 +27,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { nhg_completed_date, volunteer_interest } = body as {
+  const { nhg_completed_date, volunteer_interest, volunteer_note } = body as {
     nhg_completed_date?: string;
     volunteer_interest?: string;
+    volunteer_note?: string;
   };
 
   const currentYear = new Date().getFullYear();
@@ -48,6 +49,10 @@ export async function POST(request: Request) {
 
   if (volunteer_interest) {
     updates.volunteer_interest = volunteer_interest;
+  }
+
+  if (typeof volunteer_note === "string" && volunteer_note.trim()) {
+    updates.volunteer_note = volunteer_note.trim();
   }
 
   const admin = createAdminClient();
