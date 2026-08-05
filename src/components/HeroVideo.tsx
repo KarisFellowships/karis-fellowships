@@ -33,7 +33,7 @@ export default function HeroVideo() {
         <h1 className="animate-fade-up font-serif text-6xl font-semibold leading-[1.05] tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)] sm:text-7xl md:text-8xl lg:text-9xl" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6), 0 4px 32px rgba(0,0,0,0.35)" }}>
           Karis Fellowships
         </h1>
-        <p className="animate-fade-up-delay mt-4 whitespace-nowrap text-lg font-medium tracking-[0.15em] text-white uppercase sm:text-xl" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.6), 0 2px 20px rgba(0,0,0,0.3)" }}>
+        <p className="animate-fade-up-delay mt-4 whitespace-normal text-lg font-medium tracking-[0.15em] text-white uppercase sm:whitespace-nowrap sm:text-xl" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.6), 0 2px 20px rgba(0,0,0,0.3)" }}>
           We empower Christians to fulfill their true glory.
         </p>
         <div className="animate-fade-up-delay-2 mt-14 flex flex-wrap items-center justify-center gap-5">

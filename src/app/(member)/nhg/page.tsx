@@ -279,32 +279,7 @@ export default async function NHGPage() {
                 )
                 )}
 
-                {/* KF Introductory Meeting — the step into KF, after the study.
-                    Styled to match the weekly reading journey (serif numeral + heading). */}
-                <div className="mt-4 rounded-2xl border border-white/10 bg-gradient-to-b from-[#3f3573] to-[#352b64] p-5 sm:p-6">
-                  <div className="flex gap-4">
-                    <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/50">09</span>
-                    <div className="min-w-0 flex-1">
-                      <h3 className="font-serif text-lg font-semibold leading-snug text-white sm:text-xl">KF Introductory Meeting</h3>
-                      {kfIntroDate && (
-                        <p className="mt-0.5 text-sm font-medium text-white/50">{kfIntroDate}</p>
-                      )}
-                      <p className="mt-2.5 text-sm leading-relaxed text-white/65">
-                        This meeting follows the same format as a weekly Karis Fellowships Meeting. Familiarize yourself and bring these documents with you to the meeting.
-                      </p>
-                      <ul className="mt-4 space-y-2.5">
-                        {kfIntroDocuments.map(({ label, href }) => (
-                          <li key={href} className="flex items-start gap-2.5">
-                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-light/50" />
-                            <a href={docUrl(href)} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-teal-light transition-colors hover:text-white">
-                              {label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+                {/* KF Introductory Meeting moved below — now after the weekly meetings */}
               </div>
 
               <div className="flex flex-col lg:col-span-2">
@@ -350,6 +325,22 @@ export default async function NHGPage() {
                       </div>
                     );
                   })}
+                </div>
+                {/* KF Introductory Meeting (09) — the step into KF, after the weekly meetings */}
+                <div className="flex gap-4 border-t border-white/10 py-5">
+                  <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/50">09</span>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-serif text-lg font-semibold leading-snug text-white sm:text-xl">KF Introductory Meeting</h3>
+                    {kfIntroDate && <p className="mt-0.5 text-sm font-medium text-white/50">{kfIntroDate}</p>}
+                    <p className="mt-2 text-sm leading-relaxed text-white/65">This meeting follows the same format as a weekly Karis Fellowships Meeting. Familiarize yourself and bring these documents with you to the meeting.</p>
+                    <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+                      {kfIntroDocuments.map(({ label, href }) => (
+                        <li key={href}>
+                          <a href={docUrl(href)} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-teal-light transition-colors hover:text-white">{label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
                 <div className="mt-2 grid gap-2 sm:grid-cols-2 sm:items-start">

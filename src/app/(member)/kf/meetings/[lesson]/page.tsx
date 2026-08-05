@@ -109,9 +109,12 @@ export default async function LessonPage({ params }: Props) {
             {/* Meeting Prep Guide */}
             <div className="rounded-xl bg-[#1e293b] p-5">
               <h3 className="text-xs font-bold uppercase tracking-wider text-white/50">Prep Guide</h3>
-              <div className="mt-3">
+              <div className="mt-3 flex gap-2">
                 <a href={docUrl("/docs/kf-resources/meeting-prep-guide.pdf")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-violet/15 px-3 py-2 text-xs font-semibold text-violet-light transition-all hover:bg-violet/25">
-                  {downloadIcon} Open
+                  {downloadIcon} PDF
+                </a>
+                <a href={docUrl("/docs/kf-resources/KF-MPG-typed-2021.docx")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-violet/15 px-3 py-2 text-xs font-semibold text-violet-light transition-all hover:bg-violet/25">
+                  {downloadIcon} DOC
                 </a>
               </div>
             </div>
