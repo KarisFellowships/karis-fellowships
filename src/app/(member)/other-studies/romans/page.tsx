@@ -56,7 +56,7 @@ export default async function RomansPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
         </div>
         <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-7xl">
             <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">Romans Bible Study</h1>
             <p className="mt-1.5 text-sm font-medium text-white/80 drop-shadow">A study through the book of Romans</p>
           </div>

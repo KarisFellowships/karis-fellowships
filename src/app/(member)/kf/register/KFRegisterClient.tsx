@@ -17,7 +17,8 @@ const VOLUNTEER_OPTIONS = [
 ];
 
 const CURRENT_YEAR = new Date().getFullYear();
-const NHG_YEARS = Array.from({ length: 14 }, (_, i) => CURRENT_YEAR - i);
+// NHG-completion year options: current year back to 2010.
+const NHG_YEARS = Array.from({ length: CURRENT_YEAR - 2010 + 1 }, (_, i) => CURRENT_YEAR - i);
 
 const fieldClass =
   "mt-2 w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3 text-sm text-white outline-none transition-all focus:border-teal focus:ring-2 focus:ring-teal/20 placeholder:text-white/30";
@@ -35,7 +36,6 @@ export default function KFRegisterClient({
   const [volunteerNote, setVolunteerNote] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
 
   function toggleVolunteer(option: string) {
     setVolunteerInterests((prev) =>
@@ -69,36 +69,13 @@ export default function KFRegisterClient({
         return;
       }
 
-      setSuccess(true);
+      // Registration complete → go straight to the KF dashboard. Keep the button
+      // in its loading state while the browser navigates.
+      window.location.href = "/kf";
     } catch {
       setError("Something went wrong. Please try again.");
-    } finally {
       setLoading(false);
     }
-  }
-
-  if (success) {
-    return (
-      <div className="mx-auto max-w-lg text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-teal/20">
-          <svg className="h-8 w-8 text-teal-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h2 className="mt-6 font-serif text-2xl font-semibold text-white">
-          Welcome to Karis Fellowships!
-        </h2>
-        <p className="mt-3 leading-relaxed text-white/70">
-          Your registration is complete. You now have access to all KF materials and resources.
-        </p>
-        <a
-          href="/kf"
-          className="mt-8 inline-block rounded-xl bg-teal px-8 py-4 text-[13px] font-medium uppercase tracking-[0.15em] text-white transition-all hover:bg-teal-hover"
-        >
-          Go to KF Dashboard
-        </a>
-      </div>
-    );
   }
 
   return (

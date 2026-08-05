@@ -24,6 +24,7 @@ export default function LessonContent({ html }: Props) {
   const [openSections, setOpenSections] = useState<Set<string>>(new Set());
   const [footnotesOpen, setFootnotesOpen] = useState(false);
   const footnotesRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const toggleSection = useCallback((key: string) => {
     setOpenSections((prev) => {
@@ -52,6 +53,17 @@ export default function LessonContent({ html }: Props) {
     };
     document.addEventListener("click", handleFootnoteClick);
     return () => document.removeEventListener("click", handleFootnoteClick);
+  }, [footnotesOpen]);
+
+  // Open external hyperlinks (http/https) in a new tab so members don't lose
+  // their place. Internal footnote anchors (#endnote-…) are left untouched.
+  useEffect(() => {
+    const root = contentRef.current;
+    if (!root) return;
+    root.querySelectorAll<HTMLAnchorElement>('a[href^="http"]').forEach((a) => {
+      a.setAttribute("target", "_blank");
+      a.setAttribute("rel", "noopener noreferrer");
+    });
   }, [footnotesOpen]);
 
   const { bodyHtml, footnotesHtml } = useMemo(() => {
@@ -84,7 +96,7 @@ export default function LessonContent({ html }: Props) {
   }, [bodyHtml]);
 
   return (
-    <div className="rounded-xl bg-[#f5f3ef] p-8 sm:p-10">
+    <div ref={contentRef} className="rounded-xl bg-[#f5f3ef] p-8 sm:p-12">
       <div className="lesson-content lesson-content--light">
         {segments.map((seg, i) => {
           if (seg.type === "content") {

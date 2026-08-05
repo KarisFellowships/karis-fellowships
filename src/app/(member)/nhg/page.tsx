@@ -161,7 +161,7 @@ export default async function NHGPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
         </div>
         <div className="relative px-6 pb-10 pt-32 sm:pt-40 sm:pb-14">
-          <div className="mx-auto max-w-6xl flex items-end justify-between gap-6">
+          <div className="mx-auto max-w-7xl flex items-end justify-between gap-6">
             <div>
               <h1 className="font-serif text-4xl font-bold text-white drop-shadow-lg sm:text-5xl lg:text-6xl">Neurosis and Human Growth</h1>
               <p className="mt-2 text-base font-medium text-white/80 drop-shadow sm:text-lg">A foundational study for Karis Fellowships.</p>
@@ -181,16 +181,16 @@ export default async function NHGPage() {
           {kfInvited && userTier === "nhg" && (
             <a
               href="/kf/register"
-              className="group flex items-center gap-4 rounded-2xl border border-teal/30 bg-teal/10 p-5 transition-all duration-500 hover:border-teal/50 hover:shadow-lg hover:shadow-teal/5"
+              className="group flex items-center gap-4 rounded-2xl border-2 border-teal/70 bg-teal/25 p-6 shadow-lg shadow-teal/10 transition-all duration-500 hover:border-teal hover:bg-teal/35"
             >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal/20">
-                <svg className="h-6 w-6 text-teal-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal/40">
+                <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
               </div>
               <div className="flex-1">
-                <p className="font-serif text-lg font-semibold text-white">You&apos;ve been invited to join Karis Fellowships!</p>
-                <p className="mt-0.5 text-sm text-white/70">Click here to complete your KF registration.</p>
+                <p className="font-serif text-xl font-semibold text-white">You&apos;ve been invited to join Karis Fellowships!</p>
+                <p className="mt-1 text-sm font-medium text-white/85">Click here to complete your KF registration.</p>
               </div>
               <svg className="h-5 w-5 text-teal-light/60 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />

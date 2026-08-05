@@ -72,13 +72,13 @@ html {
   scroll-behavior: smooth;
   /* Site-wide readability: scale the base up so all rem-based text (and widths)
      read larger. Bump this a touch more if it still feels small. */
-  font-size: 17px;
+  font-size: 18px;
 }
 
-/* Body copy default: a hair heavier than Montserrat's thin-looking 400 so text
-   doesn't read as faint. Headings set their own weight and are unaffected. */
+/* Body copy default: heavier than Montserrat's thin-looking 400 so text reads
+   clearly and a little bolder. Headings set their own weight and are unaffected. */
 body {
-  font-weight: 450;
+  font-weight: 500;
 }
 
 @keyframes fadeUp {

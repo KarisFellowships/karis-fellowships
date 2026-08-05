@@ -71,7 +71,7 @@ export default function LoginPage() {
 
       <div className="flex w-full items-center justify-center bg-slate-dark px-8 py-32 lg:w-1/2">
         <div className="w-full max-w-sm">
-          <span className="font-serif text-2xl font-semibold tracking-wide text-white">Karis Fellowships</span>
+          <span className="block text-left font-serif text-4xl font-semibold text-white">Karis Fellowships</span>
           <h1 className="mt-10 font-serif text-3xl font-semibold text-white">Welcome back</h1>
           <p className="mt-2 text-sm text-white/60">Empowering Christians to fulfill their true glory.</p>
 

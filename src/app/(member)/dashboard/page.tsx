@@ -37,7 +37,7 @@ export default async function DashboardPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
         </div>
         <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-7xl">
             <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">
               Your Dashboard
             </h1>
@@ -53,7 +53,7 @@ export default async function DashboardPage() {
 
       {/* Dashboard content */}
       <section className="px-6 pb-12 pt-4">
-        <div className="mx-auto max-w-6xl space-y-3">
+        <div className="mx-auto max-w-7xl space-y-3">
           {/* Top row: This Week (square) | Call Info (centered) | Prep & Schedule */}
           <div className="grid gap-3 lg:grid-cols-3">
             {/* This Week — square card with ship-voyage image */}

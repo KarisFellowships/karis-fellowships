@@ -17,14 +17,14 @@ export default function ToolboxPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
         </div>
         <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-7xl">
             <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">KF Toolbox</h1>
             <p className="mt-1.5 text-sm font-medium text-white/80 drop-shadow">Worksheets, healing tools, prayers, meditations, and more to support your training.</p>
           </div>
         </div>
       </section>
       <section className="px-6 pb-12 pt-4">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-7xl">
           <div className="grid gap-3 sm:grid-cols-2">
             {categories.map(({ slug, title, desc, accent }) => (
               <ContentCard key={slug} title={title} description={desc} href={`/toolbox/${slug}`} accent={accent} />
