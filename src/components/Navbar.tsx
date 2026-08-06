@@ -41,37 +41,41 @@ export default function Navbar({ isLoggedIn = false, tier = null }: { isLoggedIn
   const activeTier = isLoggedIn ? tier : null;
   const links = getLinks(activeTier);
   const homeHref = getHomeHref(activeTier);
+  // The KF member nav has many items and needs more width before it fits on one
+  // row, so it stays collapsed to the menu button until xl. Shorter navs (public,
+  // NHG) fit easily and switch to the horizontal row at md.
+  const wideNav = links.length >= 6;
 
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 border-b border-white/[0.04] bg-slate-dark/50 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-8 py-5">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-5">
         <Link
           href={homeHref}
-          className="font-serif text-xl font-semibold tracking-wide text-white/95 transition-opacity hover:opacity-70"
+          className="shrink-0 whitespace-nowrap font-serif text-xl font-semibold tracking-wide text-white/95 transition-opacity hover:opacity-70"
         >
           Karis Fellowships
         </Link>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className={`hidden items-center gap-0.5 ${wideNav ? "xl:flex" : "md:flex"}`}>
           {links.map(({ href, label }) => (
             <li key={href}>
               <Link
                 href={href}
-                className="px-4 py-2 text-[13px] tracking-wide text-white/70 transition-colors hover:text-white"
+                className="whitespace-nowrap px-3 py-2 text-[13px] font-normal tracking-wide text-white/70 transition-colors hover:text-white"
               >
                 {label}
               </Link>
             </li>
           ))}
-          <li className="ml-4">
+          <li className="ml-2 shrink-0">
             {isLoggedIn ? (
               <form action="/auth/logout" method="POST">
-                <button type="submit" className="rounded-lg border border-white/15 px-5 py-2 text-[13px] tracking-wide text-white/50 transition-all hover:border-white/30 hover:text-white">
+                <button type="submit" className="whitespace-nowrap rounded-lg border border-white/15 px-4 py-2 text-[13px] tracking-wide text-white/50 transition-all hover:border-white/30 hover:text-white">
                   Log Out
                 </button>
               </form>
             ) : (
-              <Link href="/login" className="rounded-lg border border-teal/40 bg-teal/10 px-6 py-2 text-[13px] font-medium tracking-wide text-teal-light transition-all hover:bg-teal/20 hover:border-teal/60">
+              <Link href="/login" className="whitespace-nowrap rounded-lg border border-teal/40 bg-teal/10 px-6 py-2 text-[13px] font-medium tracking-wide text-teal-light transition-all hover:bg-teal/20 hover:border-teal/60">
                 Login
               </Link>
             )}
@@ -80,7 +84,7 @@ export default function Navbar({ isLoggedIn = false, tier = null }: { isLoggedIn
 
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-white/5 md:hidden"
+          className={`flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-white/5 ${wideNav ? "xl:hidden" : "md:hidden"}`}
           aria-label="Toggle menu"
         >
           <div className="flex flex-col gap-1.5">
@@ -92,7 +96,7 @@ export default function Navbar({ isLoggedIn = false, tier = null }: { isLoggedIn
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-white/[0.04] bg-slate-dark/80 px-8 py-4 backdrop-blur-xl md:hidden">
+        <div className={`border-t border-white/[0.04] bg-slate-dark/80 px-6 py-4 backdrop-blur-xl ${wideNav ? "xl:hidden" : "md:hidden"}`}>
           <ul className="flex flex-col gap-1">
             {links.map(({ href, label }) => (
               <li key={href}>

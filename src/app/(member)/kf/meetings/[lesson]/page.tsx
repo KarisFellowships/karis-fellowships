@@ -47,7 +47,6 @@ export default async function LessonPage({ params }: Props) {
 
   const hasMeetingPdf = lessonData?.meetingFile;
   const hasExpandedPdf = lessonData?.expandedFile;
-  const hasMeetingDocx = lessonData?.meetingDocx;
   const hasExpandedDocx = lessonData?.expandedDocx;
 
   return (
@@ -79,11 +78,6 @@ export default async function LessonPage({ params }: Props) {
                 {hasMeetingPdf && (
                   <a href={docUrl(`/docs/lessons/kf${lessonNumber}-meeting.pdf`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-teal/15 px-3 py-2 text-xs font-semibold text-teal-light transition-all hover:bg-teal/25">
                     {downloadIcon} PDF
-                  </a>
-                )}
-                {hasMeetingDocx && (
-                  <a href={docUrl(`/docs/lessons/kf${lessonNumber}-meeting.docx`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-teal/15 px-3 py-2 text-xs font-semibold text-teal-light transition-all hover:bg-teal/25">
-                    {downloadIcon} DOC
                   </a>
                 )}
               </div>

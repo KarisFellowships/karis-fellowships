@@ -166,7 +166,8 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          {/* Second row: Facilitator */}
+          {/* Second row: Facilitators + KF Recordings (2-up) */}
+          <div className="grid gap-3 lg:grid-cols-2">
           <div className="rounded-xl bg-[#1e293b] p-6">
             <div className="flex items-center gap-2 mb-3">
               <svg className="h-5 w-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
@@ -198,6 +199,21 @@ export default async function DashboardPage() {
             <Link href="/kf/facilitator" className="mt-3 inline-flex items-center text-xs font-semibold text-violet-light hover:text-violet transition-colors">
               All facilitator resources &rarr;
             </Link>
+          </div>
+
+          {/* KF Recordings */}
+          <div className="rounded-xl bg-[#1e293b] p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <svg className="h-5 w-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white/50">KF Recordings</h3>
+            </div>
+            <p className="text-base text-white/55 leading-relaxed">
+              To listen to a recording of the latest meeting, use the phone number <span className="font-semibold text-teal-light">(701)&nbsp;801-1229</span> and your meeting time&apos;s access code from the table above. Follow the audio prompts. Press # to listen to the most recent recording.
+            </p>
+            <Link href="/kf/recordings" className="mt-4 inline-flex items-center text-sm font-semibold text-teal-light hover:text-teal transition-colors">
+              Listen to all recordings &rarr;
+            </Link>
+          </div>
           </div>
 
           {/* Quick links — image cards */}
