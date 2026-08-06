@@ -105,6 +105,19 @@ export default function Navbar({ isLoggedIn = false, tier = null }: { isLoggedIn
                 </Link>
               </li>
             ))}
+            <li className="mt-2 border-t border-white/10 pt-2">
+              {isLoggedIn ? (
+                <form action="/auth/logout" method="POST">
+                  <button type="submit" className="block w-full rounded-lg px-4 py-3 text-left text-sm tracking-wide text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+                    Log Out
+                  </button>
+                </form>
+              ) : (
+                <Link href="/login" onClick={() => setMobileOpen(false)} className="block rounded-lg border border-teal/40 bg-teal/10 px-4 py-3 text-sm font-medium tracking-wide text-teal-light transition-colors hover:bg-teal/20 hover:border-teal/60">
+                  Login
+                </Link>
+              )}
+            </li>
           </ul>
         </div>
       )}
