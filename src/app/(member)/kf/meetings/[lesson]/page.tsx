@@ -54,13 +54,14 @@ export default async function LessonPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-[#4a5568] pt-20">
-      {/* Cinematic header — full-bleed image, uppercase eyebrow, large serif title */}
-      <section className="relative z-10">
+      {/* Cinematic banner — the image runs behind the title AND the resource cards,
+          then fades into the page just before the teaching content. */}
+      <div className="relative">
         <div className="absolute inset-0">
           <Image src="/misty-valley-dawn.jpg" alt="Misty valley at dawn" fill priority className="object-cover object-center" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-[#4a5568]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-[#4a5568]" />
         </div>
-        <div className="relative px-6 pb-14 pt-20 sm:pb-20 sm:pt-28">
+        <div className="relative px-6 pt-20 sm:pt-28">
           <div className="mx-auto max-w-[66rem]">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/75 drop-shadow sm:text-[13px]">
               {dateRange}
@@ -69,13 +70,10 @@ export default async function LessonPage({ params }: Props) {
               {num === 0 ? "KF Introductory Meeting" : `KF${lessonNumber} Meeting`}
             </h1>
           </div>
-        </div>
-      </section>
-
-      <section className="px-6 pb-12 pt-4">
-        <div className="mx-auto max-w-[66rem] space-y-3">
-          {/* Resource cards + Call Info (Call Info is the 5th card; its panel expands below the row) */}
-          <CallInfoRow phone={phoneNumber(codes)} meetings={kfMeetings(codes)}>
+          {/* Resource cards, sitting over the fading banner */}
+          <div className="mx-auto mt-10 max-w-[66rem] pb-12 sm:mt-12 sm:pb-16">
+            {/* Resource cards + Call Info (Call Info is the 5th card; its panel expands below the row) */}
+            <CallInfoRow phone={phoneNumber(codes)} meetings={kfMeetings(codes)}>
             {/* Meeting Version — PDF only */}
             {hasMeetingPdf && (
               <a href={docUrl(`/docs/lessons/kf${lessonNumber}-meeting.pdf`)} target="_blank" rel="noopener noreferrer" className={cardClass}>
@@ -111,8 +109,14 @@ export default async function LessonPage({ params }: Props) {
               <span className={labelClass}>Meeting Schedule</span>
               <span className={hintClass}>PDF</span>
             </a>
-          </CallInfoRow>
+            </CallInfoRow>
+          </div>
+        </div>
+      </div>
 
+      {/* Teaching + navigation on the plain page background */}
+      <section className="px-6 pb-12">
+        <div className="mx-auto max-w-[66rem] space-y-3">
           {/* Full lesson content from DOCX */}
           <LessonContent html={lessonHtml} />
 
