@@ -25,7 +25,6 @@ export default function CallInfoRow({
   return (
     <div className="space-y-3">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-        {children}
         <button
           type="button"
           onClick={() => setOpen(!open)}
@@ -38,6 +37,7 @@ export default function CallInfoRow({
             <svg className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" /></svg>
           </span>
         </button>
+        {children}
       </div>
 
       {open && (
