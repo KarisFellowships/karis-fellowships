@@ -72,7 +72,7 @@ html {
   scroll-behavior: smooth;
   /* Site-wide readability: scale the base up so all rem-based text (and widths)
      read larger. Bump this a touch more if it still feels small. */
-  font-size: 18px;
+  font-size: 19px;
 }
 
 /* Body copy default: heavier than Montserrat's thin-looking 400 so text reads

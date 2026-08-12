@@ -14,9 +14,13 @@ interface Props {
   params: Promise<{ lesson: string }>;
 }
 
-const downloadIcon = (
-  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-);
+// Editorial resource cards: the whole card is the click target for single-file
+// resources; the label is centered in serif with a small format hint below.
+const cardClass =
+  "group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-7 text-center transition-all duration-300 hover:border-white/25 hover:bg-white/[0.07]";
+const iconClass = "h-7 w-7 transition-transform duration-300 group-hover:scale-110";
+const labelClass = "mt-3 font-serif text-xl text-white/90 transition-colors group-hover:text-white";
+const hintClass = "mt-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-white/35";
 
 export default async function LessonPage({ params }: Props) {
   const { lesson } = await params;
@@ -47,7 +51,6 @@ export default async function LessonPage({ params }: Props) {
 
   const hasMeetingPdf = lessonData?.meetingFile;
   const hasExpandedPdf = lessonData?.expandedFile;
-  const hasExpandedDocx = lessonData?.expandedDocx;
 
   return (
     <div className="min-h-screen bg-[#4a5568] pt-20">
@@ -69,59 +72,43 @@ export default async function LessonPage({ params }: Props) {
 
       <section className="px-6 pb-12 pt-4">
         <div className="mx-auto max-w-[60rem] space-y-3">
-          {/* 4 resource boxes */}
+          {/* Resource cards — the whole card opens the PDF (editorial style) */}
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {/* Meeting Version */}
-            <div className="rounded-xl bg-[#1e293b] p-5">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-white/50">Meeting Version</h3>
-              <div className="mt-3 flex gap-2">
-                {hasMeetingPdf && (
-                  <a href={docUrl(`/docs/lessons/kf${lessonNumber}-meeting.pdf`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-teal/15 px-3 py-2 text-xs font-semibold text-teal-light transition-all hover:bg-teal/25">
-                    {downloadIcon} PDF
-                  </a>
-                )}
+            {/* Meeting Version — PDF only */}
+            {hasMeetingPdf && (
+              <a href={docUrl(`/docs/lessons/kf${lessonNumber}-meeting.pdf`)} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                <svg className={`${iconClass} text-teal-light/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                <span className={labelClass}>Meeting Version</span>
+                <span className={hintClass}>PDF</span>
+              </a>
+            )}
+
+            {/* Expanded Version — PDF only */}
+            {hasExpandedPdf && (
+              <a href={docUrl(`/docs/lessons/kf${lessonNumber}-expanded.pdf`)} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                <svg className={`${iconClass} text-amber/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                <span className={labelClass}>Expanded Version</span>
+                <span className={hintClass}>PDF</span>
+              </a>
+            )}
+
+            {/* Prep Guide — PDF + Word */}
+            <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-7 text-center">
+              <svg className="h-7 w-7 text-violet-light/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+              <span className="mt-3 font-serif text-xl text-white/90">Prep Guide</span>
+              <div className="mt-2 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.2em]">
+                <a href={docUrl("/docs/kf-resources/meeting-prep-guide.pdf")} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">PDF</a>
+                <span className="text-white/20">&middot;</span>
+                <a href={docUrl("/docs/kf-resources/KF-MPG-typed-2021.docx")} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">Word</a>
               </div>
             </div>
 
-            {/* Expanded Version */}
-            <div className="rounded-xl bg-[#1e293b] p-5">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-white/50">Expanded Version</h3>
-              <div className="mt-3 flex gap-2">
-                {hasExpandedPdf && (
-                  <a href={docUrl(`/docs/lessons/kf${lessonNumber}-expanded.pdf`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-amber/15 px-3 py-2 text-xs font-semibold text-amber transition-all hover:bg-amber/25">
-                    {downloadIcon} PDF
-                  </a>
-                )}
-                {hasExpandedDocx && (
-                  <a href={docUrl(`/docs/lessons/kf${lessonNumber}-expanded.docx`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-amber/15 px-3 py-2 text-xs font-semibold text-amber transition-all hover:bg-amber/25">
-                    {downloadIcon} DOC
-                  </a>
-                )}
-              </div>
-            </div>
-
-            {/* Meeting Prep Guide */}
-            <div className="rounded-xl bg-[#1e293b] p-5">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-white/50">Prep Guide</h3>
-              <div className="mt-3 flex gap-2">
-                <a href={docUrl("/docs/kf-resources/meeting-prep-guide.pdf")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-violet/15 px-3 py-2 text-xs font-semibold text-violet-light transition-all hover:bg-violet/25">
-                  {downloadIcon} PDF
-                </a>
-                <a href={docUrl("/docs/kf-resources/KF-MPG-typed-2021.docx")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-violet/15 px-3 py-2 text-xs font-semibold text-violet-light transition-all hover:bg-violet/25">
-                  {downloadIcon} DOC
-                </a>
-              </div>
-            </div>
-
-            {/* Meeting Schedule */}
-            <div className="rounded-xl bg-[#1e293b] p-5">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-white/50">Meeting Schedule</h3>
-              <div className="mt-3">
-                <a href={docUrl("/docs/kf-resources/KF-Meeting-Schedule.pdf")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-sky/15 px-3 py-2 text-xs font-semibold text-sky transition-all hover:bg-sky/25">
-                  {downloadIcon} Open
-                </a>
-              </div>
-            </div>
+            {/* Meeting Schedule — PDF only */}
+            <a href={docUrl("/docs/kf-resources/KF-Meeting-Schedule.pdf")} target="_blank" rel="noopener noreferrer" className={cardClass}>
+              <svg className={`${iconClass} text-sky/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+              <span className={labelClass}>Meeting Schedule</span>
+              <span className={hintClass}>PDF</span>
+            </a>
           </div>
 
           {/* Call Info toggle */}
