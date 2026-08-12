@@ -54,16 +54,18 @@ export default async function LessonPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-[#4a5568] pt-20">
-      {/* Vibrant water header */}
+      {/* Cinematic header — full-bleed image, uppercase eyebrow, large serif title */}
       <section className="relative z-10">
         <div className="absolute inset-0">
-          <Image src="/ocean-horizon.jpg" alt="Ocean horizon" fill className="object-cover brightness-125 saturate-[1.2] contrast-[1.05]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-[#4a5568]" />
+          <Image src="/forest-path.jpg" alt="A quiet path through the forest" fill priority className="object-cover object-center" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-[#4a5568]" />
         </div>
-        <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
+        <div className="relative px-6 pb-14 pt-20 sm:pb-20 sm:pt-28">
           <div className="mx-auto max-w-[66rem]">
-            <p className="text-sm font-semibold text-white/90 drop-shadow-md">{dateRange}</p>
-            <h1 className="mt-1 font-serif text-3xl font-semibold text-white drop-shadow-md sm:text-4xl" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/75 drop-shadow sm:text-[13px]">
+              {dateRange}
+            </p>
+            <h1 className="mt-3.5 font-serif text-4xl font-medium leading-[1.03] text-white drop-shadow-xl sm:text-5xl lg:text-6xl" style={{ textShadow: "0 2px 24px rgba(0,0,0,0.55)" }}>
               {num === 0 ? "KF Introductory Meeting" : `KF${lessonNumber} Meeting`}
             </h1>
           </div>
