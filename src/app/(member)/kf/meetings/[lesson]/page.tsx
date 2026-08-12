@@ -20,7 +20,7 @@ const cardClass =
   "group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-7 text-center transition-all duration-300 hover:border-white/25 hover:bg-white/[0.07]";
 const iconClass = "h-7 w-7 transition-transform duration-300 group-hover:scale-110";
 const labelClass = "mt-3 font-serif text-xl text-white/90 transition-colors group-hover:text-white";
-const hintClass = "mt-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-white/35";
+const hintClass = "mt-1.5 text-[13px] font-medium uppercase tracking-[0.2em] text-white/35";
 
 export default async function LessonPage({ params }: Props) {
   const { lesson } = await params;
@@ -96,7 +96,7 @@ export default async function LessonPage({ params }: Props) {
             <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-7 text-center">
               <svg className="h-7 w-7 text-violet-light/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
               <span className="mt-3 font-serif text-xl text-white/90">Prep Guide</span>
-              <div className="mt-2 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.2em]">
+              <div className="mt-2 flex items-center gap-3 text-[13px] font-medium uppercase tracking-[0.2em]">
                 <a href={docUrl("/docs/kf-resources/meeting-prep-guide.pdf")} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">PDF</a>
                 <span className="text-white/20">&middot;</span>
                 <a href={docUrl("/docs/kf-resources/KF-MPG-typed-2021.docx")} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">Word</a>
