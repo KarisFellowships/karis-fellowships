@@ -96,7 +96,7 @@ export default function LessonContent({ html }: Props) {
   }, [bodyHtml]);
 
   return (
-    <div ref={contentRef} className="rounded-xl bg-[#f5f3ef] p-8 sm:p-12">
+    <div ref={contentRef} className="rounded-xl bg-[#f5f3ef] px-6 py-8 sm:px-20 sm:py-14">
       <div className="lesson-content lesson-content--light">
         {segments.map((seg, i) => {
           if (seg.type === "content") {

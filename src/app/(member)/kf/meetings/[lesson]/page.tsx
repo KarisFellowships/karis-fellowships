@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import lessonsData from "@/data/lessons.json";
 import { getAllLessons } from "@/lib/date-engine";
-import CallInfoToggle from "@/components/CallInfoToggle";
+import CallInfoRow from "@/components/CallInfoRow";
 import { getMeetingCodes, phoneNumber, kfMeetings } from "@/lib/meeting-codes";
 import { requireKF } from "@/lib/require-tier";
 import LessonContent from "@/components/LessonContent";
@@ -61,7 +61,7 @@ export default async function LessonPage({ params }: Props) {
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-[#4a5568]" />
         </div>
         <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
-          <div className="mx-auto max-w-[60rem]">
+          <div className="mx-auto max-w-[66rem]">
             <p className="text-sm font-semibold text-white/90 drop-shadow-md">{dateRange}</p>
             <h1 className="mt-1 font-serif text-3xl font-semibold text-white drop-shadow-md sm:text-4xl" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
               {num === 0 ? "KF Introductory Meeting" : `KF${lessonNumber} Meeting`}
@@ -71,9 +71,9 @@ export default async function LessonPage({ params }: Props) {
       </section>
 
       <section className="px-6 pb-12 pt-4">
-        <div className="mx-auto max-w-[60rem] space-y-3">
-          {/* Resource cards — the whole card opens the PDF (editorial style) */}
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto max-w-[66rem] space-y-3">
+          {/* Resource cards + Call Info (Call Info is the 5th card; its panel expands below the row) */}
+          <CallInfoRow phone={phoneNumber(codes)} meetings={kfMeetings(codes)}>
             {/* Meeting Version — PDF only */}
             {hasMeetingPdf && (
               <a href={docUrl(`/docs/lessons/kf${lessonNumber}-meeting.pdf`)} target="_blank" rel="noopener noreferrer" className={cardClass}>
@@ -109,10 +109,7 @@ export default async function LessonPage({ params }: Props) {
               <span className={labelClass}>Meeting Schedule</span>
               <span className={hintClass}>PDF</span>
             </a>
-          </div>
-
-          {/* Call Info toggle */}
-          <CallInfoToggle phone={phoneNumber(codes)} meetings={kfMeetings(codes)} />
+          </CallInfoRow>
 
           {/* Full lesson content from DOCX */}
           <LessonContent html={lessonHtml} />
