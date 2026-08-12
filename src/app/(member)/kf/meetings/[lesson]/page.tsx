@@ -57,8 +57,8 @@ export default async function LessonPage({ params }: Props) {
       {/* Cinematic header — full-bleed image, uppercase eyebrow, large serif title */}
       <section className="relative z-10">
         <div className="absolute inset-0">
-          <Image src="/forest-path.jpg" alt="A quiet path through the forest" fill priority className="object-cover object-center" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-[#4a5568]" />
+          <Image src="/misty-valley-dawn.jpg" alt="Misty valley at dawn" fill priority className="object-cover object-center" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-[#4a5568]" />
         </div>
         <div className="relative px-6 pb-14 pt-20 sm:pb-20 sm:pt-28">
           <div className="mx-auto max-w-[66rem]">
