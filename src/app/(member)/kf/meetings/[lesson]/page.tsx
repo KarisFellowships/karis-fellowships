@@ -17,7 +17,7 @@ interface Props {
 // Editorial resource cards: the whole card is the click target for single-file
 // resources; the label is centered in serif with a small format hint below.
 const cardClass =
-  "group flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-7 text-center transition-all duration-300 hover:border-white/25 hover:bg-white/[0.07]";
+  "group flex flex-col items-center justify-center rounded-2xl border border-white/25 bg-white/[0.18] px-4 py-7 text-center backdrop-blur-md transition-all duration-300 hover:border-white/35 hover:bg-white/[0.24]";
 const iconClass = "h-7 w-7 transition-transform duration-300 group-hover:scale-110";
 const labelClass = "mt-3 font-serif text-xl text-white/90 transition-colors group-hover:text-white";
 const hintClass = "mt-1.5 text-[13px] font-medium uppercase tracking-[0.2em] text-white/35";
@@ -71,7 +71,7 @@ export default async function LessonPage({ params }: Props) {
             </h1>
           </div>
           {/* Resource cards, sitting over the fading banner */}
-          <div className="mx-auto mt-10 max-w-[66rem] pb-12 sm:mt-12 sm:pb-16">
+          <div className="mx-auto mt-10 max-w-[66rem] pb-3 sm:mt-12">
             {/* Resource cards + Call Info (Call Info is the 5th card; its panel expands below the row) */}
             <CallInfoRow phone={phoneNumber(codes)} meetings={kfMeetings(codes)}>
             {/* Meeting Version — PDF only */}
@@ -93,7 +93,7 @@ export default async function LessonPage({ params }: Props) {
             )}
 
             {/* Prep Guide — PDF + Word */}
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-7 text-center">
+            <div className="flex flex-col items-center justify-center rounded-2xl border border-white/25 bg-white/[0.18] px-4 py-7 text-center backdrop-blur-md">
               <svg className="h-7 w-7 text-violet-light/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
               <span className="mt-3 font-serif text-xl text-white/90">Prep Guide</span>
               <div className="mt-2 flex items-center gap-3 text-[13px] font-medium uppercase tracking-[0.2em]">
