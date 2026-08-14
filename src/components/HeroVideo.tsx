@@ -14,7 +14,7 @@ export default function HeroVideo() {
   }, []);
 
   return (
-    <section className="grain relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-slate-dark">
+    <section className="grain relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-slate-dark pt-20 sm:pt-0">
       <video
         ref={videoRef}
         autoPlay
