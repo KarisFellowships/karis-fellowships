@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { cardClass, iconClass, labelClass, hintClass } from "@/lib/lesson-card-styles";
 
 interface Meeting {
   day: string;
@@ -28,11 +29,11 @@ export default function CallInfoRow({
         <button
           type="button"
           onClick={() => setOpen(!open)}
-          className="group flex flex-col items-center justify-center rounded-2xl border border-white/25 bg-white/[0.14] px-4 py-7 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/45 hover:bg-white/[0.22] hover:shadow-lg hover:shadow-black/20"
+          className={cardClass}
         >
-          <svg className="h-7 w-7 text-teal/70 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-          <span className="mt-3 font-serif text-xl text-white/90 transition-colors group-hover:text-white">Call Info</span>
-          <span className="mt-1.5 flex items-center gap-1 text-[13px] font-medium uppercase tracking-[0.2em] text-white/35">
+          <svg className={`${iconClass} text-teal/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+          <span className={labelClass}>Call Info</span>
+          <span className={`${hintClass} flex items-center gap-1`}>
             Details
             <svg className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" /></svg>
           </span>
