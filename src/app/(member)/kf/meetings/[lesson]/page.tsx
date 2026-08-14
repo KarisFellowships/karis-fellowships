@@ -17,7 +17,7 @@ interface Props {
 // Editorial resource cards: the whole card is the click target for single-file
 // resources; the label is centered in serif with a small format hint below.
 const cardClass =
-  "group flex flex-col items-center justify-center rounded-2xl border border-white/25 bg-white/[0.18] px-4 py-7 text-center backdrop-blur-md transition-all duration-300 hover:border-white/35 hover:bg-white/[0.24]";
+  "group flex flex-col items-center justify-center rounded-2xl border border-white/25 bg-white/[0.14] px-4 py-7 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/45 hover:bg-white/[0.22] hover:shadow-lg hover:shadow-black/20";
 const iconClass = "h-7 w-7 transition-transform duration-300 group-hover:scale-110";
 const labelClass = "mt-3 font-serif text-xl text-white/90 transition-colors group-hover:text-white";
 const hintClass = "mt-1.5 text-[13px] font-medium uppercase tracking-[0.2em] text-white/35";
@@ -53,7 +53,7 @@ export default async function LessonPage({ params }: Props) {
   const hasExpandedPdf = lessonData?.expandedFile;
 
   return (
-    <div className="min-h-screen bg-[#4a5568] pt-20">
+    <div className="min-h-screen bg-[#4a5568]">
       {/* Cinematic banner — the image runs behind the title AND the resource cards,
           then fades into the page just before the teaching content. */}
       <div className="relative">
@@ -61,7 +61,7 @@ export default async function LessonPage({ params }: Props) {
           <Image src="/misty-valley-dawn.jpg" alt="Misty valley at dawn" fill priority className="object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-[#4a5568]" />
         </div>
-        <div className="relative px-6 pt-20 sm:pt-28">
+        <div className="relative px-6 pt-40 sm:pt-48">
           <div className="mx-auto max-w-[66rem]">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/75 drop-shadow sm:text-[13px]">
               {dateRange}
@@ -93,9 +93,9 @@ export default async function LessonPage({ params }: Props) {
             )}
 
             {/* Prep Guide — PDF + Word */}
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-white/25 bg-white/[0.18] px-4 py-7 text-center backdrop-blur-md">
-              <svg className="h-7 w-7 text-violet-light/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
-              <span className="mt-3 font-serif text-xl text-white/90">Prep Guide</span>
+            <div className={cardClass}>
+              <svg className={`${iconClass} text-violet-light/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+              <span className={labelClass}>Prep Guide</span>
               <div className="mt-2 flex items-center gap-3 text-[13px] font-medium uppercase tracking-[0.2em]">
                 <a href={docUrl("/docs/kf-resources/meeting-prep-guide.pdf")} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">PDF</a>
                 <span className="text-white/20">&middot;</span>
