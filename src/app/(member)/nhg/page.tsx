@@ -310,8 +310,13 @@ export default async function NHGPage() {
               </div>
 
               <div className="flex flex-col lg:col-span-2">
-                <div className={`flex flex-1 flex-col px-5 pb-4 sm:px-7 ${nhgFeatured}`}>
-                  <p className="mb-2 border-b border-white/10 py-6 text-sm leading-relaxed text-white/65">
+                <div className="relative flex flex-1 flex-col overflow-hidden rounded-2xl border border-violet/25">
+                  <div className="absolute inset-0">
+                    <Image src="/starry-mountain.jpg" alt="Starry night sky over mountains" fill className="object-cover object-top" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#241c46]/85 via-[#2b2150]/80 to-[#241c46]/92" />
+                  </div>
+                  <div className="relative px-5 pb-4 sm:px-8">
+                  <p className="mb-2 border-b border-white/10 py-6 text-sm leading-relaxed text-white/75">
                     We meet weekly for eight weeks as well as a weekend intensive of the same meetings. All weekly meetings are Saturday at 9 am CST, see the weekend intensive schedule below. While in the meeting a facilitator will read the KF Introduction and guide you through the reading guides.
                   </p>
                 <div className="grid sm:grid-cols-2 sm:gap-x-10">
@@ -323,25 +328,25 @@ export default async function NHGPage() {
                         key={week.weekNumber}
                         className="flex gap-4 border-t border-white/10 py-5 first:border-t-0 sm:[&:nth-child(2)]:border-t-0"
                       >
-                        <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/50">{num}</span>
+                        <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/60">{num}</span>
                         <div className="min-w-0 flex-1">
                           {guide && (
-                            <p className="text-xs italic leading-snug text-violet-light/70">{guide.chapters}</p>
+                            <p className="text-xs italic leading-snug text-violet-light/80">{guide.chapters}</p>
                           )}
                           <h3 className="mt-0.5 font-serif text-lg font-semibold leading-snug text-white sm:text-xl">
                             {guide?.label ?? week.label}
                           </h3>
-                          <p className="mt-0.5 text-sm font-medium text-white/50">{formatDate(week.startDate)}</p>
+                          <p className="mt-0.5 text-sm font-medium text-white/60">{formatDate(week.startDate)}</p>
                           {guide && (
                             <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-semibold">
-                              <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="text-teal-light transition-colors hover:text-teal">
+                              <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="text-violet-light transition-colors hover:text-white">
                                 Reading Guide &rarr;
                               </a>
-                              <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="text-white/55 transition-colors hover:text-white/85">
+                              <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="text-white/65 transition-colors hover:text-white/90">
                                 KF Introduction
                               </a>
                               {week.weekNumber === 8 && (
-                                <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="text-amber transition-colors hover:text-amber/80">
+                                <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="text-[#fcd34d] transition-colors hover:text-[#fcd34d]/80">
                                   Review
                                 </a>
                               )}
@@ -352,6 +357,7 @@ export default async function NHGPage() {
                     );
                   })}
                 </div>
+                  </div>
               </div>
                 <div className="mt-2 grid gap-2 sm:grid-cols-2 sm:items-start">
                   <WeekendIntensiveSchedule accessCode={weekendIntensiveCode} days={weekendIntensiveDays} />
@@ -382,15 +388,15 @@ export default async function NHGPage() {
           <div className="pt-4">
             <div className={`${nhgFeatured} p-8`}>
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-coral/15">
-                  <svg className="h-6 w-6 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#fcd34d]/15">
+                  <svg className="h-6 w-6 text-[#fcd34d]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                 </div>
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold text-white">NHG Facilitator Resources</h2>
 
                   {activeWeek && facilitatorGuides[activeWeek.weekNumber] && (
-                    <div className="mt-4 rounded-xl bg-coral/15 ring-1 ring-coral/30 p-5">
-                      <span className="inline-block rounded-full bg-coral/20 px-3 py-1 text-xs font-bold text-coral">
+                    <div className="mt-4 rounded-xl bg-[#fcd34d]/15 ring-1 ring-[#fcd34d]/30 p-5">
+                      <span className="inline-block rounded-full bg-[#fcd34d]/20 px-3 py-1 text-xs font-bold text-[#fcd34d]">
                         This Week
                       </span>
                       <h3 className="mt-2 text-lg font-semibold text-white">
@@ -400,7 +406,7 @@ export default async function NHGPage() {
                         href={docUrl(facilitatorGuides[activeWeek.weekNumber].href)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-3 inline-flex items-center gap-2 rounded-lg bg-coral/20 px-4 py-2.5 text-sm font-semibold text-coral transition-all hover:bg-coral/30"
+                        className="mt-3 inline-flex items-center gap-2 rounded-lg bg-[#fcd34d]/20 px-4 py-2.5 text-sm font-semibold text-[#fcd34d] transition-all hover:bg-[#fcd34d]/30"
                       >
                         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                         Open Facilitator Guide
@@ -419,10 +425,10 @@ export default async function NHGPage() {
                           rel="noopener noreferrer"
                           className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.05] p-3 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/[0.10] hover:-translate-y-0.5"
                         >
-                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-coral/15">
-                            <svg className="h-4 w-4 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#fcd34d]/15">
+                            <svg className="h-4 w-4 text-[#fcd34d]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                           </span>
-                          <span className="text-sm font-medium text-white/70 group-hover:text-coral transition-colors">{label}</span>
+                          <span className="text-sm font-medium text-white/70 group-hover:text-[#fcd34d] transition-colors">{label}</span>
                         </a>
                       ))}
                     </div>
@@ -441,20 +447,20 @@ export default async function NHGPage() {
                             rel="noopener noreferrer"
                             className={`flex items-center gap-3 rounded-xl p-3 transition-all hover:-translate-y-0.5 ${
                               isCurrent
-                                ? "bg-coral/15 ring-1 ring-coral/30"
+                                ? "bg-[#fcd34d]/15 ring-1 ring-[#fcd34d]/30"
                                 : "border border-white/10 bg-white/[0.05] backdrop-blur-sm hover:border-white/20 hover:bg-white/[0.10]"
                             }`}
                           >
                             <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
-                              isCurrent ? "bg-coral text-white" : "bg-coral/15 text-coral"
+                              isCurrent ? "bg-[#fcd34d] text-[#2b2150]" : "bg-[#fcd34d]/15 text-[#fcd34d]"
                             }`}>
                               {num}
                             </span>
                             <span className={`text-sm font-medium transition-colors ${
-                              isCurrent ? "text-coral" : "text-white/60 hover:text-coral"
+                              isCurrent ? "text-[#fcd34d]" : "text-white/60 hover:text-[#fcd34d]"
                             }`}>
                               Week {num}
-                              {isCurrent && <span className="ml-1 text-xs text-coral/70">(This Week)</span>}
+                              {isCurrent && <span className="ml-1 text-xs text-[#fcd34d]/70">(This Week)</span>}
                             </span>
                           </a>
                         );
