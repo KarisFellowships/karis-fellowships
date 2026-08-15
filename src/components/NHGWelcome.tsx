@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import ExpandableSection from "./ExpandableSection";
+import { nhgCard } from "@/lib/nhg-surface";
 
 const AMAZON_URL =
   "https://www.amazon.com/Neurosis-Human-Growth-Struggle-Self-Realization/dp/0393307751";
@@ -32,12 +33,17 @@ export default function NHGWelcome({ syllabusUrl, nextStudyDate }: Props) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="w-full overflow-hidden rounded-xl bg-[#2b2150]">
+    <div className={`w-full overflow-hidden ${nhgCard}`}>
       <button
         onClick={() => setOpen(!open)}
-        className="group flex w-full items-center justify-between gap-3 px-5 py-4 text-left transition-colors hover:bg-white/[0.03]"
+        className="group flex w-full items-center justify-between gap-3 px-6 py-5 text-left transition-colors hover:bg-white/[0.03]"
       >
-        <h2 className="text-base font-bold text-white">Start Here</h2>
+        <span className="flex items-center gap-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-light/15">
+            <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          </span>
+          <span className="font-serif text-xl text-white">Start Here</span>
+        </span>
         <svg
           className={`h-4 w-4 shrink-0 text-white/40 transition-transform duration-500 ${open ? "rotate-180" : ""}`}
           viewBox="0 0 24 24"

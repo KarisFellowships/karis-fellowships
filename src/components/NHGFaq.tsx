@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { nhgCard } from "@/lib/nhg-surface";
 
 const faqs = [
   {
@@ -39,8 +40,8 @@ export default function NHGFaq() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="rounded-2xl bg-[#2b2150] p-8">
-      <h2 className="text-xl font-bold text-white">FAQs &amp; Tips</h2>
+    <div className={`${nhgCard} p-8`}>
+      <h2 className="font-serif text-2xl font-medium text-white">FAQs &amp; Tips</h2>
       <div className="mt-4 divide-y divide-white/10">
         {faqs.map((faq, i) => (
           <div key={i}>
@@ -48,7 +49,7 @@ export default function NHGFaq() {
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
               className="flex w-full items-center justify-between gap-4 py-4 text-left"
             >
-              <span className="font-serif text-sm font-semibold text-white/80">{faq.question}</span>
+              <span className="font-serif text-base text-white/85">{faq.question}</span>
               <svg
                 className={`h-4 w-4 shrink-0 text-violet-light/50 transition-transform duration-300 ${openIndex === i ? "rotate-180" : ""}`}
                 viewBox="0 0 24 24"
