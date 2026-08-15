@@ -158,7 +158,7 @@ export default async function NHGPage() {
   // featured card (its original place); on mobile the columns stack, so it's
   // shown AFTER the weekly meetings instead of jumping ahead of weeks 1–8.
   const kfIntroBlock = (
-    <div className={`${nhgFeatured} p-5 sm:p-6`}>
+    <div className="rounded-2xl border border-violet/25 bg-violet/[0.18] p-5 backdrop-blur-md sm:p-6">
       <div className="flex gap-4">
         <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/50">09</span>
         <div className="min-w-0 flex-1">
@@ -242,7 +242,7 @@ export default async function NHGPage() {
                 </div>
                 {nhgCodes.map((c) => (
                   <div key={c.id}>
-                    <p className="text-[10px] uppercase tracking-wide text-white/40">{c.label}</p>
+                    <p className="text-[10px] uppercase tracking-wide text-white/40">{/weekend|intensive/i.test(c.label) ? c.label : "Saturday 9 am CST"}</p>
                     <p className="font-mono text-sm font-bold text-violet-light/80">{c.code}</p>
                   </div>
                 ))}
@@ -265,9 +265,12 @@ export default async function NHGPage() {
           {/* Study Schedule */}
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-violet-light/80">The Study</p>
-            <h2 className="mt-2 mb-5 font-serif text-2xl font-medium text-white sm:text-3xl">Weekly Schedule &amp; Reading Guides</h2>
-            <div className="grid gap-x-6 gap-y-6 lg:grid-cols-3 lg:items-start">
-              <div className="lg:col-span-1">
+            <h2 className="mt-2 mb-4 font-serif text-2xl font-medium text-white sm:text-3xl">Weekly Schedule &amp; Reading Guides</h2>
+            <p className="mb-6 max-w-3xl text-sm leading-relaxed text-white/70">
+              We meet weekly for eight weeks as well as a weekend intensive of the same meetings. All weekly meetings are Saturday at 9 am CST, see the weekend intensive schedule below. While in the meeting a facilitator will read the KF Introduction and guide you through the reading guides.
+            </p>
+            <div className="grid gap-x-6 gap-y-6 lg:grid-cols-3 lg:items-stretch">
+              <div className="flex flex-col gap-4 lg:col-span-1">
                 {featuredWeek && (
                 featuredGuide ? (
                   <Link
@@ -308,26 +311,41 @@ export default async function NHGPage() {
                 )
                 )}
 
-                {/* Desktop: KF Introductory Meeting under the featured card (original spot) */}
-                <div className="mt-4 hidden lg:block">{kfIntroBlock}</div>
+                {/* Desktop: supporting blocks stacked under the featured card; the last
+                    two grow to fill the column so it matches the week-card column. */}
+                <div className="hidden lg:flex lg:flex-1 lg:flex-col lg:gap-4">
+                  {kfIntroBlock}
+                  <div className="flex flex-1 flex-col">
+                    <WeekendIntensiveSchedule accessCode={weekendIntensiveCode} days={weekendIntensiveDays} />
+                  </div>
+                  <Link
+                    href="/nhg/recordings"
+                    className={`group flex flex-1 items-center gap-4 p-6 ${nhgCard} ${nhgCardHover}`}
+                  >
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
+                      <svg className="h-6 w-6 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>
+                    </span>
+                    <div>
+                      <h3 className="font-serif text-lg text-white group-hover:text-violet-light transition-colors">Meeting Recordings</h3>
+                      <p className="mt-0.5 text-xs text-white/50">Past NHG sessions</p>
+                    </div>
+                  </Link>
+                </div>
               </div>
 
               <div className="flex flex-col lg:col-span-2">
-                <p className="mb-4 text-sm leading-relaxed text-white/70">
-                  We meet weekly for eight weeks as well as a weekend intensive of the same meetings. All weekly meetings are Saturday at 9 am CST, see the weekend intensive schedule below. While in the meeting a facilitator will read the KF Introduction and guide you through the reading guides.
-                </p>
                 <div className="grid auto-rows-fr gap-4 sm:grid-cols-2">
                   {otherWeeks.map((week) => {
                     const guide = readingGuides[week.weekNumber];
                     return (
-                      <div key={week.weekNumber} className="group relative flex flex-col overflow-hidden rounded-2xl border border-violet/25 bg-violet/[0.14] p-5 backdrop-blur-sm transition-all duration-300 hover:border-violet/40 hover:bg-violet/[0.18]">
+                      <div key={week.weekNumber} className="group relative flex flex-col overflow-hidden rounded-2xl border border-violet/25 bg-violet/[0.18] p-5 backdrop-blur-md transition-all duration-300 hover:border-violet/40 hover:bg-violet/[0.24]">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-light/70">Week {week.weekNumber} &middot; {guide?.label ?? week.label}</p>
                         <h3 className="mt-2.5 font-serif text-2xl font-medium leading-tight text-white">{guide?.chapters ?? week.label}</h3>
                         <p className="mt-1.5 text-sm text-white/55">{formatDate(week.startDate)}</p>
                         <div className="mt-auto flex items-start gap-7 pt-6">
                           {guide && (
                             <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" aria-label="Open Reading Guide" className="group/btn flex flex-col items-center gap-2 text-center">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-light text-[#2b2150] shadow-lg shadow-black/20 transition-transform duration-300 group-hover/btn:scale-105">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-violet text-white shadow-lg shadow-violet/40 transition-transform duration-300 group-hover/btn:scale-105">
                                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
                               </span>
                               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/60 transition-colors group-hover/btn:text-white">Reading Guide</span>
@@ -335,7 +353,7 @@ export default async function NHGPage() {
                           )}
                           {guide && (
                             <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" aria-label="Open KF Introduction" className="group/btn flex flex-col items-center gap-2 text-center">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-violet-light/40 text-violet-light transition-all duration-300 group-hover/btn:bg-violet-light/10 group-hover/btn:scale-105">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-violet/50 bg-violet/20 text-violet-light transition-all duration-300 group-hover/btn:bg-violet/30 group-hover/btn:scale-105">
                                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                               </span>
                               <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/60 transition-colors group-hover/btn:text-white">KF Introduction</span>
@@ -354,24 +372,24 @@ export default async function NHGPage() {
                     );
                   })}
                 </div>
-                <div className="mt-2 grid gap-2 sm:grid-cols-2 sm:items-start">
-                  <WeekendIntensiveSchedule accessCode={weekendIntensiveCode} days={weekendIntensiveDays} />
-                  <Link
-                    href="/nhg/recordings"
-                    className={`group flex items-center gap-4 p-5 ${nhgCard} ${nhgCardHover}`}
-                  >
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
-                      <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>
-                    </span>
-                    <div>
-                      <h3 className="font-serif text-lg text-white group-hover:text-violet-light transition-colors">Meeting Recordings</h3>
-                      <p className="mt-0.5 text-xs text-white/50">Past NHG sessions</p>
-                    </div>
-                  </Link>
-                </div>
-                {/* Mobile only: KF Introductory Meeting after the weekly meetings */}
-                <div className="mt-2 lg:hidden">{kfIntroBlock}</div>
               </div>
+            </div>
+            {/* Mobile: supporting blocks after the weekly cards (kept in flow) */}
+            <div className="mt-4 space-y-2 lg:hidden">
+              <WeekendIntensiveSchedule accessCode={weekendIntensiveCode} days={weekendIntensiveDays} />
+              <Link
+                href="/nhg/recordings"
+                className={`group flex items-center gap-4 p-5 ${nhgCard} ${nhgCardHover}`}
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
+                  <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>
+                </span>
+                <div>
+                  <h3 className="font-serif text-lg text-white group-hover:text-violet-light transition-colors">Meeting Recordings</h3>
+                  <p className="mt-0.5 text-xs text-white/50">Past NHG sessions</p>
+                </div>
+              </Link>
+              {kfIntroBlock}
             </div>
           </div>
 

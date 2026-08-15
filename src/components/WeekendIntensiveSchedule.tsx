@@ -18,13 +18,13 @@ export default function WeekendIntensiveSchedule({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={`overflow-hidden ${nhgCard}`}>
+    <div className={`flex min-h-full flex-col justify-center overflow-hidden ${nhgCard}`}>
       <button
         onClick={() => setOpen(!open)}
-        className="group flex w-full items-center gap-4 p-5 text-left transition-colors hover:bg-white/[0.06]"
+        className="group flex w-full items-center gap-4 p-6 text-left transition-colors hover:bg-white/[0.06]"
       >
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
-          <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
+          <svg className="h-6 w-6 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
         </span>
         <div className="flex-1">
           <h3 className="font-serif text-lg text-white transition-colors group-hover:text-violet-light">Weekend Intensive Schedule</h3>
