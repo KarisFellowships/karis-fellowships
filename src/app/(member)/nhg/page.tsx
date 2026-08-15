@@ -316,26 +316,37 @@ export default async function NHGPage() {
                 <p className="mb-4 text-sm leading-relaxed text-white/70">
                   We meet weekly for eight weeks as well as a weekend intensive of the same meetings. All weekly meetings are Saturday at 9 am CST, see the weekend intensive schedule below. While in the meeting a facilitator will read the KF Introduction and guide you through the reading guides.
                 </p>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid auto-rows-fr gap-4 sm:grid-cols-2">
                   {otherWeeks.map((week) => {
                     const guide = readingGuides[week.weekNumber];
                     return (
-                      <div key={week.weekNumber} className="group relative overflow-hidden rounded-2xl border border-violet/25 bg-violet/[0.14] p-5 backdrop-blur-sm transition-all duration-300 hover:border-violet/40 hover:bg-violet/[0.18]">
+                      <div key={week.weekNumber} className="group relative flex flex-col overflow-hidden rounded-2xl border border-violet/25 bg-violet/[0.14] p-5 backdrop-blur-sm transition-all duration-300 hover:border-violet/40 hover:bg-violet/[0.18]">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-light/70">Week {week.weekNumber} &middot; {guide?.label ?? week.label}</p>
                         <h3 className="mt-2.5 font-serif text-2xl font-medium leading-tight text-white">{guide?.chapters ?? week.label}</h3>
                         <p className="mt-1.5 text-sm text-white/55">{formatDate(week.startDate)}</p>
-                        <div className="mt-6 flex items-center justify-between gap-3">
-                          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                            {guide && (
-                              <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="text-xs font-medium uppercase tracking-wide text-white/55 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white">KF Introduction</a>
-                            )}
-                            {week.weekNumber === 8 && (
-                              <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="text-xs font-medium uppercase tracking-wide text-[#fde68a]/80 underline decoration-[#fde68a]/25 underline-offset-4 transition-colors hover:text-[#fde68a]">Review</a>
-                            )}
-                          </div>
+                        <div className="mt-auto flex items-start gap-7 pt-6">
                           {guide && (
-                            <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" aria-label="Open Reading Guide" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-violet-light text-[#2b2150] shadow-lg shadow-black/20 transition-transform duration-300 group-hover:scale-105">
-                              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" aria-label="Open Reading Guide" className="group/btn flex flex-col items-center gap-2 text-center">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-light text-[#2b2150] shadow-lg shadow-black/20 transition-transform duration-300 group-hover/btn:scale-105">
+                                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                              </span>
+                              <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/60 transition-colors group-hover/btn:text-white">Reading Guide</span>
+                            </a>
+                          )}
+                          {guide && (
+                            <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" aria-label="Open KF Introduction" className="group/btn flex flex-col items-center gap-2 text-center">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-violet-light/40 text-violet-light transition-all duration-300 group-hover/btn:bg-violet-light/10 group-hover/btn:scale-105">
+                                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                              </span>
+                              <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/60 transition-colors group-hover/btn:text-white">KF Introduction</span>
+                            </a>
+                          )}
+                          {week.weekNumber === 8 && (
+                            <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" aria-label="Open Review" className="group/btn flex flex-col items-center gap-2 text-center">
+                              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#fde68a]/40 text-[#fde68a] transition-all duration-300 group-hover/btn:bg-[#fde68a]/10 group-hover/btn:scale-105">
+                                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                              </span>
+                              <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/60 transition-colors group-hover/btn:text-white">Review</span>
                             </a>
                           )}
                         </div>
