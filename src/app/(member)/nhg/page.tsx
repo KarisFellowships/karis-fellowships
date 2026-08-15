@@ -223,6 +223,8 @@ export default async function NHGPage() {
             </a>
           )}
 
+          {/* Getting started: Start Here + Call In Info + Syllabus, grouped tightly */}
+          <div className="space-y-2">
           {/* Start Here — full-width accordion */}
           <NHGWelcome syllabusUrl={syllabusUrl} nextStudyDate={null} />
 
@@ -258,12 +260,13 @@ export default async function NHGPage() {
               <span className="font-serif text-lg text-white transition-colors group-hover:text-violet-light">NHG Book Study Syllabus</span>
             </a>
           </div>
+          </div>
 
           {/* Study Schedule */}
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-violet-light/80">The Study</p>
             <h2 className="mt-2 mb-5 font-serif text-2xl font-medium text-white sm:text-3xl">Weekly Schedule &amp; Reading Guides</h2>
-            <div className="grid gap-x-6 gap-y-6 lg:grid-cols-3 lg:items-stretch">
+            <div className="grid gap-x-6 gap-y-6 lg:grid-cols-3 lg:items-start">
               <div className="lg:col-span-1">
                 {featuredWeek && (
                 featuredGuide ? (
@@ -310,55 +313,36 @@ export default async function NHGPage() {
               </div>
 
               <div className="flex flex-col lg:col-span-2">
-                <div className="relative flex flex-1 flex-col overflow-hidden rounded-2xl border border-violet/25">
-                  <div className="absolute inset-0">
-                    <Image src="/starry-mountain.jpg" alt="Starry night sky over mountains" fill className="object-cover object-top" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#241c46]/85 via-[#2b2150]/80 to-[#241c46]/92" />
-                  </div>
-                  <div className="relative px-5 pb-4 sm:px-8">
-                  <p className="mb-2 border-b border-white/10 py-6 text-sm leading-relaxed text-white/75">
-                    We meet weekly for eight weeks as well as a weekend intensive of the same meetings. All weekly meetings are Saturday at 9 am CST, see the weekend intensive schedule below. While in the meeting a facilitator will read the KF Introduction and guide you through the reading guides.
-                  </p>
-                <div className="grid sm:grid-cols-2 sm:gap-x-10">
+                <p className="mb-4 text-sm leading-relaxed text-white/70">
+                  We meet weekly for eight weeks as well as a weekend intensive of the same meetings. All weekly meetings are Saturday at 9 am CST, see the weekend intensive schedule below. While in the meeting a facilitator will read the KF Introduction and guide you through the reading guides.
+                </p>
+                <div className="grid gap-4 sm:grid-cols-2">
                   {otherWeeks.map((week) => {
                     const guide = readingGuides[week.weekNumber];
-                    const num = String(week.weekNumber).padStart(2, "0");
                     return (
-                      <div
-                        key={week.weekNumber}
-                        className="flex gap-4 border-t border-white/10 py-5 first:border-t-0 sm:[&:nth-child(2)]:border-t-0"
-                      >
-                        <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/60">{num}</span>
-                        <div className="min-w-0 flex-1">
+                      <div key={week.weekNumber} className="group relative overflow-hidden rounded-2xl border border-violet/25 bg-violet/[0.14] p-5 backdrop-blur-sm transition-all duration-300 hover:border-violet/40 hover:bg-violet/[0.18]">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-light/70">Week {week.weekNumber} &middot; {guide?.label ?? week.label}</p>
+                        <h3 className="mt-2.5 font-serif text-2xl font-medium leading-tight text-white">{guide?.chapters ?? week.label}</h3>
+                        <p className="mt-1.5 text-sm text-white/55">{formatDate(week.startDate)}</p>
+                        <div className="mt-6 flex items-center justify-between gap-3">
+                          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                            {guide && (
+                              <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="text-xs font-medium uppercase tracking-wide text-white/55 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white">KF Introduction</a>
+                            )}
+                            {week.weekNumber === 8 && (
+                              <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="text-xs font-medium uppercase tracking-wide text-[#fde68a]/80 underline decoration-[#fde68a]/25 underline-offset-4 transition-colors hover:text-[#fde68a]">Review</a>
+                            )}
+                          </div>
                           {guide && (
-                            <p className="text-xs italic leading-snug text-violet-light/80">{guide.chapters}</p>
-                          )}
-                          <h3 className="mt-0.5 font-serif text-lg font-semibold leading-snug text-white sm:text-xl">
-                            {guide?.label ?? week.label}
-                          </h3>
-                          <p className="mt-0.5 text-sm font-medium text-white/60">{formatDate(week.startDate)}</p>
-                          {guide && (
-                            <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-semibold">
-                              <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" className="text-violet-light transition-colors hover:text-white">
-                                Reading Guide &rarr;
-                              </a>
-                              <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" className="text-white/65 transition-colors hover:text-white/90">
-                                KF Introduction
-                              </a>
-                              {week.weekNumber === 8 && (
-                                <a href={docUrl("/docs/nhg/review-study-questions-v2a.pdf")} target="_blank" rel="noopener noreferrer" className="text-[#fcd34d] transition-colors hover:text-[#fcd34d]/80">
-                                  Review
-                                </a>
-                              )}
-                            </div>
+                            <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" aria-label="Open Reading Guide" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-violet-light text-[#2b2150] shadow-lg shadow-black/20 transition-transform duration-300 group-hover:scale-105">
+                              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </a>
                           )}
                         </div>
                       </div>
                     );
                   })}
                 </div>
-                  </div>
-              </div>
                 <div className="mt-2 grid gap-2 sm:grid-cols-2 sm:items-start">
                   <WeekendIntensiveSchedule accessCode={weekendIntensiveCode} days={weekendIntensiveDays} />
                   <Link
@@ -388,15 +372,15 @@ export default async function NHGPage() {
           <div className="pt-4">
             <div className={`${nhgFeatured} p-8`}>
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#fcd34d]/15">
-                  <svg className="h-6 w-6 text-[#fcd34d]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#fde68a]/15">
+                  <svg className="h-6 w-6 text-[#fde68a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                 </div>
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold text-white">NHG Facilitator Resources</h2>
 
                   {activeWeek && facilitatorGuides[activeWeek.weekNumber] && (
-                    <div className="mt-4 rounded-xl bg-[#fcd34d]/15 ring-1 ring-[#fcd34d]/30 p-5">
-                      <span className="inline-block rounded-full bg-[#fcd34d]/20 px-3 py-1 text-xs font-bold text-[#fcd34d]">
+                    <div className="mt-4 rounded-xl bg-[#fde68a]/15 ring-1 ring-[#fde68a]/30 p-5">
+                      <span className="inline-block rounded-full bg-[#fde68a]/20 px-3 py-1 text-xs font-bold text-[#fde68a]">
                         This Week
                       </span>
                       <h3 className="mt-2 text-lg font-semibold text-white">
@@ -406,7 +390,7 @@ export default async function NHGPage() {
                         href={docUrl(facilitatorGuides[activeWeek.weekNumber].href)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-3 inline-flex items-center gap-2 rounded-lg bg-[#fcd34d]/20 px-4 py-2.5 text-sm font-semibold text-[#fcd34d] transition-all hover:bg-[#fcd34d]/30"
+                        className="mt-3 inline-flex items-center gap-2 rounded-lg bg-[#fde68a]/20 px-4 py-2.5 text-sm font-semibold text-[#fde68a] transition-all hover:bg-[#fde68a]/30"
                       >
                         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                         Open Facilitator Guide
@@ -425,10 +409,10 @@ export default async function NHGPage() {
                           rel="noopener noreferrer"
                           className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.05] p-3 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/[0.10] hover:-translate-y-0.5"
                         >
-                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#fcd34d]/15">
-                            <svg className="h-4 w-4 text-[#fcd34d]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#fde68a]/15">
+                            <svg className="h-4 w-4 text-[#fde68a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                           </span>
-                          <span className="text-sm font-medium text-white/70 group-hover:text-[#fcd34d] transition-colors">{label}</span>
+                          <span className="text-sm font-medium text-white/70 group-hover:text-[#fde68a] transition-colors">{label}</span>
                         </a>
                       ))}
                     </div>
@@ -447,20 +431,20 @@ export default async function NHGPage() {
                             rel="noopener noreferrer"
                             className={`flex items-center gap-3 rounded-xl p-3 transition-all hover:-translate-y-0.5 ${
                               isCurrent
-                                ? "bg-[#fcd34d]/15 ring-1 ring-[#fcd34d]/30"
+                                ? "bg-[#fde68a]/15 ring-1 ring-[#fde68a]/30"
                                 : "border border-white/10 bg-white/[0.05] backdrop-blur-sm hover:border-white/20 hover:bg-white/[0.10]"
                             }`}
                           >
                             <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
-                              isCurrent ? "bg-[#fcd34d] text-[#2b2150]" : "bg-[#fcd34d]/15 text-[#fcd34d]"
+                              isCurrent ? "bg-[#fde68a] text-[#2b2150]" : "bg-[#fde68a]/15 text-[#fde68a]"
                             }`}>
                               {num}
                             </span>
                             <span className={`text-sm font-medium transition-colors ${
-                              isCurrent ? "text-[#fcd34d]" : "text-white/60 hover:text-[#fcd34d]"
+                              isCurrent ? "text-[#fde68a]" : "text-white/60 hover:text-[#fde68a]"
                             }`}>
                               Week {num}
-                              {isCurrent && <span className="ml-1 text-xs text-[#fcd34d]/70">(This Week)</span>}
+                              {isCurrent && <span className="ml-1 text-xs text-[#fde68a]/70">(This Week)</span>}
                             </span>
                           </a>
                         );
