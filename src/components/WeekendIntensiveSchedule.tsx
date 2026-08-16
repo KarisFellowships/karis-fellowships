@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { nhgCard } from "@/lib/nhg-surface";
+import { nhgCardLight } from "@/lib/nhg-surface";
 
 interface WeekendDay {
   date: string; // e.g. "Friday, March 5, 2027"
@@ -18,7 +18,7 @@ export default function WeekendIntensiveSchedule({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={`flex min-h-full flex-col justify-center overflow-hidden ${nhgCard}`}>
+    <div className={`flex min-h-full flex-col justify-center overflow-hidden ${nhgCardLight}`}>
       <button
         onClick={() => setOpen(!open)}
         className="group flex w-full items-center gap-4 p-6 text-left transition-colors hover:bg-white/[0.06]"

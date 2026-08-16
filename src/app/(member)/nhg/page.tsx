@@ -8,7 +8,7 @@ import NHGFaq from "@/components/NHGFaq";
 import IntroMeetingBlock from "@/components/IntroMeetingBlock";
 import WeekendIntensiveSchedule from "@/components/WeekendIntensiveSchedule";
 import { getMeetingCodes, phoneNumber, sectionCodes } from "@/lib/meeting-codes";
-import { nhgCard, nhgFeatured, nhgCardHover } from "@/lib/nhg-surface";
+import { nhgCard, nhgFeatured, nhgCardHover, nhgCardLight, nhgCardLightHover } from "@/lib/nhg-surface";
 
 const readingGuides: Record<number, { label: string; chapters: string; guide: string; intro: string }> = {
   1: { label: "Intro & Chapter 1", chapters: "The Search for Glory", guide: "/docs/nhg/reading-guides/1NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/Chapter 1 KF Introduction.pdf" },
@@ -158,7 +158,7 @@ export default async function NHGPage() {
   // featured card (its original place); on mobile the columns stack, so it's
   // shown AFTER the weekly meetings instead of jumping ahead of weeks 1–8.
   const kfIntroBlock = (
-    <div className="rounded-2xl border border-violet/25 bg-violet/[0.18] p-5 backdrop-blur-md sm:p-6">
+    <div className="rounded-2xl border border-violet/35 bg-violet/[0.24] p-5 backdrop-blur-md sm:p-6">
       <div className="flex gap-4">
         <span className="mt-0.5 shrink-0 font-serif text-3xl font-medium leading-none text-violet-light/50">09</span>
         <div className="min-w-0 flex-1">
@@ -325,7 +325,7 @@ export default async function NHGPage() {
                   </div>
                   <Link
                     href="/nhg/recordings"
-                    className={`group flex flex-1 items-center gap-4 p-6 ${nhgCard} ${nhgCardHover}`}
+                    className={`group flex flex-1 items-center gap-4 p-6 ${nhgCardLight} ${nhgCardLightHover}`}
                   >
                     <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
                       <svg className="h-6 w-6 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>
@@ -339,11 +339,11 @@ export default async function NHGPage() {
               </div>
 
               <div className="flex flex-col lg:col-span-2">
-                <div className="grid auto-rows-fr gap-4 sm:grid-cols-2">
+                <div className="grid flex-1 auto-rows-fr gap-4 sm:grid-cols-2">
                   {otherWeeks.map((week) => {
                     const guide = readingGuides[week.weekNumber];
                     return (
-                      <div key={week.weekNumber} className="group relative flex flex-col overflow-hidden rounded-2xl border border-violet/25 bg-violet/[0.18] p-5 backdrop-blur-md transition-all duration-300 hover:border-violet/40 hover:bg-violet/[0.24]">
+                      <div key={week.weekNumber} className="group relative flex flex-col overflow-hidden rounded-2xl border border-violet/35 bg-violet/[0.24] p-5 backdrop-blur-md transition-all duration-300 hover:border-violet/50 hover:bg-violet/[0.30]">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-light/70">Week {week.weekNumber} &middot; {guide?.label ?? week.label}</p>
                         <h3 className="mt-2.5 font-serif text-2xl font-medium leading-tight text-white">{guide?.chapters ?? week.label}</h3>
                         <p className="mt-1.5 text-sm text-white/55">{formatDate(week.startDate)}</p>
@@ -384,7 +384,7 @@ export default async function NHGPage() {
               <WeekendIntensiveSchedule accessCode={weekendIntensiveCode} days={weekendIntensiveDays} />
               <Link
                 href="/nhg/recordings"
-                className={`group flex items-center gap-4 p-5 ${nhgCard} ${nhgCardHover}`}
+                className={`group flex items-center gap-4 p-5 ${nhgCardLight} ${nhgCardLightHover}`}
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-light/15">
                   <svg className="h-5 w-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>

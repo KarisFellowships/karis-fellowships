@@ -22,3 +22,10 @@ export const nhgNested =
 // hover used on the weekly-meetings cards.
 export const nhgCardHover =
   "transition-all duration-300 hover:-translate-y-0.5 hover:border-violet/40 hover:bg-violet/[0.22]";
+
+// A lighter, less-frosted surface — used for the Weekend Intensive + Recordings so
+// the weekly meeting cards (and Week 9) read as clearly more frosted/violet.
+export const nhgCardLight =
+  "rounded-2xl border border-violet/15 bg-violet/[0.07] backdrop-blur-sm";
+export const nhgCardLightHover =
+  "transition-all duration-300 hover:-translate-y-0.5 hover:border-violet/25 hover:bg-violet/[0.12]";
