@@ -113,10 +113,10 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">Upcoming Book Study</p>
-              <p className="mt-1.5 text-base text-slate">
+              <p className="mt-1.5 text-sm leading-relaxed text-balance text-slate sm:text-base">
                 9 weeks &middot; Covers chapters 1&ndash;11 of <em>Neurosis and Human Growth</em>
-                <br />Weekly or Weekend Intensive Option
               </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-balance text-slate sm:text-base">Weekly or Weekend Intensive Option</p>
             </div>
           </div>
           <div className="flex flex-col items-center gap-3 sm:items-end sm:text-right sm:shrink-0">
