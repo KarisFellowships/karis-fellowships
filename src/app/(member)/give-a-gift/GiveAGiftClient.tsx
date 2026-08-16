@@ -82,23 +82,22 @@ export default function GiveAGiftClient({
   }
 
   return (
-    <div className="min-h-screen bg-[#4a5568]">
-      {/* Header — image runs behind the navbar and fades into the page */}
+    <div className="relative min-h-screen bg-[#4a5568]">
+      {/* Banner image — pulled down behind the header AND the top of the cards,
+          then fades into the page (matches the KF meeting / NHG pages). */}
+      <div className="absolute inset-x-0 top-0 h-[38rem]">
+        <Image src="/give-gift-sunrise.jpg" alt="Misty golden sunrise over a field" fill priority className="object-cover object-center brightness-105" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-[#4a5568] sm:from-black/58 sm:via-black/38" />
+      </div>
       <div className="relative z-10">
-        <div className="absolute inset-0">
-          <Image src="/sunlight-nature.jpg" alt="Sunlight through nature" fill priority className="object-cover object-center brightness-105" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#4a5568] sm:from-black/45 sm:via-black/25" />
-        </div>
-        <div className="relative px-6 pb-14 pt-32 sm:pb-16 sm:pt-44">
+        <div className="px-6 pt-32 sm:pt-44">
           <div className="mx-auto max-w-6xl">
             <h1 className="font-serif text-4xl font-medium leading-[1.03] text-white drop-shadow-xl sm:text-5xl lg:text-6xl" style={{ textShadow: "0 2px 24px rgba(0,0,0,0.55)" }}>Give a Gift</h1>
-            <p className="mt-4 max-w-xl text-base font-medium leading-relaxed text-white/80 drop-shadow sm:text-lg">We appreciate your participation in the karis relationship by supporting Karis Fellowships!</p>
+            <p className="mt-4 max-w-xl text-base font-medium leading-relaxed text-white/80 drop-shadow sm:text-lg">We appreciate your participation in the karis relationship by supporting Karis Fellowships.</p>
           </div>
         </div>
-      </div>
-
-      <section className="px-6 pb-16">
-        <div className="mx-auto max-w-6xl space-y-4">
+        <section className="px-6 pb-16 pt-10">
+          <div className="mx-auto max-w-6xl space-y-4">
           {/* Success Banner */}
           {success && (
             <div className="rounded-2xl border border-teal/30 bg-teal/15 p-6 text-center backdrop-blur-sm">
@@ -192,8 +191,17 @@ export default function GiveAGiftClient({
               </span>
               <h2 className={cardTitle}>Facilitate an Upcoming NHG Meeting</h2>
               <p className={cardBody}>
-                Sign up to facilitate one or two upcoming NHG book study meetings. Just click the link and follow the simple instructions. You will even receive automatic email reminders 1 week, 1 day, and 1 hour before your meeting.
+                Sign up to facilitate one or two upcoming NHG book study meetings. Just click the link and follow the simple instructions.
               </p>
+              <p className="mt-4 text-sm leading-relaxed text-white/65">You will even receive automatic email reminders:</p>
+              <ul className="mt-3 space-y-2">
+                {["1 week before", "1 day before", "1 hour before your meeting"].map((t) => (
+                  <li key={t} className="flex items-center gap-2.5">
+                    <svg className="h-4 w-4 shrink-0 text-teal-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                    <span className="text-sm text-white/70">{t}</span>
+                  </li>
+                ))}
+              </ul>
               <div className="mt-auto pt-6">
                 <a
                   href="https://calendly.com/karisfellowships"
@@ -233,6 +241,7 @@ export default function GiveAGiftClient({
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }
