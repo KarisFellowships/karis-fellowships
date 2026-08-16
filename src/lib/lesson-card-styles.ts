@@ -12,7 +12,7 @@ export const iconClass =
   "h-6 w-6 shrink-0 transition-transform duration-300 group-hover:scale-110";
 
 export const labelClass =
-  "font-serif text-lg leading-tight text-white/90 transition-colors group-hover:text-white sm:mt-2.5 sm:block sm:min-h-[2.4em] sm:text-[15px]";
+  "font-serif text-lg leading-tight text-white/90 transition-colors group-hover:text-white sm:mt-2.5 sm:block sm:min-h-[2.5em] sm:text-xl";
 
 export const hintClass =
   "text-[13px] font-medium uppercase tracking-[0.2em] text-white/35 sm:mt-1";
