@@ -71,7 +71,7 @@ export default function KFRegisterClient({
 
       // Registration complete → go straight to the KF dashboard. Keep the button
       // in its loading state while the browser navigates.
-      window.location.href = "/kf";
+      window.location.href = "/dashboard";
     } catch {
       setError("Something went wrong. Please try again.");
       setLoading(false);

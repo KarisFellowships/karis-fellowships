@@ -68,7 +68,18 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
         console.error("Metadata update failed:", updateError);
       }
 
-      window.location.href = signInData.user ? "/nhg" : "/register/success";
+      // Route returning members to their home by tier so a KF member lands on the
+      // dashboard, not the NHG page (mirrors the /login redirect logic).
+      let destination = "/register/success";
+      if (signInData.user) {
+        const { data: prof } = await supabase
+          .from("users")
+          .select("tier")
+          .eq("id", signInData.user.id)
+          .maybeSingle();
+        destination = prof?.tier && prof.tier !== "nhg" ? "/dashboard" : "/nhg";
+      }
+      window.location.href = destination;
       return;
     }
 
