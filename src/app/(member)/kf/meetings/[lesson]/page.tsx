@@ -65,7 +65,7 @@ export default async function LessonPage({ params }: Props) {
           </div>
           {/* Resource cards, sitting over the fading banner */}
           <div className="mx-auto mt-10 max-w-[66rem] pb-3 sm:mt-12">
-            {/* Resource cards + Call Info (Call Info is the 5th card; its panel expands below the row) */}
+            {/* Resource cards + Call Info (Call Info is the last card; its panel expands below the row) */}
             <CallInfoRow phone={phoneNumber(codes)} meetings={kfMeetings(codes)}>
             {/* Meeting Version — PDF only */}
             {hasMeetingPdf && (
@@ -100,6 +100,13 @@ export default async function LessonPage({ params }: Props) {
             <a href={docUrl("/docs/kf-resources/KF-Meeting-Schedule.pdf")} target="_blank" rel="noopener noreferrer" className={cardClass}>
               <svg className={`${iconClass} text-sky/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
               <span className={labelClass}>Meeting Schedule</span>
+              <span className={hintClass}>PDF</span>
+            </a>
+
+            {/* Facilitator Questions — PDF only (matches this lesson) */}
+            <a href={docUrl(`/docs/questions/kf${lessonNumber}-questions.pdf`)} target="_blank" rel="noopener noreferrer" className={cardClass}>
+              <svg className={`${iconClass} text-coral/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <span className={labelClass}>Facilitator Questions</span>
               <span className={hintClass}>PDF</span>
             </a>
             </CallInfoRow>
