@@ -185,7 +185,7 @@ export default async function NHGPage() {
       <div className="relative z-10">
         <div className="absolute inset-0">
           <Image src="/forest-light.jpg" alt="Light breaking through a forest canopy" fill className="object-cover object-[center_30%] brightness-105" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/30 to-[#4a5568]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#4a5568] sm:from-black/45 sm:via-black/30" />
         </div>
         <div className="relative px-6 pt-36 sm:pt-44">
           <div className="mx-auto max-w-6xl">
@@ -194,8 +194,8 @@ export default async function NHGPage() {
             <p className="mt-4 max-w-xl text-base font-medium leading-relaxed text-white/80 drop-shadow sm:text-lg">A foundational study for Karis Fellowships.</p>
             {nextStudyDate && (
               <p className="mt-6 text-sm text-white/70 drop-shadow">
-                <span className="uppercase tracking-[0.2em] text-white/50">Next study begins</span>
-                &nbsp;&nbsp;<span className="font-serif text-xl text-white">{formatDate(nextStudyDate)}</span>
+                <span className="block uppercase tracking-[0.2em] text-white/50 sm:inline">Next study begins</span>
+                <span className="mt-1 block font-serif text-xl text-white sm:ml-2 sm:mt-0 sm:inline">{formatDate(nextStudyDate)}</span>
               </p>
             )}
           </div>
