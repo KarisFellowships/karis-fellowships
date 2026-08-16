@@ -180,13 +180,14 @@ export default async function NHGPage() {
 
   return (
     <div className="min-h-screen bg-[#4a5568]">
-      {/* Header — image extends behind navbar */}
-      <section className="relative z-10">
+      {/* Header + getting-started sit over the banner image, which fades to the page
+          background before the weekly schedule (like the KF meeting pages). */}
+      <div className="relative z-10">
         <div className="absolute inset-0">
           <Image src="/forest-light.jpg" alt="Light breaking through a forest canopy" fill className="object-cover object-[center_30%] brightness-105" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-[#4a5568]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/30 to-[#4a5568]" />
         </div>
-        <div className="relative px-6 pb-16 pt-36 sm:pt-44 sm:pb-20">
+        <div className="relative px-6 pt-36 sm:pt-44">
           <div className="mx-auto max-w-6xl">
             <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/75 drop-shadow">NHG Book Study</p>
             <h1 className="mt-4 font-serif text-4xl font-medium leading-[1.03] text-white drop-shadow-xl sm:text-5xl lg:text-6xl" style={{ textShadow: "0 2px 24px rgba(0,0,0,0.55)" }}>Neurosis and Human Growth</h1>
@@ -199,10 +200,8 @@ export default async function NHGPage() {
             )}
           </div>
         </div>
-      </section>
-
-      <section className="px-6 pb-16">
-        <div className="mx-auto max-w-6xl space-y-10">
+        <div className="relative px-6 pb-14 pt-10">
+          <div className="mx-auto max-w-6xl space-y-2">
           {kfInvited && userTier === "nhg" && (
             <a
               href="/kf/register"
@@ -261,6 +260,12 @@ export default async function NHGPage() {
             </a>
           </div>
           </div>
+          </div>
+        </div>
+      </div>
+
+      <section className="px-6 pb-16">
+        <div className="mx-auto max-w-6xl space-y-10">
 
           {/* Study Schedule */}
           <div>
