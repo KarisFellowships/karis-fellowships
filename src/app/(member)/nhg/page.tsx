@@ -272,7 +272,7 @@ export default async function NHGPage() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-violet-light/80">The Study</p>
             <h2 className="mt-2 mb-4 font-serif text-2xl font-medium text-white sm:text-3xl">Weekly Schedule &amp; Reading Guides</h2>
             <p className="mb-6 max-w-3xl text-sm leading-relaxed text-white/70">
-              We meet weekly for eight weeks as well as a weekend intensive of the same meetings. All weekly meetings are Saturday at 9 am CST, see the weekend intensive schedule below. While in the meeting a facilitator will read the KF Introduction and guide you through the reading guides.
+              We start with the NHG Intro Meeting (optional), followed by weekly meetings for eight weeks on Saturdays at 9 am CST. We also offer a weekend intensive of the same meetings with the schedule listed below. While in the meeting a facilitator will read the KF Introduction and guide you through the reading guides.
             </p>
             <div className="grid gap-x-6 gap-y-6 lg:grid-cols-3 lg:items-stretch">
               <div className="flex flex-col gap-4 lg:col-span-1">
