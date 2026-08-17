@@ -34,8 +34,8 @@ export default async function KFCallInfoPage() {
           </div>
 
           <div className="text-center">
-            <Link href="/dashboard" className="text-sm font-semibold text-teal-light hover:text-teal transition-colors">
-              &larr; Back to Dashboard
+            <Link href="/kf" className="text-sm font-semibold text-teal-light hover:text-teal transition-colors">
+              &larr; Back to KF Weekly Meetings
             </Link>
           </div>
         </div>

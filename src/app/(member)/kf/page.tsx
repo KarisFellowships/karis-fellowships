@@ -3,19 +3,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCurrentLesson } from "@/lib/date-engine";
 import { requireKF } from "@/lib/require-tier";
+import SearchBar from "@/components/SearchBar";
+import { docUrl } from "@/lib/storage-url";
 
 export default async function KFPage() {
   await requireKF();
   const currentLesson = await getCurrentLesson();
   return (
     <div className="relative min-h-screen bg-[#4a5568]">
-      {/* Header image pulled up behind the nav and faded into the page behind the cards */}
+      {/* Header image pulled up behind the nav and faded into the page background */}
       <div className="absolute inset-x-0 top-0 h-[38rem]">
-        <Image src="/ship-voyage.jpg" alt="Sailboat heading out to open sea" fill priority className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-[#4a5568] sm:from-black/45 sm:via-black/25" />
+        <Image src="/forest-canopy.jpg" alt="Sunlit forest canopy" fill priority className="object-cover object-center brightness-105" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-[#4a5568] sm:from-black/45 sm:via-black/20" />
       </div>
 
       <div className="relative z-10">
+        {/* Header */}
         <section className="px-6 pt-32 sm:pt-44">
           <div className="mx-auto max-w-7xl">
             <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">KF Weekly Meetings</h1>
@@ -23,32 +26,44 @@ export default async function KFPage() {
               Small, weekly meetings for grounding and re-centering, encouragement, confession, sharing, Bible teaching,
               training, healing, and prayer.
             </p>
+            <div className="mt-6">
+              <SearchBar />
+            </div>
           </div>
         </section>
 
         <section className="px-6 pb-16 pt-10">
           <div className="mx-auto max-w-7xl space-y-4">
-            {/* Top row: This Week (left) + Start Here (right) */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Link
-                href={`/kf/meetings/kf${currentLesson.lessonNumber}`}
-                className="group flex flex-col rounded-2xl border border-teal/30 bg-teal/[0.10] p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-teal/50 hover:bg-teal/[0.16] sm:p-7"
-              >
-                <div className="flex items-center gap-4">
-                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-teal/20 font-serif text-2xl font-bold text-teal-light">
-                    {currentLesson.lessonNumber}
-                  </span>
-                  <span className="inline-block rounded-full bg-teal/90 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                    This Week
-                  </span>
-                </div>
-                <h2 className="mt-4 font-serif text-2xl text-white">KF{currentLesson.lessonNumber}</h2>
-                <p className="mt-1 text-xs text-white/55">{currentLesson.dateRange}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-teal-light transition-all duration-300 group-hover:translate-x-1">
-                  Open lesson &rarr;
+            {/* This Week — photographic hero (mirrors the old dashboard card) */}
+            <Link
+              href={`/kf/meetings/kf${currentLesson.lessonNumber}`}
+              className="group relative block h-56 overflow-hidden rounded-2xl sm:h-64"
+            >
+              <Image
+                src="/ship-voyage.jpg"
+                alt="Sailboat heading out to open sea"
+                fill
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10" />
+              <div className="absolute inset-x-0 top-0 p-6 sm:p-8">
+                <span className="inline-block rounded-full bg-teal/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+                  This Week
                 </span>
-              </Link>
+                <h2 className="mt-3 font-serif text-3xl font-semibold text-white sm:text-4xl">
+                  KF{currentLesson.lessonNumber}
+                </h2>
+                <p className="mt-1 text-sm text-white/70">{currentLesson.dateRange}</p>
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-light transition-colors group-hover:text-white">
+                  Open Lesson &rarr;
+                </span>
+              </div>
+            </Link>
 
+            {/* Getting around */}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <ContentCard
                 title="Start Here"
                 description="New to KF? Begin here for an orientation to the weekly meeting format."
@@ -57,9 +72,6 @@ export default async function KFPage() {
                 badge="Begin"
                 icon="M13 10V3L4 14h7v7l9-11h-7z"
               />
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <ContentCard
                 title="All Weekly Meetings"
                 description="Browse all 52 weekly lessons, teachings, and meeting guides."
@@ -81,6 +93,10 @@ export default async function KFPage() {
                 accent="sky"
                 icon="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
               />
+            </div>
+
+            {/* Facilitator + the every-meeting documents */}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <ContentCard
                 title="KF Facilitator Information"
                 description="Resources and guidelines for KF meeting facilitators."
@@ -88,6 +104,44 @@ export default async function KFPage() {
                 accent="violet"
                 icon="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2"
               />
+
+              {/* Meeting Prep Guide — document */}
+              <div className="flex flex-col rounded-2xl border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber/15">
+                  <svg className="h-6 w-6 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                </span>
+                <h3 className="mt-4 font-serif text-lg text-white sm:text-xl">Meeting Prep Guide</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-white/55">
+                  Prepare for KF{currentLesson.lessonNumber} with the weekly guide.
+                </p>
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  <a href={docUrl("/docs/kf-resources/meeting-prep-guide.pdf")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-amber/15 px-4 py-2 text-sm font-semibold text-amber transition-all hover:bg-amber/25">
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    PDF
+                  </a>
+                  <a href={docUrl("/docs/kf-resources/KF-MPG-typed-2021.docx")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-amber/15 px-4 py-2 text-sm font-semibold text-amber transition-all hover:bg-amber/25">
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    Word
+                  </a>
+                </div>
+              </div>
+
+              {/* Meeting Schedule — document */}
+              <div className="flex flex-col rounded-2xl border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky/15">
+                  <svg className="h-6 w-6 text-sky" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                </span>
+                <h3 className="mt-4 font-serif text-lg text-white sm:text-xl">Meeting Schedule</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-white/55">
+                  This document is used at every meeting. It contains the introductions to read for each section.
+                </p>
+                <div className="mt-4">
+                  <a href={docUrl("/docs/kf-resources/KF-Meeting-Schedule.pdf")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-sky/15 px-4 py-2 text-sm font-semibold text-sky transition-all hover:bg-sky/25">
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    Open Schedule
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>

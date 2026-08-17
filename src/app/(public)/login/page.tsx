@@ -48,7 +48,7 @@ export default function LoginPage() {
       return;
     }
 
-    const destination = profile.tier && profile.tier !== "nhg" ? "/dashboard" : "/nhg";
+    const destination = profile.tier && profile.tier !== "nhg" ? "/kf" : "/nhg";
     window.location.href = destination;
   }
 

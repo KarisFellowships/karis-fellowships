@@ -17,7 +17,6 @@ const nhgLinks = [
 ];
 
 const kfLinks = [
-  { href: "/dashboard", label: "Dashboard" },
   { href: "/nhg", label: "NHG" },
   { href: "/kf", label: "KF Weekly Meetings" },
   { href: "/toolbox", label: "Toolbox" },

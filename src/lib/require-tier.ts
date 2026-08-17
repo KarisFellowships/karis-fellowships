@@ -20,7 +20,7 @@ export async function requireTier(
   if (!profile || !profile.active) redirect("/login");
 
   if (!allowed.includes(profile.tier)) {
-    redirect(profile.tier === "nhg" ? "/nhg" : "/dashboard");
+    redirect(profile.tier === "nhg" ? "/nhg" : "/kf");
   }
 
   return { userId: user.id, tier: profile.tier };

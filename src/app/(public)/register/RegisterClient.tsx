@@ -77,7 +77,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
           .select("tier")
           .eq("id", signInData.user.id)
           .maybeSingle();
-        destination = prof?.tier && prof.tier !== "nhg" ? "/dashboard" : "/nhg";
+        destination = prof?.tier && prof.tier !== "nhg" ? "/kf" : "/nhg";
       }
       window.location.href = destination;
       return;

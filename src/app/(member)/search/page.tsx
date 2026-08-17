@@ -49,9 +49,9 @@ function SearchResults() {
     <div className="min-h-screen bg-[#4a5568]">
       <section className="px-6 pt-24 pb-16">
         <div className="mx-auto max-w-3xl">
-          <Link href="/dashboard" className="mb-6 inline-flex items-center gap-1.5 text-sm text-white/40 transition-colors hover:text-teal-light">
+          <Link href="/kf" className="mb-6 inline-flex items-center gap-1.5 text-sm text-white/40 transition-colors hover:text-teal-light">
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-            Back to Dashboard
+            Back to KF Weekly Meetings
           </Link>
 
           <h1 className="font-serif text-3xl font-semibold text-white sm:text-4xl">

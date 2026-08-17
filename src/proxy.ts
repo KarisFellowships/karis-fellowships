@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const KF_ONLY_ROUTES = ["/dashboard", "/kf", "/toolbox", "/other-studies", "/give-a-gift", "/search", "/calendar"];
+const KF_ONLY_ROUTES = ["/kf", "/toolbox", "/other-studies", "/give-a-gift", "/search", "/calendar"];
 
 const ADMIN_ONLY_ROUTES = ["/admin"];
 
@@ -66,7 +66,7 @@ export async function proxy(request: NextRequest) {
     }
 
     if (isProtected(pathname, ADMIN_ONLY_ROUTES) && profile.tier !== "admin") {
-      const home = profile.tier === "nhg" ? "/nhg" : "/dashboard";
+      const home = profile.tier === "nhg" ? "/nhg" : "/kf";
       return NextResponse.redirect(new URL(home, request.url));
     }
 
