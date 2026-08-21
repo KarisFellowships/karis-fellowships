@@ -45,30 +45,23 @@ export default async function KFPage() {
           <div className="mx-auto max-w-7xl space-y-4">
             {/* Top row: This Week (photographic) + the getting-around cards */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {/* This Week — a compact photographic card */}
+              {/* This Week — an elevated glassy blue card, the inviting entry point */}
               <Link
                 href={`/kf/meetings/kf${currentLesson.lessonNumber}`}
-                className="group relative block min-h-[13rem] overflow-hidden rounded-2xl"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-sky/30 bg-gradient-to-br from-sky/[0.24] via-sky/[0.13] to-sky/[0.06] p-6 shadow-lg shadow-black/15 ring-1 ring-inset ring-white/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-sky/50 hover:shadow-xl hover:shadow-sky/20"
               >
-                <Image
-                  src="/mountain-dawn.jpg"
-                  alt="Dawn over the mountains"
-                  fill
-                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
-                <div className="absolute inset-x-0 top-0 p-5">
-                  <span className="inline-block rounded-full bg-teal/90 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                    This Week
-                  </span>
-                  <h2 className="mt-2 font-serif text-2xl font-semibold text-white">KF{currentLesson.lessonNumber}</h2>
-                  <p className="mt-0.5 text-xs text-white/70">{currentLesson.dateRange}</p>
+                {/* soft glow accent in the corner */}
+                <div className="pointer-events-none absolute -right-8 -top-10 h-28 w-28 rounded-full bg-sky/20 blur-2xl transition-opacity duration-300 group-hover:opacity-80" />
+                <div className="relative">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-sky-light">This Week</p>
+                  <h2 className="mt-2 font-serif text-4xl font-semibold leading-none text-white">
+                    KF{currentLesson.lessonNumber}
+                  </h2>
+                  <p className="mt-2 text-sm text-white/65">{currentLesson.dateRange}</p>
                 </div>
-                <div className="absolute inset-x-0 bottom-0 p-5">
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-light transition-colors group-hover:text-white">
-                    Open Lesson &rarr;
-                  </span>
-                </div>
+                <span className="relative mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-sky-light transition-all duration-300 group-hover:gap-2.5">
+                  Open lesson &rarr;
+                </span>
               </Link>
 
               <ContentCard
