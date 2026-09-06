@@ -27,18 +27,20 @@
 # Large local video (exceeds GitHub 100MB limit); hero uses TreeVideoClipped.mp4
 public/treesvideo.mov
 
-# .cursor reference materials (screenshots, specs, spreadsheets, recordings)
-.cursor/*.jpg
-.cursor/*.jpeg
-.cursor/*.png
-.cursor/*.mp4
-.cursor/*.mov
-.cursor/*.pdf
-.cursor/*.xlsx
+# .cursor reference materials (private ministry docs, screenshots, specs) — local
+# only, never commit. Recursive so nested subfolders are covered. The Cursor rule
+# files (.cursor/rules/*.mdc) are intentionally NOT ignored and stay tracked.
+.cursor/**/*.pdf
+.cursor/**/*.docx
+.cursor/**/*.doc
+.cursor/**/*.xlsx
+.cursor/**/*.jpg
+.cursor/**/*.jpeg
+.cursor/**/*.png
+.cursor/**/*.mp4
+.cursor/**/*.mov
 .cursor/~$*
 .cursor/desktop.ini
-.cursor/KF Weekly Meetings/
-.cursor/NHG/
 
 # Root-level recordings
 Recording *.mp4
@@ -52,6 +54,7 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 .env.local
+!.env.example
 
 # vercel
 .vercel

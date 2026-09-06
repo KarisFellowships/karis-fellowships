@@ -94,8 +94,12 @@ export async function POST(request: NextRequest) {
     if (!DONATION_TYPES.includes(type as DonationType)) {
       return NextResponse.json({ error: "Invalid payment type" }, { status: 400 });
     }
-    if (!amount || typeof amount !== "number" || amount < 100) {
+    if (!amount || typeof amount !== "number" || !Number.isFinite(amount) || amount < 100) {
       return NextResponse.json({ error: "Minimum amount is $1" }, { status: 400 });
+    }
+    // Sanity ceiling so a malformed/hostile client can't push an absurd charge.
+    if (amount > 1_000_000) {
+      return NextResponse.json({ error: "That amount is too large. Please contact us for large gifts." }, { status: 400 });
     }
 
     const donationType = type as DonationType;

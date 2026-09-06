@@ -161,10 +161,10 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
 
             {success ? (
               <div className="mt-6 rounded-xl bg-teal-muted px-6 py-5">
-                <p className="font-medium text-teal">Registration submitted!</p>
+                <p className="font-medium text-teal-hover">Registration submitted!</p>
                 <p className="mt-1 text-sm text-slate">
                   Your account is ready! You can now log in to access your NHG Book Study materials.{" "}
-                  <Link href="/login" className="font-medium text-teal underline underline-offset-4">
+                  <Link href="/login" className="font-medium text-teal-hover underline underline-offset-4">
                     Log in here
                   </Link>
                 </p>
@@ -430,7 +430,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
               </p>
               <p className="mt-5 text-sm leading-relaxed text-slate">
                 For a big picture look at the book study and how it fits into Karis Fellowships,{" "}
-                <Link href="/about" className="font-medium text-teal underline underline-offset-4 decoration-teal/30 hover:text-teal-hover transition-colors">
+                <Link href="/about" className="font-medium text-teal-hover underline underline-offset-4 decoration-teal/30 hover:text-teal-hover transition-colors">
                   click here
                 </Link>.
               </p>

@@ -131,7 +131,7 @@ function main() {
   console.log(`Indexed ${Object.keys(lessons).length} KF lessons with full text`);
 
   const sectionPages = [
-    { title: "KF Dashboard", path: "/dashboard", section: "Navigation" },
+    { title: "KF Weekly Meetings", path: "/kf", section: "Navigation" },
     { title: "NHG Book Study", path: "/nhg", section: "Navigation" },
     { title: "KF Toolbox", path: "/toolbox", section: "Navigation" },
     { title: "Other Studies", path: "/other-studies", section: "Navigation" },

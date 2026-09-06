@@ -33,7 +33,7 @@ export default function ForgotPasswordPage() {
 
           {sent ? (
             <div className="mt-6 rounded-xl bg-teal-muted px-6 py-5">
-              <p className="font-medium text-teal">Check your email</p>
+              <p className="font-medium text-teal-hover">Check your email</p>
               <p className="mt-1 text-sm text-slate">
                 If an account exists for that address, we&apos;ve sent a link to set a new
                 password. The link expires shortly, so please use it soon.

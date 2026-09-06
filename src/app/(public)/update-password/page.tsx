@@ -59,10 +59,10 @@ export default function UpdatePasswordPage() {
             <p className="mt-4 text-sm text-slate/60">Checking your reset link…</p>
           ) : done ? (
             <div className="mt-6 rounded-xl bg-teal-muted px-6 py-5">
-              <p className="font-medium text-teal">Password updated</p>
+              <p className="font-medium text-teal-hover">Password updated</p>
               <p className="mt-1 text-sm text-slate">
                 Your password has been changed.{" "}
-                <Link href="/login" className="font-medium text-teal underline underline-offset-4">
+                <Link href="/login" className="font-medium text-teal-hover underline underline-offset-4">
                   Log in
                 </Link>{" "}
                 with your new password.
@@ -72,7 +72,7 @@ export default function UpdatePasswordPage() {
             <div className="mt-6 rounded-xl bg-coral-light px-6 py-5">
               <p className="text-sm text-slate">
                 This reset link is invalid or has expired.{" "}
-                <Link href="/forgot-password" className="font-medium text-teal underline underline-offset-4">
+                <Link href="/forgot-password" className="font-medium text-teal-hover underline underline-offset-4">
                   Request a new one
                 </Link>
                 .

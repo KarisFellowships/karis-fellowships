@@ -81,6 +81,15 @@ body {
   font-weight: 500;
 }
 
+/* Visible keyboard focus site-wide. Many inputs/buttons use Tailwind's
+   outline-none; this unlayered rule restores a clear focus ring for keyboard
+   users (mouse clicks don't trigger :focus-visible, so it stays clean). */
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(32px); }
   to { opacity: 1; transform: translateY(0); }

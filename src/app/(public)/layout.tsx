@@ -22,8 +22,11 @@ export default async function PublicLayout({ children }: { children: React.React
 
   return (
     <>
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-teal focus:px-4 focus:py-2.5 focus:text-sm focus:font-medium focus:text-white">
+        Skip to content
+      </a>
       <Navbar isLoggedIn={!!user} tier={tier} />
-      <main>{children}</main>
+      <main id="main">{children}</main>
       <Footer />
     </>
   );
