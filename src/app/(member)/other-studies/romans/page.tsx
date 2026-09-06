@@ -49,21 +49,20 @@ export default async function RomansPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#4a5568] pt-20">
-      <section className="relative z-10">
-        <div className="absolute inset-0">
-          <Image src="/mountain-dawn.jpg" alt="Mountains at dawn" fill className="object-cover brightness-110 saturate-[1.15]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
-        </div>
-        <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
-          <div className="mx-auto max-w-7xl">
+    <div className="relative min-h-screen bg-[#4a5568]">
+      <div className="absolute inset-x-0 top-0 h-[38rem]">
+        <Image src="/mountain-dawn.jpg" alt="Mountains at dawn" fill priority className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-[#4a5568] sm:from-black/45 sm:via-black/25" />
+      </div>
+      <div className="relative z-10">
+        <section className="px-6 pt-32 sm:pt-44">
+          <div className="mx-auto max-w-3xl">
             <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">Romans Bible Study</h1>
-            <p className="mt-1.5 text-sm font-medium text-white/80 drop-shadow">A study through the book of Romans</p>
+            <p className="mt-2 text-sm font-medium text-white/85 drop-shadow sm:text-base">A study through the book of Romans</p>
           </div>
-        </div>
-      </section>
-      <section className="px-6 pb-12 pt-4">
-        <div className="mx-auto max-w-3xl">
+        </section>
+        <section className="px-6 pb-16 pt-10">
+          <div className="mx-auto max-w-3xl">
           <StudyDonationBanner
             studyName="Romans"
             type="romans"
@@ -72,7 +71,7 @@ export default async function RomansPage() {
             userEmail={user?.email ?? ""}
           />
           {/* Call Info */}
-          <div className="rounded-xl bg-[#1e293b] p-6 mb-3">
+          <div className="rounded-2xl border border-white/12 bg-white/[0.06] p-6 mb-3 backdrop-blur-sm">
             <div className="flex items-center gap-2 mb-4">
               <svg className="h-5 w-5 text-teal-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
               <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">Meeting Call Info</h3>
@@ -117,7 +116,7 @@ export default async function RomansPage() {
                   href={docUrl(href)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-xl bg-[#1e293b] p-4 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
+                  className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.09]"
                 >
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-teal/15">
                     <svg className="h-4 w-4 text-teal-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,7 +142,7 @@ export default async function RomansPage() {
                   href={docUrl(href)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-xl bg-[#1e293b] p-4 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
+                  className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.09]"
                 >
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber/15">
                     <svg className="h-4 w-4 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,6 +165,7 @@ export default async function RomansPage() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }
