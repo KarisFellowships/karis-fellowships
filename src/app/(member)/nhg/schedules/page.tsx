@@ -6,7 +6,7 @@ export default function NHGSchedulesPage() {
       <PageHeader title="Schedules & Reading Guides" subtitle="Study schedules, chapter guides, and study plan options for the NHG book study." accent="amber" image="/path-nature.jpg" imageAlt="Path through nature" payg />
       <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-3xl">
-          <div className="rounded-xl bg-[#1e293b] p-6">
+          <div className="rounded-2xl border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm">
             <p className="text-white/50">
               We offer the Weekly Study and Weekend Intensive Study formats,
               both 8 weeks in length, once a year beginning in January and

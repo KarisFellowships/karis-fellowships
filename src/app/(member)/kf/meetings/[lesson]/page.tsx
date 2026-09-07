@@ -123,7 +123,7 @@ export default async function LessonPage({ params }: Props) {
           {/* Navigation */}
           <div className="flex items-center justify-between pt-4">
             {prevLesson !== null ? (
-              <Link href={`/kf/meetings/kf${prevLesson}`} className="rounded-xl bg-[#1e293b] px-5 py-2.5 text-sm font-medium text-white/60 transition-all hover:bg-[#243044] hover:text-teal-light">
+              <Link href={`/kf/meetings/kf${prevLesson}`} className="rounded-xl border border-white/10 bg-white/[0.05] px-5 py-2.5 text-sm font-medium text-white/60 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/[0.09] hover:text-teal-light">
                 &larr; KF{prevLesson}
               </Link>
             ) : <div />}
@@ -131,7 +131,7 @@ export default async function LessonPage({ params }: Props) {
               All Meetings
             </Link>
             {nextLesson !== null ? (
-              <Link href={`/kf/meetings/kf${nextLesson}`} className="rounded-xl bg-[#1e293b] px-5 py-2.5 text-sm font-medium text-white/60 transition-all hover:bg-[#243044] hover:text-teal-light">
+              <Link href={`/kf/meetings/kf${nextLesson}`} className="rounded-xl border border-white/10 bg-white/[0.05] px-5 py-2.5 text-sm font-medium text-white/60 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/[0.09] hover:text-teal-light">
                 KF{nextLesson} &rarr;
               </Link>
             ) : <div />}

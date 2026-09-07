@@ -33,21 +33,22 @@ export default async function CalendarPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#4a5568] pt-20">
-      <section className="relative z-10">
-        <div className="absolute inset-0">
-          <Image src="/sunrise-ocean.jpg" alt="New day dawning" fill className="object-cover brightness-110 saturate-[1.15]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
-        </div>
-        <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
+    <div className="relative min-h-screen bg-[#4a5568]">
+      {/* Header image pulled up behind the nav and faded into the page background */}
+      <div className="absolute inset-x-0 top-0 h-[38rem]">
+        <Image src="/sunrise-ocean.jpg" alt="New day dawning" fill priority className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-[#4a5568] sm:from-black/45 sm:via-black/25" />
+      </div>
+
+      <div className="relative z-10">
+        <section className="px-6 pt-32 sm:pt-44">
           <div className="mx-auto max-w-7xl">
             <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">Calendar</h1>
-            <p className="mt-1.5 text-sm font-medium text-white/80 drop-shadow">All KF and NHG dates sourced from the KF Date Projection schedule.</p>
+            <p className="mt-2 max-w-3xl text-sm font-medium text-white/85 drop-shadow sm:text-base">All KF and NHG dates sourced from the KF Date Projection schedule.</p>
           </div>
-        </div>
-      </section>
-      <section className="px-6 pb-12 pt-4">
-        <div className="mx-auto max-w-7xl">
+        </section>
+        <section className="px-6 pb-12 pt-10">
+          <div className="mx-auto max-w-7xl">
           {/* KF Weekly Meetings Schedule */}
           <h2 className="text-lg font-bold text-white mb-4">KF Weekly Meetings</h2>
           <div className="space-y-6 mb-12">
@@ -62,7 +63,7 @@ export default async function CalendarPage() {
                       className={`flex items-center gap-3 rounded-lg p-3 transition-all hover:bg-white/10 ${
                         lesson.lessonNumber === currentLesson.lessonNumber
                           ? "bg-teal/15 ring-1 ring-teal/30"
-                          : "bg-[#1e293b]"
+                          : "border border-white/10 bg-white/[0.05] backdrop-blur-sm"
                       }`}
                     >
                       <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-xs font-bold ${
@@ -99,7 +100,7 @@ export default async function CalendarPage() {
                     className={`flex items-center gap-3 rounded-lg p-3 ${
                       nhgStatus.currentWeek?.weekNumber === week.weekNumber
                         ? "bg-coral/15 ring-1 ring-coral/30"
-                        : "bg-[#1e293b]"
+                        : "border border-white/10 bg-white/[0.05] backdrop-blur-sm"
                     }`}
                   >
                     <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-xs font-bold ${
@@ -122,7 +123,8 @@ export default async function CalendarPage() {
             </>
           )}
         </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }

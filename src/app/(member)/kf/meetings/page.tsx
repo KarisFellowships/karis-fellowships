@@ -10,21 +10,22 @@ export default async function KFMeetingsPage() {
   const lessonMap = new Map(allLessons.map((l) => [l.lessonNumber, l]));
 
   return (
-    <div className="min-h-screen bg-[#4a5568] pt-20">
-      <section className="relative z-10">
-        <div className="absolute inset-0">
-          <Image src="/ship-voyage.jpg" alt="Sailboat heading out to open sea" fill className="object-cover brightness-110 saturate-[1.15]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-[#4a5568]" />
-        </div>
-        <div className="relative px-6 pb-8 pt-14 sm:pt-16 sm:pb-10">
+    <div className="relative min-h-screen bg-[#4a5568]">
+      {/* Header image pulled up behind the nav and faded into the page background */}
+      <div className="absolute inset-x-0 top-0 h-[38rem]">
+        <Image src="/ship-voyage.jpg" alt="Sailboat heading out to open sea" fill priority className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-[#4a5568] sm:from-black/45 sm:via-black/25" />
+      </div>
+
+      <div className="relative z-10">
+        <section className="px-6 pt-32 sm:pt-44">
           <div className="mx-auto max-w-7xl">
             <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">KF Weekly Meetings</h1>
-            <p className="mt-1.5 text-sm font-medium text-white/80 drop-shadow">Browse all 52 KF weekly lessons, teachings, and meeting guides.</p>
+            <p className="mt-2 max-w-3xl text-sm font-medium text-white/85 drop-shadow sm:text-base">Browse all 52 KF weekly lessons, teachings, and meeting guides.</p>
           </div>
-        </div>
-      </section>
-      <section className="px-6 pb-12 pt-4">
-        <div className="mx-auto max-w-7xl">
+        </section>
+        <section className="px-6 pb-12 pt-10">
+          <div className="mx-auto max-w-7xl">
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 53 }, (_, i) => i).map((n) => {
               const lesson = lessonMap.get(n);
@@ -32,7 +33,7 @@ export default async function KFMeetingsPage() {
                 <Link
                   key={n}
                   href={`/kf/meetings/kf${n}`}
-                  className="group flex items-center gap-4 rounded-xl bg-[#1e293b] p-4 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
+                  className="group flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.09]"
                 >
                   <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
                     n === currentLesson.lessonNumber
@@ -57,7 +58,8 @@ export default async function KFMeetingsPage() {
             })}
           </div>
         </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
