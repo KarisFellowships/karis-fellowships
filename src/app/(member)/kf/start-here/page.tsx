@@ -6,10 +6,10 @@ export default async function KFStartHerePage() {
   await requireKF();
   return (
     <div className="min-h-screen bg-[#4a5568]">
-      <PageHeader title="KF — Start Here" subtitle="Welcome to Karis Fellowships. Here's how the weekly meetings work." accent="teal" image="/ocean-horizon.jpg" imageAlt="Vast ocean horizon" />
+      <PageHeader title="KF — Start Here" subtitle="Welcome to Karis Fellowships. Here's how the weekly meetings work." accent="teal" image="/ocean-horizon.jpg" imageAlt="Vast ocean horizon" payg />
       <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-3xl space-y-8">
-          <div className="rounded-xl bg-[#1e293b] p-6">
+          <div className="rounded-2xl border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm">
             <p className="leading-relaxed text-white/55">
               After completing the NHG book study, you are now part of Karis
               Fellowships — a one-year training program of Bible teaching,

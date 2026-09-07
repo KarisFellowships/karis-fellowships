@@ -157,7 +157,7 @@ export default async function ToolboxCategoryPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-[#4a5568]">
-      <PageHeader title={data.title} subtitle={`KF Toolbox — ${data.title}`} accent={data.accent} image="/butterfly-transform.jpg" imageAlt="Transformation" />
+      <PageHeader title={data.title} subtitle={`KF Toolbox — ${data.title}`} accent={data.accent} image="/butterfly-transform.jpg" imageAlt="Transformation" payg />
       <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-3xl">
           {data.docs.length > 0 && (
@@ -168,7 +168,7 @@ export default async function ToolboxCategoryPage({ params }: Props) {
                   href={docUrl(href)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-xl bg-[#1e293b] p-4 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
+                  className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.09]"
                 >
                   <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-${data.accent}/15`}>
                     <svg className={`h-4 w-4 text-${data.accent}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -196,7 +196,7 @@ export default async function ToolboxCategoryPage({ params }: Props) {
                     href={docUrl(href)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3 rounded-xl bg-[#1e293b] p-4 transition-all hover:bg-[#243044] hover:-translate-y-0.5"
+                    className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.09]"
                   >
                     <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-${data.accent}/15`}>
                       <svg className={`h-4 w-4 text-${data.accent}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">

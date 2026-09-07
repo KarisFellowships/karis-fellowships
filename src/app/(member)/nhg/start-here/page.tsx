@@ -4,10 +4,10 @@ import Link from "next/link";
 export default function NHGStartHerePage() {
   return (
     <div className="min-h-screen bg-[#4a5568]">
-      <PageHeader title="NHG — Start Here" subtitle="Welcome to the Neurosis and Human Growth book study." accent="coral" image="/forest-light.jpg" imageAlt="Light breaking through the forest" />
+      <PageHeader title="NHG — Start Here" subtitle="Welcome to the Neurosis and Human Growth book study." accent="coral" image="/forest-light.jpg" imageAlt="Light breaking through the forest" payg />
       <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-3xl space-y-8">
-          <div className="rounded-xl bg-[#1e293b] p-6">
+          <div className="rounded-2xl border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm">
             <p className="leading-relaxed text-white/55">
               Your first step is to participate in the Neurosis and Human Growth
               (NHG) book study. You read the first 11 chapters of Karen

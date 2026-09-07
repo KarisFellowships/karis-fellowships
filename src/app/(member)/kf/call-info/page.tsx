@@ -10,15 +10,15 @@ export default async function KFCallInfoPage() {
   const meetings = kfMeetings(codes);
   return (
     <div className="min-h-screen bg-[#4a5568]">
-      <PageHeader title="Call & Playback Info" subtitle="Conference call details for KF weekly meetings." accent="amber" image="/sunrise-ocean.jpg" imageAlt="Sunrise over calm water" />
+      <PageHeader title="Call & Playback Info" subtitle="Conference call details for KF weekly meetings." accent="amber" image="/sunrise-ocean.jpg" imageAlt="Sunrise over calm water" payg />
       <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-3xl space-y-6">
-          <div className="rounded-xl bg-[#1e293b] p-8">
+          <div className="rounded-2xl border border-white/12 bg-white/[0.06] p-8 backdrop-blur-sm">
             <p className="text-xs font-bold uppercase tracking-wider text-white/30">Phone Number</p>
             <p className="mt-1 text-3xl font-bold text-teal-light">{callPhone}</p>
           </div>
 
-          <div className="rounded-xl bg-[#1e293b] p-8">
+          <div className="rounded-2xl border border-white/12 bg-white/[0.06] p-8 backdrop-blur-sm">
             <p className="text-xs font-bold uppercase tracking-wider text-white/30 mb-5">Meeting Times &amp; Access Codes</p>
             <div className="space-y-5">
               {meetings.map(({ day, time, code }) => (

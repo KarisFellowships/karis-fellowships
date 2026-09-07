@@ -8,11 +8,11 @@ export default async function KFRecordingsPage() {
   const meetings = kfMeetings(codes);
   return (
     <div className="min-h-screen bg-[#4a5568]">
-      <PageHeader title="KF Recordings" subtitle="Listen to recordings from past KF weekly meetings." accent="sky" image="/ocean-horizon.jpg" imageAlt="Calm ocean horizon" />
+      <PageHeader title="KF Recordings" subtitle="Listen to recordings from past KF weekly meetings." accent="sky" image="/ocean-horizon.jpg" imageAlt="Calm ocean horizon" payg />
       <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-3xl space-y-6">
           {/* Listen by phone */}
-          <div className="rounded-xl bg-[#1e293b] p-8">
+          <div className="rounded-2xl border border-white/12 bg-white/[0.06] p-8 backdrop-blur-sm">
             <div className="mb-4 flex items-center gap-2">
               <svg className="h-5 w-5 text-sky" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 9.5v5m0 0l-2-2m2 2l2-2M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" /></svg>
               <h2 className="text-sm font-bold uppercase tracking-wider text-white/50">Listen by Phone</h2>
@@ -25,7 +25,7 @@ export default async function KFRecordingsPage() {
           </div>
 
           {/* Access codes */}
-          <div className="rounded-xl bg-[#1e293b] p-8">
+          <div className="rounded-2xl border border-white/12 bg-white/[0.06] p-8 backdrop-blur-sm">
             <p className="mb-5 text-xs font-bold uppercase tracking-wider text-white/30">Meeting Times &amp; Access Codes</p>
             <div className="space-y-5">
               {meetings.map(({ day, time, code }) => (
