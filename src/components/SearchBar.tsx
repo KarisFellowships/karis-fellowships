@@ -118,6 +118,7 @@ export default function SearchBar() {
         <input
           ref={inputRef}
           type="text"
+          aria-label="Search"
           value={query}
           onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
           onFocus={() => { loadIndex(); setOpen(true); }}

@@ -73,6 +73,7 @@ export default function MembersTab({ initialMembers }: { initialMembers: Member[
         <div className="flex items-center gap-2">
           <input
             type="text"
+            aria-label="Search members by name or email"
             placeholder="Search by name or email..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -81,6 +82,7 @@ export default function MembersTab({ initialMembers }: { initialMembers: Member[
           <select
             value={filterTier}
             onChange={(e) => setFilterTier(e.target.value)}
+            aria-label="Filter by tier"
             className="rounded-lg border border-white/10 bg-[#0f172a] px-3 py-2 text-sm text-white outline-none focus:border-teal/50"
           >
             <option value="all">All tiers</option>

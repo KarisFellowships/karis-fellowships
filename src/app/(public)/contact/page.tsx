@@ -95,9 +95,11 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Name</label>
+                    <label htmlFor="contact-name" className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Name</label>
                     <input
+                      id="contact-name"
                       type="text"
+                      autoComplete="name"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -106,9 +108,11 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Email</label>
+                    <label htmlFor="contact-email" className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Email</label>
                     <input
+                      id="contact-email"
                       type="email"
+                      autoComplete="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -117,8 +121,9 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Message</label>
+                    <label htmlFor="contact-message" className="block text-[11px] font-medium uppercase tracking-[0.2em] text-slate/60">Message</label>
                     <textarea
+                      id="contact-message"
                       required
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}

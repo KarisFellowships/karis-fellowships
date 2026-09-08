@@ -91,11 +91,13 @@ export default function KFRegisterClient({
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-6">
         <div>
-          <label className={labelClass}>
+          <label htmlFor="kf-name" className={labelClass}>
             Name <span className="text-coral">*</span>
           </label>
           <input
+            id="kf-name"
             type="text"
+            autoComplete="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -105,7 +107,7 @@ export default function KFRegisterClient({
         </div>
 
         <div>
-          <label className={labelClass}>Email</label>
+          <span className={labelClass}>Email</span>
           <p className="mt-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white/60">
             {userEmail}
           </p>
@@ -113,8 +115,9 @@ export default function KFRegisterClient({
 
         {!isReturning && (
           <div>
-            <label className={labelClass}>When did you complete NHG?</label>
+            <label htmlFor="kf-nhgYear" className={labelClass}>When did you complete NHG?</label>
             <select
+              id="kf-nhgYear"
               value={nhgYear}
               onChange={(e) => setNhgYear(e.target.value)}
               className={`${fieldClass} appearance-none`}
@@ -131,11 +134,11 @@ export default function KFRegisterClient({
 
         {isReturning && (
           <div>
-            <label className={labelClass}>Volunteering</label>
+            <span id="kf-volunteering-label" className={labelClass}>Volunteering</span>
             <p className="mt-1.5 text-sm text-white/60">
               Select any area you are interested in helping with.
             </p>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div role="group" aria-labelledby="kf-volunteering-label" className="mt-3 flex flex-wrap gap-2">
               {VOLUNTEER_OPTIONS.map((option) => (
                 <button
                   key={option}
@@ -155,6 +158,7 @@ export default function KFRegisterClient({
               value={volunteerNote}
               onChange={(e) => setVolunteerNote(e.target.value)}
               rows={3}
+              aria-labelledby="kf-volunteering-label"
               className={`${fieldClass} mt-3 resize-none`}
               placeholder="Anything you'd like to add? (optional)"
             />

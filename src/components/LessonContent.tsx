@@ -108,11 +108,26 @@ export default function LessonContent({ html }: Props) {
           const hasNotes = notes && notes.length > 0;
           const isOpen = openSections.has(key);
 
+          const panelId = `lesson-notes-${i}`;
           return (
             <div key={i}>
               <div
                 className="lesson-section-heading"
+                role={hasNotes ? "button" : undefined}
+                tabIndex={hasNotes ? 0 : undefined}
+                aria-expanded={hasNotes ? isOpen : undefined}
+                aria-controls={hasNotes ? panelId : undefined}
                 onClick={hasNotes ? () => toggleSection(key) : undefined}
+                onKeyDown={
+                  hasNotes
+                    ? (e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          toggleSection(key);
+                        }
+                      }
+                    : undefined
+                }
                 style={hasNotes ? undefined : { cursor: "default" }}
                 dangerouslySetInnerHTML={{
                   __html: seg.html
@@ -125,7 +140,7 @@ export default function LessonContent({ html }: Props) {
                 }}
               />
               {isOpen && hasNotes && (
-                <div className="schedule-note-panel">
+                <div id={panelId} className="schedule-note-panel">
                   {notes.map((line, j) => (
                     <p key={j} style={{ marginLeft: 0, marginBottom: "0.375rem" }}>{line}</p>
                   ))}
@@ -139,7 +154,17 @@ export default function LessonContent({ html }: Props) {
           <div ref={footnotesRef}>
             <div
               className="footnotes-toggle"
+              role="button"
+              tabIndex={0}
+              aria-expanded={footnotesOpen}
+              aria-controls="lesson-footnotes-panel"
               onClick={() => setFootnotesOpen(!footnotesOpen)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setFootnotesOpen((o) => !o);
+                }
+              }}
             >
               <span className="footnotes-toggle-label">Footnotes</span>
               <svg
@@ -156,6 +181,7 @@ export default function LessonContent({ html }: Props) {
             </div>
             {footnotesOpen && (
               <div
+                id="lesson-footnotes-panel"
                 className="schedule-note-panel"
                 style={{ background: "#f0ece6" }}
                 dangerouslySetInnerHTML={{ __html: footnotesHtml }}

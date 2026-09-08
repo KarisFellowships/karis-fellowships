@@ -116,6 +116,7 @@ export default function MeetingCodesTab() {
                     <input
                       value={r.label}
                       onChange={(e) => update(r.id, "label", e.target.value)}
+                      aria-label="Meeting label"
                       className="min-w-[8rem] flex-1 rounded-md bg-[#1e293b] px-3 py-1.5 text-sm text-white/90 outline-none ring-1 ring-white/10 focus:ring-teal/50"
                       placeholder="Label"
                     />
@@ -123,6 +124,7 @@ export default function MeetingCodesTab() {
                       <input
                         value={r.time_label ?? ""}
                         onChange={(e) => update(r.id, "time_label", e.target.value)}
+                        aria-label="Meeting time"
                         className="min-w-[8rem] flex-1 rounded-md bg-[#1e293b] px-3 py-1.5 text-sm text-white/70 outline-none ring-1 ring-white/10 focus:ring-teal/50"
                         placeholder="Time (e.g. 8:00 am CST)"
                       />
@@ -130,6 +132,7 @@ export default function MeetingCodesTab() {
                     <input
                       value={r.code}
                       onChange={(e) => update(r.id, "code", e.target.value)}
+                      aria-label="Access code"
                       className="min-w-[9rem] flex-1 rounded-md bg-[#1e293b] px-3 py-1.5 font-mono text-sm font-bold text-teal-light/90 outline-none ring-1 ring-white/10 focus:ring-teal/50"
                       placeholder="Code"
                     />

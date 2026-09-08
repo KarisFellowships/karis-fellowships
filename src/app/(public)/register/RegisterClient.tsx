@@ -172,9 +172,11 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
             ) : (
               <form onSubmit={handleRegister} className="mt-6 space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Email Address <span className="text-coral">*</span></label>
+                  <label htmlFor="reg-email" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Email Address <span className="text-coral">*</span></label>
                   <input
+                    id="reg-email"
                     type="email"
+                    autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -183,9 +185,11 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Password <span className="text-coral">*</span></label>
+                  <label htmlFor="reg-password" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Password <span className="text-coral">*</span></label>
                   <input
+                    id="reg-password"
                     type="password"
+                    autoComplete="new-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -195,9 +199,11 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">First Name <span className="text-coral">*</span></label>
+                  <label htmlFor="reg-firstName" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">First Name <span className="text-coral">*</span></label>
                   <input
+                    id="reg-firstName"
                     type="text"
+                    autoComplete="given-name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     required
@@ -208,9 +214,11 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
 
                 <div className="grid gap-3 sm:grid-cols-3">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Country <span className="text-coral">*</span></label>
+                    <label htmlFor="reg-country" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Country <span className="text-coral">*</span></label>
                     <input
+                      id="reg-country"
                       type="text"
+                      autoComplete="country-name"
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
                       required
@@ -219,9 +227,11 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">State</label>
+                    <label htmlFor="reg-state" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">State</label>
                     <input
+                      id="reg-state"
                       type="text"
+                      autoComplete="address-level1"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
                       className="mt-1.5 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30"
@@ -229,9 +239,11 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">City</label>
+                    <label htmlFor="reg-city" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">City</label>
                     <input
+                      id="reg-city"
                       type="text"
+                      autoComplete="address-level2"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
                       className="mt-1.5 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30"
@@ -241,9 +253,11 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Phone Number <span className="text-coral">*</span></label>
+                  <label htmlFor="reg-phone" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Phone Number <span className="text-coral">*</span></label>
                   <input
+                    id="reg-phone"
                     type="tel"
+                    autoComplete="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
@@ -253,8 +267,8 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Which meeting would you like to attend? <span className="text-coral">*</span></label>
-                  <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:gap-4">
+                  <span id="reg-meeting-label" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Which meeting would you like to attend? <span className="text-coral">*</span></span>
+                  <div role="radiogroup" aria-labelledby="reg-meeting-label" className="mt-2 flex flex-col gap-2 sm:flex-row sm:gap-4">
                     {[
                       { value: "weekly_study", label: "Weekly Study" },
                       { value: "weekend_intensive", label: "Weekend Intensive" },
@@ -276,8 +290,9 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Name of Your Karis Link <span className="text-coral">*</span></label>
+                  <label htmlFor="reg-karisLink" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Name of Your Karis Link <span className="text-coral">*</span></label>
                   <input
+                    id="reg-karisLink"
                     type="text"
                     value={karisLink}
                     onChange={(e) => setKarisLink(e.target.value)}
@@ -288,8 +303,9 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">What do you hope to gain through the Neurosis and Human Growth book study? <span className="text-coral">*</span></label>
+                  <label htmlFor="reg-hopeToGain" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">What do you hope to gain through the Neurosis and Human Growth book study? <span className="text-coral">*</span></label>
                   <textarea
+                    id="reg-hopeToGain"
                     value={hopeToGain}
                     onChange={(e) => setHopeToGain(e.target.value)}
                     required
@@ -299,8 +315,8 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Have you registered for the NHG study before? <span className="text-coral">*</span></label>
-                  <div className="mt-2 flex gap-4">
+                  <span id="reg-registered-label" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Have you registered for the NHG study before? <span className="text-coral">*</span></span>
+                  <div role="radiogroup" aria-labelledby="reg-registered-label" className="mt-2 flex gap-4">
                     {["Yes", "No"].map((opt) => (
                       <label key={opt} className="flex cursor-pointer items-center gap-2.5 rounded-xl border border-border/50 bg-ivory/30 px-5 py-3 text-sm text-slate transition-all hover:border-teal/30 has-[:checked]:border-teal/50 has-[:checked]:bg-teal/5">
                         <input
@@ -319,8 +335,9 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Questions or Comments</label>
+                  <label htmlFor="reg-questionsComments" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Questions or Comments</label>
                   <textarea
+                    id="reg-questionsComments"
                     value={questionsComments}
                     onChange={(e) => setQuestionsComments(e.target.value)}
                     className="mt-1.5 w-full rounded-xl border border-border/50 bg-ivory/30 px-5 py-3 text-sm outline-none transition-all focus:border-teal/40 focus:ring-2 focus:ring-teal/10 placeholder:text-slate/30"
@@ -335,7 +352,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                       After submitting, you will be prompted to make a donation to help cover our technology costs. We suggest <span className="font-semibold text-foreground">$30</span>, but any amount is appreciated.
                     </p>
                     <div className="mt-4">
-                      <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Donation Amount</label>
+                      <label htmlFor="reg-donation" className="block text-xs font-semibold uppercase tracking-[0.15em] text-slate/80">Donation Amount</label>
                       <div className="mt-2 flex flex-wrap gap-2">
                         {["10", "25", "30", "50"].map((amt) => (
                           <button
@@ -354,6 +371,7 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
                         <div className="relative">
                           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate/40">$</span>
                           <input
+                            id="reg-donation"
                             type="number"
                             min="1"
                             value={!["10", "25", "30", "50"].includes(donationAmount) ? donationAmount : ""}
