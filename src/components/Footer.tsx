@@ -39,8 +39,23 @@ export default function Footer() {
             </p>
           </div>
         </div>
-        <div className="mt-16 border-t border-white/10 pt-8 text-center text-[11px] tracking-wide text-white/30">
-          &copy; {year} Karis Fellowships International &middot; karisfellowships.com
+        <div className="mt-16 border-t border-white/10 pt-8">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+            <p className="text-[11px] tracking-wide text-white/30">
+              &copy; {year} Karis Fellowships International &middot; karisfellowships.com
+            </p>
+            <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+              {[
+                { href: "/privacy", label: "Privacy" },
+                { href: "/terms", label: "Terms" },
+                { href: "/refund", label: "Refund Policy" },
+              ].map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href} className="text-[11px] tracking-wide text-white/40 transition-colors hover:text-white/70">{label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </footer>
