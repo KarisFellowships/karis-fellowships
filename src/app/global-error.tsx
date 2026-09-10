@@ -11,6 +11,21 @@ export default function GlobalError({
 }) {
   useEffect(() => {
     console.error("Critical application error:", error);
+    try {
+      fetch("/api/client-error", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          kind: "global",
+          message: error?.message ?? String(error),
+          digest: error?.digest ?? "",
+          path: typeof window !== "undefined" ? window.location.pathname : "",
+        }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch {
+      /* never let reporting break the error screen */
+    }
   }, [error]);
 
   return (

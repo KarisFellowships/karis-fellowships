@@ -11,6 +11,22 @@ export default function Error({
 }) {
   useEffect(() => {
     console.error("Application error:", error);
+    // Best-effort: surface the error server-side (Vercel logs) + admin alert.
+    try {
+      fetch("/api/client-error", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          kind: "error",
+          message: error?.message ?? String(error),
+          digest: error?.digest ?? "",
+          path: typeof window !== "undefined" ? window.location.pathname : "",
+        }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch {
+      /* never let reporting break the error screen */
+    }
   }, [error]);
 
   return (

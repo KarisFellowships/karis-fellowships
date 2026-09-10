@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase-server";
 import { createAdminClient } from "@/lib/supabase-admin";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
   const supabase = await createServerClient();
@@ -8,6 +9,14 @@ export async function POST(request: Request) {
 
   if (!user) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  // One-time-ish action (KF tier promotion); bound it per user.
+  if (!(await checkRateLimit(`kf-register:${user.id}`, 5, 600))) {
+    return NextResponse.json(
+      { error: "Too many attempts. Please try again in a few minutes." },
+      { status: 429 }
+    );
   }
 
   const { data: profile } = await supabase

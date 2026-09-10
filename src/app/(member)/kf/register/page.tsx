@@ -10,11 +10,17 @@ export default async function KFRegisterPage() {
 
   const { data: profile } = await supabase
     .from("users")
-    .select("tier, kf_invited, kf_registered_year, kf_first_year")
+    .select("tier, active, kf_invited, kf_registered_year, kf_first_year")
     .eq("id", user.id)
     .single();
 
-  if (!profile?.kf_invited) {
+  // Mirror requireTier's defense-in-depth: a missing or deactivated profile is
+  // sent to /login, never allowed to load the member registration form.
+  if (!profile || !profile.active) {
+    redirect("/login");
+  }
+
+  if (!profile.kf_invited) {
     redirect("/nhg");
   }
 

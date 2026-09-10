@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase-server";
 import { createAdminClient } from "@/lib/supabase-admin";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
@@ -45,6 +46,16 @@ export async function GET(
 
   if (!profile || !profile.active) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  // Each hit mints a service-role signed URL against private Storage. Cap per
+  // member so a logged-in account can't script bulk signing/enumeration; the
+  // limit is generous enough for normal lesson/document browsing.
+  if (!(await checkRateLimit(`docs:${user.id}`, 120, 600))) {
+    return NextResponse.json(
+      { error: "Too many requests. Please slow down and try again shortly." },
+      { status: 429 }
+    );
   }
 
   if (!isAllowed(path, profile.tier, !!profile.nhg_paid)) {
