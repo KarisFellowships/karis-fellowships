@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { createClient } from "@/lib/supabase-browser";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -13,14 +12,20 @@ export default function ForgotPasswordPage() {
     e.preventDefault();
     setLoading(true);
 
-    const supabase = createClient();
-    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-      redirectTo: `${window.location.origin}/auth/callback?next=/update-password`,
-    });
-
-    // Always show the same confirmation, whether or not the email is registered,
-    // so the form can't be used to discover which addresses have accounts.
-    if (error) console.error("Password reset request failed:", error);
+    // The reset email is sent server-side (via Resend) by /api/forgot-password,
+    // so we don't depend on Supabase's built-in mailer.
+    try {
+      await fetch("/api/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+    } catch (error) {
+      // Always show the same confirmation, whether or not the email is
+      // registered (and even on a network hiccup), so the form can't be used to
+      // discover which addresses have accounts.
+      console.error("Password reset request failed:", error);
+    }
     setSent(true);
     setLoading(false);
   }
