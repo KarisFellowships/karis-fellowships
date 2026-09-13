@@ -49,6 +49,7 @@ export default async function Home() {
               book studies and support programs, Bible exploration, training in
               practical tools, and healing gifts. We discover the purpose of our
               salvation and how to develop the Fruit of the Spirit in our lives.
+              <br />
               (Philippians 2:12, Galatians 5:22-23).
             </p>
           </div>

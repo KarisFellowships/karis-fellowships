@@ -53,7 +53,7 @@ export default async function RegisterPage() {
           <div className="mx-auto max-w-7xl">
             <div className="mb-3 h-px w-10 bg-coral/60" />
             <h1 className="font-serif text-3xl font-semibold tracking-tight text-white drop-shadow-lg sm:text-4xl md:text-5xl">
-              Register for the NHG Book Study
+              Register for the NHG <span className="whitespace-nowrap">Book Study</span>
             </h1>
             <p className="mt-2 max-w-2xl text-sm font-medium leading-relaxed text-white/90 drop-shadow-lg sm:text-base">
               Your first step is to participate in the Neurosis and Human Growth (NHG) book study.
