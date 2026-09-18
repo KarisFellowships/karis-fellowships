@@ -113,7 +113,7 @@ export default function FacilitatorSignup({ sessions, myName }: { sessions: Sess
             {group.sessions.map((session) => {
               const openCount = session.slots.filter((sl) => !sl.display_name).length;
               return (
-                <div key={session.id} className="rounded-2xl border border-white/12 bg-white/[0.06] p-4 backdrop-blur-sm sm:p-5">
+                <div key={session.id} className="rounded-2xl border border-white/15 bg-white/[0.12] p-4 shadow-lg shadow-black/10 backdrop-blur-md sm:p-5">
                   {/* Header: date + content + time */}
                   <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between">
                     <div className="min-w-0">

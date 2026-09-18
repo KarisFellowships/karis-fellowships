@@ -1,5 +1,4 @@
 import { docUrl } from "@/lib/storage-url";
-import { nhgFeatured } from "@/lib/nhg-surface";
 import { getFacilitatorBoard } from "@/lib/facilitator";
 import FacilitatorSignup from "@/app/(member)/nhg/facilitator/FacilitatorSignup";
 
@@ -67,7 +66,9 @@ export default async function FacilitatorSection({
 
   return (
     <div id="facilitator" className="scroll-mt-24 pt-4">
-      <div className={`${nhgFeatured} p-8`}>
+      {/* Glassier frame with just a hint of violet (softer than the shared
+          nhgFeatured slab) so the frosted session boxes read as glass, not purple. */}
+      <div className="rounded-2xl border border-violet/20 bg-violet/[0.08] p-8 backdrop-blur-md">
         <div className="flex items-start gap-4">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#fde68a]/15">
             <svg className="h-6 w-6 text-[#fde68a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
