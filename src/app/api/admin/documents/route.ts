@@ -24,7 +24,7 @@ export async function GET() {
 
   const client = createAdminClient();
 
-  const categories = ["toolbox", "nhg", "other-studies", "lessons", "questions", "kf-resources", "facilitator"];
+  const categories = ["toolbox", "nhg", "nhg/reading-guides", "other-studies", "lessons", "questions", "kf-resources", "facilitator"];
   const result: Record<string, { name: string; path: string; size: number; updated: string }[]> = {};
 
   for (const cat of categories) {

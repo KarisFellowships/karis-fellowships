@@ -14,6 +14,7 @@ type DocsMap = Record<string, DocFile[]>;
 const CATEGORIES = [
   { id: "toolbox", label: "Toolbox" },
   { id: "nhg", label: "NHG Guides" },
+  { id: "nhg/reading-guides", label: "NHG Reading Guides" },
   { id: "other-studies", label: "Other Studies" },
   { id: "lessons", label: "KF Lessons" },
   { id: "questions", label: "KF Questions" },
@@ -46,15 +47,19 @@ export default function DocumentsTab() {
   }, [fetchDocs]);
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files ?? []);
+    if (files.length === 0) return;
     setUploading(true);
     try {
-      const fd = new FormData();
-      fd.append("file", file);
-      fd.append("folder", activeCategory);
-      const res = await fetch("/api/admin/documents", { method: "POST", body: fd });
-      if (res.ok) await fetchDocs();
+      // Upload sequentially so several files (e.g. all the reading guides) can be
+      // added in one go.
+      for (const file of files) {
+        const fd = new FormData();
+        fd.append("file", file);
+        fd.append("folder", activeCategory);
+        await fetch("/api/admin/documents", { method: "POST", body: fd });
+      }
+      await fetchDocs();
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = "";
@@ -108,10 +113,11 @@ export default function DocumentsTab() {
           {files.length} file{files.length !== 1 ? "s" : ""} in {activeCategory}
         </p>
         <label className={`cursor-pointer rounded-lg bg-teal px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-teal/80 ${uploading ? "opacity-50 pointer-events-none" : ""}`}>
-          {uploading ? "Uploading..." : "Upload File"}
+          {uploading ? "Uploading..." : "Upload Files"}
           <input
             ref={fileRef}
             type="file"
+            multiple
             className="hidden"
             onChange={handleUpload}
             disabled={uploading}
