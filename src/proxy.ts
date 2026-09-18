@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const KF_ONLY_ROUTES = ["/kf", "/toolbox", "/other-studies", "/give-a-gift", "/search", "/calendar"];
+const KF_ONLY_ROUTES = ["/kf", "/toolbox", "/other-studies", "/give-a-gift", "/search", "/calendar", "/nhg/facilitator"];
 
 const ADMIN_ONLY_ROUTES = ["/admin"];
 

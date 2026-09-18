@@ -7,7 +7,6 @@ import NHGWelcome from "@/components/NHGWelcome";
 import NHGFaq from "@/components/NHGFaq";
 import IntroMeetingBlock from "@/components/IntroMeetingBlock";
 import WeekendIntensiveSchedule from "@/components/WeekendIntensiveSchedule";
-import FacilitatorSection from "@/components/FacilitatorSection";
 import { getMeetingCodes, phoneNumber, sectionCodes } from "@/lib/meeting-codes";
 import { nhgCard, nhgFeatured, nhgCardHover, nhgCardLight, nhgCardLightHover } from "@/lib/nhg-surface";
 
@@ -75,16 +74,14 @@ export default async function NHGPage() {
   const { data: { user } } = await supabase.auth.getUser();
   let userTier: string | null = null;
   let kfInvited = false;
-  let myName = "";
   if (user) {
     const { data: profile } = await supabase
       .from("users")
-      .select("tier, kf_invited, name")
+      .select("tier, kf_invited")
       .eq("id", user.id)
       .single();
     userTier = profile?.tier ?? null;
     kfInvited = profile?.kf_invited ?? false;
-    myName = profile?.name ?? "";
   }
   const isKFMember = userTier === "kf" || userTier === "admin";
 
@@ -382,9 +379,22 @@ export default async function NHGPage() {
           {/* FAQs & Tips */}
           <NHGFaq />
 
-          {/* Facilitator Section — KF members only: sign-up board + guides combined */}
-          {isKFMember && user && (
-            <FacilitatorSection userId={user.id} myName={myName} />
+          {/* Facilitator Resources — KF members only: link to the dedicated page
+              (general guides, weekly guides, and the meeting sign-up board). */}
+          {isKFMember && (
+            <Link
+              href="/nhg/facilitator"
+              className="group flex items-center gap-4 rounded-2xl border border-[#fde68a]/25 bg-[#fde68a]/[0.07] p-6 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-[#fde68a]/45 hover:bg-[#fde68a]/[0.12]"
+            >
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#fde68a]/15">
+                <svg className="h-6 w-6 text-[#fde68a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+              </span>
+              <div className="min-w-0 flex-1">
+                <h3 className="font-serif text-lg text-white transition-colors group-hover:text-[#fde68a] sm:text-xl">NHG Facilitator Resources</h3>
+                <p className="mt-0.5 text-sm text-white/55">Facilitator guides and meeting sign-up for KF members</p>
+              </div>
+              <svg className="h-5 w-5 shrink-0 text-[#fde68a]/60 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" /></svg>
+            </Link>
           )}
         </div>
       </section>

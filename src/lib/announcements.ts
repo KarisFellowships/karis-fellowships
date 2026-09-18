@@ -53,7 +53,7 @@ export function getActiveAnnouncement(): Announcement | null {
       return {
         id: `facilitator-recruitment-${year}`,
         text: `Now is the time to see if the KF community has the MATH to support a NHG Book Study for ${year}, please view the Facilitator Sign Up page to sign up for a meeting`,
-        linkHref: "/nhg#facilitator",
+        linkHref: "/nhg/facilitator",
         linkText: "Facilitator Sign Up",
         tone: "amber",
       };

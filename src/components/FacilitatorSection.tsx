@@ -65,57 +65,48 @@ export default async function FacilitatorSection({
   const sessions = board.sessions.map((s) => ({ ...s, guides: guidesForSession(s.section, s.content) }));
 
   return (
-    <div id="facilitator" className="scroll-mt-24 pt-4">
-      {/* Glassier frame with just a hint of violet (softer than the shared
-          nhgFeatured slab) so the frosted session boxes read as glass, not purple. */}
-      <div className="rounded-2xl border border-violet/20 bg-violet/[0.08] p-8 backdrop-blur-md">
-        <div className="flex items-start gap-4">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#fde68a]/15">
-            <svg className="h-6 w-6 text-[#fde68a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-          </div>
-          <div className="min-w-0 flex-1">
-            <h2 className="text-2xl font-bold text-white">NHG Facilitator Resources</h2>
+    // Glassier frame with just a hint of violet (softer than the shared nhgFeatured
+    // slab) so the frosted session boxes read as glass, not purple. The page hero
+    // carries the "NHG Facilitator Resources" title, so this block goes straight to
+    // the resources + sign-up.
+    <div id="facilitator" className="rounded-2xl border border-violet/20 bg-violet/[0.08] p-6 backdrop-blur-md sm:p-8">
+      {/* General Resources — highlighted block at the top */}
+      <div className="rounded-2xl border border-[#fde68a]/25 bg-[#fde68a]/[0.07] p-5">
+        <h2 className="text-xs font-bold uppercase tracking-[0.15em] text-[#fde68a]">General Resources</h2>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+          {generalResources.map(({ label, href }) => (
+            <a
+              key={href}
+              href={docUrl(href)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-3 rounded-xl bg-[#fde68a]/10 p-3 ring-1 ring-[#fde68a]/20 transition-all hover:bg-[#fde68a]/20 hover:-translate-y-0.5"
+            >
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#fde68a]/20">
+                <svg className="h-5 w-5 text-[#fde68a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+              </span>
+              <span className="text-sm font-semibold text-white/85 group-hover:text-[#fde68a] transition-colors">{label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
 
-            {/* General Resources — highlighted block at the top */}
-            <div className="mt-5 rounded-2xl border border-[#fde68a]/25 bg-[#fde68a]/[0.07] p-5">
-              <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-[#fde68a]">General Resources</h3>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                {generalResources.map(({ label, href }) => (
-                  <a
-                    key={href}
-                    href={docUrl(href)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-3 rounded-xl bg-[#fde68a]/10 p-3 ring-1 ring-[#fde68a]/20 transition-all hover:bg-[#fde68a]/20 hover:-translate-y-0.5"
-                  >
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#fde68a]/20">
-                      <svg className="h-5 w-5 text-[#fde68a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                    </span>
-                    <span className="text-sm font-semibold text-white/85 group-hover:text-[#fde68a] transition-colors">{label}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Sign-Up */}
-            <div className="mt-8 border-t border-white/10 pt-8">
-              <h3 className="font-serif text-xl font-semibold text-white sm:text-2xl">Facilitator Sign-Up</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
-                Thank you for offering the gift of facilitation. Choose any open slot below to sign up.
-                You&apos;ll receive a confirmation email, and your name will be visible to other KF members
-                so everyone can see who is leading each session.
-              </p>
-              <div className="mt-6">
-                {sessions.length === 0 ? (
-                  <p className="rounded-xl border border-white/10 bg-white/[0.05] p-4 text-sm text-white/50 backdrop-blur-sm">
-                    Facilitator sign-up for the upcoming study will open here soon.
-                  </p>
-                ) : (
-                  <FacilitatorSignup sessions={sessions} myName={myName} />
-                )}
-              </div>
-            </div>
-          </div>
+      {/* Sign-Up */}
+      <div className="mt-8 border-t border-white/10 pt-8">
+        <h2 className="font-serif text-xl font-semibold text-white sm:text-2xl">Facilitator Sign-Up</h2>
+        <p className="mt-2 text-sm leading-relaxed text-white/70">
+          Thank you for offering the gift of facilitation. Choose any open slot below to sign up.
+          You&apos;ll receive a confirmation email, and your name will be visible to other KF members
+          so everyone can see who is leading each session.
+        </p>
+        <div className="mt-6">
+          {sessions.length === 0 ? (
+            <p className="rounded-xl border border-white/10 bg-white/[0.05] p-4 text-sm text-white/50 backdrop-blur-sm">
+              Facilitator sign-up for the upcoming study will open here soon.
+            </p>
+          ) : (
+            <FacilitatorSignup sessions={sessions} myName={myName} />
+          )}
         </div>
       </div>
     </div>
