@@ -7,18 +7,22 @@ import NHGWelcome from "@/components/NHGWelcome";
 import NHGFaq from "@/components/NHGFaq";
 import IntroMeetingBlock from "@/components/IntroMeetingBlock";
 import WeekendIntensiveSchedule from "@/components/WeekendIntensiveSchedule";
+import ReadingGuideButton from "@/components/ReadingGuideButton";
 import { getMeetingCodes, phoneNumber, sectionCodes } from "@/lib/meeting-codes";
 import { nhgCard, nhgFeatured, nhgCardHover, nhgCardLight, nhgCardLightHover } from "@/lib/nhg-surface";
 
-const readingGuides: Record<number, { label: string; chapters: string; guide: string; intro: string }> = {
-  1: { label: "Intro & Chapter 1", chapters: "The Search for Glory", guide: "/docs/nhg/reading-guides/1NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/Chapter 1 KF Introduction.pdf" },
-  2: { label: "Chapters 2 & 3", chapters: "Neurotic Claims & The Tyranny of the Should", guide: "/docs/nhg/reading-guides/2NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/3NHG-Intro-Students-2023z.pdf" },
-  3: { label: "Chapter 4", chapters: "Neurotic Pride", guide: "/docs/nhg/reading-guides/4NHG-pdf-Reading-Guide-2023z.pdf", intro: "/docs/nhg/introductions/4NHG-Intro-students-FINI-2023z.pdf" },
-  4: { label: "Chapter 5", chapters: "Self-Hate and Self-Contempt", guide: "/docs/nhg/reading-guides/5NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/5NHG-Intro-student-2023z.pdf" },
-  5: { label: "Chapter 6", chapters: "Alienation from Self", guide: "/docs/nhg/reading-guides/6NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/6NHG-Intro-students-2023z.pdf" },
-  6: { label: "Chapters 7 & 8", chapters: "General Measures to Relieve Tension & The Expansive Solutions", guide: "/docs/nhg/reading-guides/7NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/7NHG-Intro-students-2023z.pdf" },
-  7: { label: "Chapters 9 & 10", chapters: "The Self-Effacing Solution & Morbid Dependency", guide: "/docs/nhg/reading-guides/9NHG-PDF-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/9-10NHG-Intro-students-2023z.pdf" },
-  8: { label: "Chapter 11", chapters: "Resignation", guide: "/docs/nhg/reading-guides/11NHG-pdf-Rdg-Guide-2023z.pdf", intro: "/docs/nhg/introductions/11NHG-Students-Intro-2023z.pdf" },
+// `guide` = the PDF reading guide; `doc` = the typed Word (.docx) version (same
+// chapter number). Both live in the private documents bucket under
+// nhg/reading-guides/; the reader picks a format via the hover chooser.
+const readingGuides: Record<number, { label: string; chapters: string; guide: string; doc: string; intro: string }> = {
+  1: { label: "Intro & Chapter 1", chapters: "The Search for Glory", guide: "/docs/nhg/reading-guides/1NHG-pdf-Rdg-Guide-2023z.pdf", doc: "/docs/nhg/reading-guides/1NHG-Typed-Rdg-Guide-2023z.docx", intro: "/docs/nhg/introductions/Chapter 1 KF Introduction.pdf" },
+  2: { label: "Chapters 2 & 3", chapters: "Neurotic Claims & The Tyranny of the Should", guide: "/docs/nhg/reading-guides/2NHG-pdf-Rdg-Guide-2023z.pdf", doc: "/docs/nhg/reading-guides/2NHG-Typed-Rdg-Guide-2023z.docx", intro: "/docs/nhg/introductions/3NHG-Intro-Students-2023z.pdf" },
+  3: { label: "Chapter 4", chapters: "Neurotic Pride", guide: "/docs/nhg/reading-guides/4NHG-pdf-Reading-Guide-2023z.pdf", doc: "/docs/nhg/reading-guides/4NHG-Typed-Rdg-Guide-2023z.docx", intro: "/docs/nhg/introductions/4NHG-Intro-students-FINI-2023z.pdf" },
+  4: { label: "Chapter 5", chapters: "Self-Hate and Self-Contempt", guide: "/docs/nhg/reading-guides/5NHG-pdf-Rdg-Guide-2023z.pdf", doc: "/docs/nhg/reading-guides/5NHG-Typed-Rdg-Guide-2023z.docx", intro: "/docs/nhg/introductions/5NHG-Intro-student-2023z.pdf" },
+  5: { label: "Chapter 6", chapters: "Alienation from Self", guide: "/docs/nhg/reading-guides/6NHG-PDF-Rdg-Guide-2023z.pdf", doc: "/docs/nhg/reading-guides/6NHG-Typed-Rdg-Guide-2023z.docx", intro: "/docs/nhg/introductions/6NHG-Intro-students-2023z.pdf" },
+  6: { label: "Chapters 7 & 8", chapters: "General Measures to Relieve Tension & The Expansive Solutions", guide: "/docs/nhg/reading-guides/7NHG-PDF-Rdg-Guide-2023z.pdf", doc: "/docs/nhg/reading-guides/7NHG-Typed-Rdg-Guide-2023z.docx", intro: "/docs/nhg/introductions/7NHG-Intro-students-2023z.pdf" },
+  7: { label: "Chapters 9 & 10", chapters: "The Self-Effacing Solution & Morbid Dependency", guide: "/docs/nhg/reading-guides/9NHG-PDF-Rdg-Guide-2023z.pdf", doc: "/docs/nhg/reading-guides/9NHG-Typed-Rdg-Guide-2023z.docx", intro: "/docs/nhg/introductions/9-10NHG-Intro-students-2023z.pdf" },
+  8: { label: "Chapter 11", chapters: "Resignation", guide: "/docs/nhg/reading-guides/11NHG-pdf-Rdg-Guide-2023z.pdf", doc: "/docs/nhg/reading-guides/11NHG-Typed-Rdg-Guide-2023z.docx", intro: "/docs/nhg/introductions/11NHG-Students-Intro-2023z.pdf" },
 };
 
 const kfIntroDocuments = [
@@ -256,12 +260,7 @@ export default async function NHGPage() {
               <div className="flex flex-col gap-4 lg:col-span-1">
                 {featuredWeek && (
                 featuredGuide ? (
-                  <Link
-                    href={docUrl(featuredGuide.guide)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative block aspect-square overflow-hidden rounded-2xl"
-                  >
+                  <div className="group relative block aspect-square overflow-hidden rounded-2xl">
                     <Image
                       src="/mountain-dawn.jpg"
                       alt="Sunrise over a mountain range above the clouds"
@@ -280,11 +279,9 @@ export default async function NHGPage() {
                       <p className="mt-1 text-xs italic text-white/85 drop-shadow sm:text-sm">{featuredGuide.chapters}</p>
                     </div>
                     <div className="absolute inset-x-0 bottom-0 p-6">
-                      <span className="inline-flex items-center gap-2 rounded-lg bg-white/15 px-4 py-2.5 text-base font-semibold text-white backdrop-blur-sm transition-all group-hover:bg-white/25 sm:text-lg">
-                        Open Reading Guide &rarr;
-                      </span>
+                      <ReadingGuideButton pdf={docUrl(featuredGuide.guide)} doc={featuredGuide.doc ? docUrl(featuredGuide.doc) : undefined} variant="pill" />
                     </div>
-                  </Link>
+                  </div>
                 ) : (
                   <IntroMeetingBlock
                     title={featuredWeek.label.startsWith("NHG") ? featuredWeek.label : `NHG ${featuredWeek.label}`}
@@ -327,12 +324,7 @@ export default async function NHGPage() {
                         <p className="mt-1.5 text-sm text-white/55">{formatDate(week.startDate)}</p>
                         <div className="mt-auto flex items-start gap-7 pt-6">
                           {guide && (
-                            <a href={docUrl(guide.guide)} target="_blank" rel="noopener noreferrer" aria-label="Open Reading Guide" className="group/btn flex flex-col items-center gap-2 text-center">
-                              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-violet text-white shadow-lg shadow-violet/40 transition-transform duration-300 group-hover/btn:scale-105">
-                                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                              </span>
-                              <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/60 transition-colors group-hover/btn:text-white">Reading Guide</span>
-                            </a>
+                            <ReadingGuideButton pdf={docUrl(guide.guide)} doc={guide.doc ? docUrl(guide.doc) : undefined} variant="icon" />
                           )}
                           {guide && (
                             <a href={docUrl(guide.intro)} target="_blank" rel="noopener noreferrer" aria-label="Open KF Introduction" className="group/btn flex flex-col items-center gap-2 text-center">
