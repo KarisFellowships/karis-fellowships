@@ -6,6 +6,8 @@ import { getMeetingCodes, phoneNumber, kfMeetings } from "@/lib/meeting-codes";
 import { requireKF } from "@/lib/require-tier";
 import SearchBar from "@/components/SearchBar";
 import Expandable from "@/components/Expandable";
+import AnnouncementBar from "@/components/AnnouncementBar";
+import { getActiveAnnouncement } from "@/lib/announcements";
 import { docUrl } from "@/lib/storage-url";
 
 const PHONE_ICON =
@@ -17,6 +19,7 @@ export default async function KFPage() {
   const codes = await getMeetingCodes();
   const callPhone = phoneNumber(codes);
   const meetings = kfMeetings(codes);
+  const announcement = getActiveAnnouncement();
 
   return (
     <div className="relative min-h-screen bg-[#4a5568]">
@@ -30,6 +33,7 @@ export default async function KFPage() {
         {/* Header */}
         <section className="px-6 pt-32 sm:pt-44">
           <div className="mx-auto max-w-7xl">
+            {announcement && <AnnouncementBar announcement={announcement} />}
             <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">KF Weekly Meetings</h1>
             <p className="mt-2 max-w-3xl text-sm font-medium text-white/85 drop-shadow sm:text-base">
               Small, weekly meetings for grounding and re-centering, encouragement, confession, sharing, Bible teaching,
