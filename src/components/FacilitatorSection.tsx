@@ -3,9 +3,10 @@ import { nhgFeatured } from "@/lib/nhg-surface";
 import { getFacilitatorBoard } from "@/lib/facilitator";
 import FacilitatorSignup from "@/app/(member)/nhg/facilitator/FacilitatorSignup";
 
-// Combined NHG facilitator area (KF-members-only): sign-up board + the facilitator
-// guides/resources, all in one place at the bottom of the NHG page. Rendered only
-// inside the caller's KF-tier gate; the claim/release API routes also re-check KF.
+// Combined NHG facilitator area (KF-members-only): General Resources at the top,
+// then the sign-up board with each week's facilitator guide attached to its
+// matching session. Rendered only inside the caller's KF-tier gate; the
+// claim/release API routes also re-check KF.
 
 const facilitatorResources = [
   { label: "NHG Facilitator Huddle Guide", href: "/docs/nhg/facilitator/NHG-Fac-Huddle-Guide-2023z.pdf" },
@@ -14,6 +15,8 @@ const facilitatorResources = [
   { label: "Review Study Questions", href: "/docs/nhg/facilitator/review-study-questions-v2a.pdf" },
 ];
 
+// Per-chapter facilitator guides (keyed by chapter number, matching the sign-up
+// sessions' "Ch N" content). Attached to each session below.
 const facilitatorGuides: Record<number, { label: string; href: string }> = {
   1: { label: "NHG Week 1 Facilitator Guide", href: "/docs/nhg/facilitator/1NHG-Intro-Fac-Guide-2023z.pdf" },
   2: { label: "NHG Week 2 Facilitator Guide", href: "/docs/nhg/facilitator/2NHG-Intro-Fac-Guide-2023z.pdf" },
@@ -28,16 +31,30 @@ const facilitatorGuides: Record<number, { label: string; href: string }> = {
   11: { label: "NHG Week 11 Facilitator Guide", href: "/docs/nhg/facilitator/11NHG-Intro-Fac-Guide-2023z.pdf" },
 };
 
+// Map a session's content (e.g. "Ch 2: … & Ch 3: …") to its facilitator guide(s)
+// by chapter number. One guide -> "Facilitator Guide"; multiple -> "Week N Guide".
+function guidesForContent(content: string): { label: string; href: string }[] {
+  const chapters: number[] = [];
+  for (const m of content.matchAll(/Ch\s*(\d+)/gi)) {
+    const n = Number(m[1]);
+    if (facilitatorGuides[n] && !chapters.includes(n)) chapters.push(n);
+  }
+  if (chapters.length === 0) return [];
+  if (chapters.length === 1) {
+    return [{ label: "Facilitator Guide", href: docUrl(facilitatorGuides[chapters[0]].href) }];
+  }
+  return chapters.map((n) => ({ label: `Week ${n} Guide`, href: docUrl(facilitatorGuides[n].href) }));
+}
+
 export default async function FacilitatorSection({
   userId,
   myName,
-  activeWeekNumber,
 }: {
   userId: string;
   myName: string;
-  activeWeekNumber: number | null;
 }) {
   const board = await getFacilitatorBoard(userId);
+  const sessions = board.sessions.map((s) => ({ ...s, guides: guidesForContent(s.content) }));
 
   return (
     <div id="facilitator" className="scroll-mt-24 pt-4">
@@ -56,19 +73,8 @@ export default async function FacilitatorSection({
               other KF members so everyone can see who is leading each session.
             </p>
 
-            {/* Sign-up board */}
+            {/* General Resources — at the top */}
             <div className="mt-6">
-              {board.sessions.length === 0 ? (
-                <p className="rounded-xl border border-white/10 bg-white/[0.05] p-4 text-sm text-white/50 backdrop-blur-sm">
-                  Facilitator sign-up for the upcoming study will open here soon.
-                </p>
-              ) : (
-                <FacilitatorSignup sessions={board.sessions} myName={myName} />
-              )}
-            </div>
-
-            {/* General Resources */}
-            <div className="mt-10">
               <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">General Resources</h3>
               <div className="mt-3 grid gap-2 sm:grid-cols-2">
                 {facilitatorResources.map(({ label, href }) => (
@@ -88,39 +94,15 @@ export default async function FacilitatorSection({
               </div>
             </div>
 
-            {/* All Weekly Guides */}
-            <div className="mt-6">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-white/40">All Weekly Guides</h3>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {Object.entries(facilitatorGuides).map(([num, { href }]) => {
-                  const isCurrent = activeWeekNumber === Number(num);
-                  return (
-                    <a
-                      key={num}
-                      href={docUrl(href)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center gap-3 rounded-xl p-3 transition-all hover:-translate-y-0.5 ${
-                        isCurrent
-                          ? "bg-[#fde68a]/15 ring-1 ring-[#fde68a]/30"
-                          : "border border-white/10 bg-white/[0.05] backdrop-blur-sm hover:border-white/20 hover:bg-white/[0.10]"
-                      }`}
-                    >
-                      <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
-                        isCurrent ? "bg-[#fde68a] text-[#2b2150]" : "bg-[#fde68a]/15 text-[#fde68a]"
-                      }`}>
-                        {num}
-                      </span>
-                      <span className={`text-sm font-medium transition-colors ${
-                        isCurrent ? "text-[#fde68a]" : "text-white/60 hover:text-[#fde68a]"
-                      }`}>
-                        Week {num}
-                        {isCurrent && <span className="ml-1 text-xs text-[#fde68a]/70">(This Week)</span>}
-                      </span>
-                    </a>
-                  );
-                })}
-              </div>
+            {/* Sign-up board — each session shows its matching facilitator guide */}
+            <div className="mt-8">
+              {sessions.length === 0 ? (
+                <p className="rounded-xl border border-white/10 bg-white/[0.05] p-4 text-sm text-white/50 backdrop-blur-sm">
+                  Facilitator sign-up for the upcoming study will open here soon.
+                </p>
+              ) : (
+                <FacilitatorSignup sessions={sessions} myName={myName} />
+              )}
             </div>
           </div>
         </div>

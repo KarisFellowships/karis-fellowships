@@ -88,7 +88,6 @@ export default async function NHGPage() {
   }
   const isKFMember = userTier === "kf" || userTier === "admin";
 
-  const activeWeek = nhg.currentWeek;
   const nextStudyDate = nhg.schedule.length > 0 ? nhg.schedule[0].startDate : null;
   const syllabusUrl = docUrl("/docs/nhg/kf-intro/NHG-Book-Study-Syllabus-2025 (1).pdf");
 
@@ -385,11 +384,7 @@ export default async function NHGPage() {
 
           {/* Facilitator Section — KF members only: sign-up board + guides combined */}
           {isKFMember && user && (
-            <FacilitatorSection
-              userId={user.id}
-              myName={myName}
-              activeWeekNumber={activeWeek?.weekNumber ?? null}
-            />
+            <FacilitatorSection userId={user.id} myName={myName} />
           )}
         </div>
       </section>
