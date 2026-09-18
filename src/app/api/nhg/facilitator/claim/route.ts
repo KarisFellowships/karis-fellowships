@@ -102,7 +102,7 @@ export async function POST(request: Request) {
             content: esc(session.content),
             dateStr: esc(formatSessionDate(session.session_date)),
             timeStr: esc(formatTimeRange(session.start_time, session.end_time)),
-            link: `${siteOrigin()}/nhg/facilitator`,
+            link: `${siteOrigin()}/nhg#facilitator`,
           }),
         });
       } else if (!key) {

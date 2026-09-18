@@ -31,7 +31,7 @@ export default async function KFPage() {
 
       <div className="relative z-10">
         {/* Header */}
-        <section className="px-6 pt-32 sm:pt-44">
+        <section className="px-6 pt-24 sm:pt-32">
           <div className="mx-auto max-w-7xl">
             {announcement && <AnnouncementBar announcement={announcement} />}
             <h1 className="font-serif text-3xl font-semibold text-white drop-shadow-lg sm:text-4xl">KF Weekly Meetings</h1>
