@@ -109,12 +109,15 @@ export default function FacilitatorSignup({ sessions, myName }: { sessions: Sess
         return (
         <div key={group.section}>
           <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-white/40">{group.section}</h4>
-          <div className={multi ? "mt-3 grid gap-4 lg:grid-cols-2 lg:items-start" : "mt-3 space-y-4"}>
+          <div className={multi ? "mt-3 grid gap-4 lg:grid-cols-2 lg:items-stretch" : "mt-3 space-y-4"}>
             {group.sessions.map((session) => {
               const openCount = session.slots.filter((sl) => !sl.display_name).length;
               return (
-                <div key={session.id} className="rounded-2xl border border-white/15 bg-white/[0.12] p-4 shadow-lg shadow-black/10 backdrop-blur-md sm:p-5">
-                  {/* Header: date + content + time */}
+                <div key={session.id} className={`rounded-2xl border border-white/15 bg-white/[0.12] p-4 shadow-lg shadow-black/10 backdrop-blur-md sm:p-5 ${multi ? "lg:grid lg:grid-rows-subgrid lg:row-span-3" : ""}`}>
+                  {/* Header: date + content + time. In two-across mode this is track 1 of a
+                      subgrid so the header (incl. wrapped titles) shares a height across the
+                      row-pair — the guides + slots below then line up no matter how many
+                      lines a chapter title takes. */}
                   <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between">
                     <div className="min-w-0">
                       <span className="text-xs font-semibold uppercase tracking-wide text-teal-light">{fmtDate(session.session_date)}</span>
@@ -126,10 +129,12 @@ export default function FacilitatorSignup({ sessions, myName }: { sessions: Sess
                     </span>
                   </div>
 
-                  {/* Prominent guide(s) */}
-                  {session.guides && session.guides.length > 0 && (
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {session.guides.map((g) => (
+                  {/* Prominent guide(s) — track 2. Always rendered in two-across mode (even
+                      when empty) so it occupies its subgrid track and the slots below stay
+                      aligned across the row-pair. */}
+                  {(multi || (session.guides && session.guides.length > 0)) && (
+                    <div className={`mt-3 flex flex-wrap content-start items-start gap-2 ${multi ? "lg:mt-0" : ""} ${multi && !session.guides?.length ? "max-lg:hidden" : ""}`}>
+                      {session.guides?.map((g) => (
                         <a
                           key={g.label}
                           href={g.href}
@@ -144,8 +149,8 @@ export default function FacilitatorSignup({ sessions, myName }: { sessions: Sess
                     </div>
                   )}
 
-                  {/* Slots — compact rows (cards are narrow when two-up, so no wasted space) */}
-                  <ul className="mt-4 divide-y divide-white/10">
+                  {/* Slots — track 3; compact rows (cards are narrow when two-up, so no wasted space) */}
+                  <ul className={`mt-4 divide-y divide-white/10 ${multi ? "lg:mt-0" : ""}`}>
                     {session.slots.map((slot) => (
                       <li key={slot.id} className="py-2.5">
                         {activeSlot === slot.id ? (
