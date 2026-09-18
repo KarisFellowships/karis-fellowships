@@ -47,11 +47,8 @@ function guidesForSession(section: string, content: string): { label: string; hr
     if (facilitatorGuides[n] && !chapters.includes(n)) chapters.push(n);
   }
   const guides: { label: string; href: string }[] = [];
-  if (chapters.length === 1) {
-    guides.push({ label: "Facilitator Guide", href: docUrl(facilitatorGuides[chapters[0]]) });
-  } else {
-    for (const n of chapters) guides.push({ label: `Week ${n} Guide`, href: docUrl(facilitatorGuides[n]) });
-  }
+  // Consistent labels: always "Week N Guide" (never a bare "Facilitator Guide").
+  for (const n of chapters) guides.push({ label: `Week ${n} Guide`, href: docUrl(facilitatorGuides[n]) });
   if (/review/i.test(content) || chapters.includes(11)) {
     guides.push({ label: "Review Study Questions", href: docUrl(REVIEW_QUESTIONS) });
   }

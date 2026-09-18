@@ -104,10 +104,12 @@ export default function FacilitatorSignup({ sessions, myName }: { sessions: Sess
     <div className="space-y-8">
       {error && <p className="rounded-lg bg-coral/15 px-4 py-3 text-sm text-coral">{error}</p>}
 
-      {groups.map((group) => (
+      {groups.map((group) => {
+        const multi = group.sessions.length > 1;
+        return (
         <div key={group.section}>
           <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-white/40">{group.section}</h4>
-          <div className="mt-3 space-y-4">
+          <div className={multi ? "mt-3 grid gap-4 lg:grid-cols-2 lg:items-start" : "mt-3 space-y-4"}>
             {group.sessions.map((session) => {
               const openCount = session.slots.filter((sl) => !sl.display_name).length;
               return (
@@ -142,76 +144,49 @@ export default function FacilitatorSignup({ sessions, myName }: { sessions: Sess
                     </div>
                   )}
 
-                  {/* Slots — compact grid */}
-                  <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                  {/* Slots — compact rows (cards are narrow when two-up, so no wasted space) */}
+                  <ul className="mt-4 divide-y divide-white/10">
                     {session.slots.map((slot) => (
-                      <div key={slot.id} className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5">
-                        <p className="text-xs font-medium text-white/55">{roleText(slot)}</p>
-                        <div className="mt-1.5">
-                          {slot.display_name ? (
-                            <div className="flex items-center justify-between gap-2">
-                              <span className={`truncate text-sm font-semibold ${slot.mine ? "text-teal-light" : "text-white"}`}>
-                                {slot.display_name}{slot.mine ? " (you)" : ""}
-                              </span>
-                              {slot.mine && (
-                                <button
-                                  type="button"
-                                  onClick={() => release(slot.id)}
-                                  disabled={busy}
-                                  className="shrink-0 rounded-md px-2 py-0.5 text-xs font-medium text-white/50 transition-colors hover:text-coral disabled:opacity-50"
-                                >
-                                  Release
-                                </button>
-                              )}
-                            </div>
-                          ) : activeSlot === slot.id ? (
-                            <div className="space-y-2">
+                      <li key={slot.id} className="py-2.5">
+                        {activeSlot === slot.id ? (
+                          <div>
+                            <p className="text-xs font-medium text-white/55">{roleText(slot)}</p>
+                            <div className="mt-2 flex items-center gap-2">
                               <input
                                 type="text"
                                 value={nameInput}
                                 onChange={(e) => setNameInput(e.target.value)}
                                 placeholder="First name + last initial"
                                 aria-label="Your name as shown to other members"
-                                className="w-full rounded-md border border-white/15 bg-white/[0.06] px-3 py-1.5 text-sm text-white outline-none focus:border-teal/50 placeholder:text-white/30"
+                                className="min-w-0 flex-1 rounded-md border border-white/15 bg-white/[0.06] px-3 py-1.5 text-sm text-white outline-none focus:border-teal/50 placeholder:text-white/30"
                               />
-                              <div className="flex gap-2">
-                                <button
-                                  type="button"
-                                  onClick={() => claim(slot.id)}
-                                  disabled={busy || !nameInput.trim()}
-                                  className="flex-1 rounded-md bg-teal px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-teal-hover disabled:opacity-50"
-                                >
-                                  {busy ? "Signing up…" : "Confirm"}
-                                </button>
-                                <button
-                                  type="button"
-                                  onClick={() => { setActiveSlot(null); setError(""); }}
-                                  disabled={busy}
-                                  className="rounded-md px-2.5 py-1.5 text-xs text-white/50 hover:text-white/80"
-                                >
-                                  Cancel
-                                </button>
-                              </div>
+                              <button type="button" onClick={() => claim(slot.id)} disabled={busy || !nameInput.trim()} className="shrink-0 rounded-md bg-teal px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-teal-hover disabled:opacity-50">{busy ? "…" : "Confirm"}</button>
+                              <button type="button" onClick={() => { setActiveSlot(null); setError(""); }} disabled={busy} className="shrink-0 rounded-md px-2 py-1.5 text-xs text-white/50 hover:text-white/80">Cancel</button>
                             </div>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => { setActiveSlot(slot.id); setNameInput(myName); setError(""); }}
-                              className="w-full rounded-md bg-teal/15 px-3 py-1.5 text-xs font-semibold text-teal-light transition-colors hover:bg-teal/25"
-                            >
-                              Sign up
-                            </button>
-                          )}
-                        </div>
-                      </div>
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-between gap-3">
+                            <span className="text-xs font-medium text-white/55">{roleText(slot)}</span>
+                            {slot.display_name ? (
+                              <span className="flex min-w-0 items-center gap-2">
+                                <span className={`truncate text-sm font-semibold ${slot.mine ? "text-teal-light" : "text-white"}`}>{slot.display_name}{slot.mine ? " (you)" : ""}</span>
+                                {slot.mine && <button type="button" onClick={() => release(slot.id)} disabled={busy} className="shrink-0 rounded-md px-1.5 py-0.5 text-xs font-medium text-white/50 transition-colors hover:text-coral disabled:opacity-50">Release</button>}
+                              </span>
+                            ) : (
+                              <button type="button" onClick={() => { setActiveSlot(slot.id); setNameInput(myName); setError(""); }} className="shrink-0 rounded-md bg-teal/15 px-3 py-1.5 text-xs font-semibold text-teal-light transition-colors hover:bg-teal/25">Sign up</button>
+                            )}
+                          </div>
+                        )}
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               );
             })}
           </div>
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
