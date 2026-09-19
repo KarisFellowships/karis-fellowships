@@ -91,27 +91,6 @@ export default async function KFPage() {
               />
             </div>
 
-            {/* Start Here — expandable, with the notes as expandable bubbles */}
-            <Expandable title="Start Here" iconPath="M13 10V3L4 14h7v7l9-11h-7z" accent="teal">
-              <div className="space-y-3">
-                <Expandable title="Welcome to Karis Fellowships" compact accent="teal">
-                  <p className="leading-relaxed text-white/70">
-                    After completing the NHG book study, you are now part of Karis Fellowships — a one-year training
-                    program of Bible teaching, practical tools, support, and healing. Our KF members attend small, weekly
-                    meetings via conference call for grounding and re-centering, encouragement, confession, sharing, Bible
-                    teaching, training, healing, and prayer.
-                  </p>
-                </Expandable>
-                <Expandable title="Meeting Structure" compact accent="teal">
-                  <p className="leading-relaxed text-white/70">
-                    Each weekly meeting follows a consistent format including an opening, mindfulness and meditation
-                    training, Karis confession and toolbox teaching, sharing time, Bible teaching, a FAITH process
-                    integration, and closing prayer.
-                  </p>
-                </Expandable>
-              </div>
-            </Expandable>
-
             {/* Call & Playback Info — expandable */}
             <Expandable title="Call & Playback Info" iconPath={PHONE_ICON} accent="amber">
               <div className="space-y-5">

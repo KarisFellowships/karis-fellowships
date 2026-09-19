@@ -44,6 +44,10 @@ export default async function LessonPage({ params }: Props) {
 
   const hasMeetingPdf = lessonData?.meetingFile;
   const hasExpandedPdf = lessonData?.expandedFile;
+  // The "Love or Pride?" list is introduced at the KF Introductory Meeting and
+  // KF1, and referenced again in later lessons — show its card wherever the
+  // teaching mentions it, plus always on those first two meetings.
+  const showLoveOrPride = num === 0 || num === 1 || /love or pride/i.test(lessonHtml);
 
   return (
     <div className="min-h-screen bg-[#4a5568]">
@@ -95,6 +99,15 @@ export default async function LessonPage({ params }: Props) {
                 <a href={docUrl("/docs/kf-resources/KF-MPG-typed-2021.docx")} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">Word</a>
               </div>
             </div>
+
+            {/* Love or Pride? — PDF (shown where the lesson references it) */}
+            {showLoveOrPride && (
+              <a href={docUrl("/docs/nhg/kf-intro/Love-or-Pride-FINI-2021.pdf")} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                <svg className={`${iconClass} text-coral/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                <span className={labelClass}>Love or <br className="hidden sm:block" />Pride?</span>
+                <span className={hintClass}>PDF</span>
+              </a>
+            )}
 
             {/* Meeting Schedule — PDF only */}
             <a href={docUrl("/docs/kf-resources/KF-Meeting-Schedule.pdf")} target="_blank" rel="noopener noreferrer" className={cardClass}>
