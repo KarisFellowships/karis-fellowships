@@ -23,7 +23,7 @@ export default async function FacilitatorPage() {
         payg
       />
       <section className="relative z-10 -mt-20 px-6 pb-16 sm:-mt-24">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-7xl">
           <FacilitatorSection userId={actor.userId} myName={actor.name ?? ""} />
         </div>
       </section>
