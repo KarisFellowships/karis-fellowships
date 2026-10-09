@@ -1,6 +1,7 @@
 import PageHeader from "@/components/PageHeader";
 import Link from "next/link";
 import { requireKF } from "@/lib/require-tier";
+import { docUrl } from "@/lib/storage-url";
 
 // "Getting Started in KF" — copy is verbatim from the current KF website (per
 // Sarah's "getting started KF section" doc). The only edits are directional:
@@ -44,7 +45,9 @@ export default async function KFStartHerePage() {
               <li className="flex gap-3">
                 <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal/20 text-sm font-bold text-teal-light">3</span>
                 <span className="leading-relaxed">
-                  With the guidance of the Love or Pride? list, gently try to fill out a KF Meeting Prep Guide.
+                  With the guidance of the{" "}
+                  <a href={docUrl("/docs/nhg/kf-intro/Love-or-Pride-FINI-2021.pdf")} target="_blank" rel="noopener noreferrer" className="font-semibold text-teal-light hover:underline">Love or Pride? list</a>, gently try to fill out a{" "}
+                  <a href={docUrl("/docs/kf-resources/meeting-prep-guide.pdf")} target="_blank" rel="noopener noreferrer" className="font-semibold text-teal-light hover:underline">KF Meeting Prep Guide</a>.
                 </span>
               </li>
               <li className="flex gap-3">
