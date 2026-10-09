@@ -82,12 +82,22 @@ export default function Navbar({ isLoggedIn = false, tier = null }: { isLoggedIn
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // Lock the page behind the open mobile menu so it doesn't scroll underneath.
+  // iOS Safari ignores overflow:hidden on body for touch scrolling, so pin the
+  // body in place (position:fixed at the current offset) and restore on close.
   useEffect(() => {
     if (!mobileOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const y = window.scrollY;
+    const s = document.body.style;
+    const prev = { position: s.position, top: s.top, left: s.left, right: s.right, overflow: s.overflow };
+    s.position = "fixed";
+    s.top = `-${y}px`;
+    s.left = "0";
+    s.right = "0";
+    s.overflow = "hidden";
     return () => {
-      document.body.style.overflow = prev;
+      Object.assign(s, prev);
+      // "instant": the site sets scroll-behavior: smooth, which would animate from the top.
+      window.scrollTo({ top: y, behavior: "instant" });
     };
   }, [mobileOpen]);
   const activeTier = isLoggedIn ? tier : null;
