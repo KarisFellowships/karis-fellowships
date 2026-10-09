@@ -96,7 +96,7 @@ export default async function LessonPage({ params }: Props) {
               <div className="flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.2em] sm:mt-2 sm:gap-3">
                 <a href={docUrl("/docs/kf-resources/meeting-prep-guide.pdf")} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">PDF</a>
                 <span className="text-white/20">&middot;</span>
-                <a href={docUrl("/docs/kf-resources/KF-MPG-typed-2021.docx")} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">Word</a>
+                <a href={docUrl("/docs/kf-resources/KF-MPG-typed-2021 (1).docx")} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">Word</a>
               </div>
             </div>
 
