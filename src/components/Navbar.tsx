@@ -37,16 +37,12 @@ const kfLinks: NavItem[] = [
   {
     href: "/kf",
     label: "KF Weekly Meetings",
-    // KF Dashboard first — it's the weekly home members should return to.
-    // Start Here sits last; new members also see a Start Here card on the
+    // Kept short on purpose: the dashboard is the weekly home (everything else
+    // is reached from it). New members also see a Start Here card on the
     // dashboard for their first few weeks (StartHereCard).
     children: [
       { href: "/kf", label: "KF Dashboard" },
-      { href: "/kf/meetings", label: "All Weekly Meetings" },
-      { href: "/kf/call-info", label: "Call-In Info" },
-      { href: "/kf/recordings", label: "Recordings" },
-      { href: "/kf/facilitator", label: "KF Facilitator Information" },
-      { href: "/kf/start-here", label: "Start Here" },
+      { href: "/kf/start-here", label: "Start Here (new members)" },
     ],
   },
   {

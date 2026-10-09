@@ -11,7 +11,8 @@ export default async function KFStartHerePage() {
   return (
     <div className="min-h-screen bg-[#4a5568]">
       <PageHeader title="Getting Started in KF" subtitle="Welcome to Karis Fellowships." accent="teal" image="/ocean-horizon.jpg" imageAlt="Vast ocean horizon" payg />
-      <section className="px-6 py-10 sm:py-12">
+      {/* Pulled up over the faded header photo so there's no empty band below the title */}
+      <section className="relative -mt-44 px-6 pb-10 sm:pb-12">
         <div className="mx-auto max-w-3xl space-y-6">
           <div className="rounded-2xl border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm sm:p-8">
             <h2 className="font-serif text-2xl font-semibold text-white">Welcome to Karis Fellowships!</h2>
