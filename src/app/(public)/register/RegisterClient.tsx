@@ -74,10 +74,22 @@ export default function RegisterClient({ dateInfo }: { dateInfo?: DateInfo | nul
       if (signInData.user) {
         const { data: prof } = await supabase
           .from("users")
-          .select("tier")
+          .select("tier, active")
           .eq("id", signInData.user.id)
           .maybeSingle();
-        destination = prof?.tier && prof.tier !== "nhg" ? "/kf" : "/nhg";
+        // Same checks/messages as /login — otherwise the member pages bounce them
+        // to /login with no explanation.
+        if (!prof || !prof.active) {
+          await supabase.auth.signOut();
+          setError(
+            !prof
+              ? "Your account isn't fully set up yet. Please contact admin@karisfellowships.com."
+              : "Your account is inactive. Please contact admin@karisfellowships.com."
+          );
+          setLoading(false);
+          return;
+        }
+        destination = prof.tier !== "nhg" ? "/kf" : "/nhg";
       }
       window.location.href = destination;
       return;
