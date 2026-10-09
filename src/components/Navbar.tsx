@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export type NavTier = "nhg" | "kf" | "admin" | null;
 
@@ -80,6 +80,16 @@ const chevron = (
 
 export default function Navbar({ isLoggedIn = false, tier = null }: { isLoggedIn?: boolean; tier?: NavTier }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Lock the page behind the open mobile menu so it doesn't scroll underneath.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen]);
   const activeTier = isLoggedIn ? tier : null;
   const links = getLinks(activeTier);
   const homeHref = "/";
@@ -164,7 +174,8 @@ export default function Navbar({ isLoggedIn = false, tier = null }: { isLoggedIn
       </div>
 
       {mobileOpen && (
-        <div className={`border-t border-white/[0.04] bg-slate-dark/80 px-6 py-4 backdrop-blur-xl ${wideNav ? "xl:hidden" : "md:hidden"}`}>
+        // Scrolls on its own (capped below the bar) so swipes move the menu, not the page behind it.
+        <div className={`max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t border-white/[0.04] bg-slate-dark/80 px-6 py-4 backdrop-blur-xl ${wideNav ? "xl:hidden" : "md:hidden"}`}>
           <ul className="flex flex-col gap-1">
             {links.map((item) => (
               <li key={item.label}>
