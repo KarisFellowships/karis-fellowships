@@ -7,6 +7,7 @@ import { requireKF } from "@/lib/require-tier";
 import SearchBar from "@/components/SearchBar";
 import Expandable from "@/components/Expandable";
 import AnnouncementBar from "@/components/AnnouncementBar";
+import StartHereCard from "@/components/StartHereCard";
 import { getActiveAnnouncement } from "@/lib/announcements";
 import { docUrl } from "@/lib/storage-url";
 
@@ -47,6 +48,9 @@ export default async function KFPage() {
 
         <section className="px-6 pb-16 pt-10">
           <div className="mx-auto max-w-7xl space-y-4">
+            {/* New members only: shown for their first few weeks, dismissible */}
+            <StartHereCard />
+
             {/* Top row: This Week (photographic) + the getting-around cards */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {/* This Week — an elevated glassy blue card, the inviting entry point */}

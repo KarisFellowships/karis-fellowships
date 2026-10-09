@@ -37,10 +37,16 @@ const kfLinks: NavItem[] = [
   {
     href: "/kf",
     label: "KF Weekly Meetings",
+    // KF Dashboard first — it's the weekly home members should return to.
+    // Start Here sits last; new members also see a Start Here card on the
+    // dashboard for their first few weeks (StartHereCard).
     children: [
-      { href: "/kf/start-here", label: "Start Here" },
-      { href: "/kf/recordings", label: "Recordings" },
+      { href: "/kf", label: "KF Dashboard" },
+      { href: "/kf/meetings", label: "All Weekly Meetings" },
       { href: "/kf/call-info", label: "Call-In Info" },
+      { href: "/kf/recordings", label: "Recordings" },
+      { href: "/kf/facilitator", label: "KF Facilitator Information" },
+      { href: "/kf/start-here", label: "Start Here" },
     ],
   },
   {
@@ -133,24 +139,32 @@ export default function Navbar({ isLoggedIn = false, tier = null }: { isLoggedIn
                 </button>
               </form>
             ) : (
-              <Link href="/login" className="whitespace-nowrap rounded-lg border border-teal/40 bg-teal/10 px-6 py-2 text-[13px] font-medium tracking-wide text-teal-light transition-all hover:bg-teal/20 hover:border-teal/60">
+              <Link href="/login" className="whitespace-nowrap rounded-lg bg-teal px-6 py-2 text-[13px] font-semibold tracking-wide text-white shadow-md shadow-teal/30 transition-all hover:bg-teal-hover">
                 Login
               </Link>
             )}
           </li>
         </ul>
 
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className={`flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-white/5 ${wideNav ? "xl:hidden" : "md:hidden"}`}
-          aria-label="Toggle menu"
-        >
-          <div className="flex flex-col gap-1.5">
-            <span className={`block h-px w-5 bg-white/60 transition-all duration-300 ${mobileOpen ? "translate-y-[7px] rotate-45" : ""}`} />
-            <span className={`block h-px w-5 bg-white/60 transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-px w-5 bg-white/60 transition-all duration-300 ${mobileOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
-          </div>
-        </button>
+        <div className={`flex items-center gap-2 ${wideNav ? "xl:hidden" : "md:hidden"}`}>
+          {/* Mobile: keep Login visible in the bar itself, not buried in the menu */}
+          {!isLoggedIn && (
+            <Link href="/login" className="whitespace-nowrap rounded-lg bg-teal px-4 py-2 text-[13px] font-semibold tracking-wide text-white shadow-md shadow-teal/30 transition-all hover:bg-teal-hover">
+              Login
+            </Link>
+          )}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-white/5"
+            aria-label="Toggle menu"
+          >
+            <div className="flex flex-col gap-1.5">
+              <span className={`block h-px w-5 bg-white/60 transition-all duration-300 ${mobileOpen ? "translate-y-[7px] rotate-45" : ""}`} />
+              <span className={`block h-px w-5 bg-white/60 transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
+              <span className={`block h-px w-5 bg-white/60 transition-all duration-300 ${mobileOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
+            </div>
+          </button>
+        </div>
       </div>
 
       {mobileOpen && (
