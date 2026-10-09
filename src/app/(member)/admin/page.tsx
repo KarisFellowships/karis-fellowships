@@ -8,7 +8,7 @@ export default async function AdminPage() {
 
   const { data: members } = await admin
     .from("users")
-    .select("id, email, name, tier, active, nhg_paid, kf_invited, kf_registered_year, created_at")
+    .select("id, email, name, tier, active, nhg_paid, kf_invited, kf_registered_year, kf_joined_at, created_at")
     .order("created_at", { ascending: false });
 
   return (

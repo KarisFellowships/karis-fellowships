@@ -11,6 +11,7 @@ interface Member {
   nhg_paid: boolean;
   kf_invited: boolean;
   kf_registered_year: number | null;
+  kf_joined_at: string | null;
   created_at: string;
 }
 
@@ -105,6 +106,7 @@ export default function MembersTab({ initialMembers }: { initialMembers: Member[
               <th className="px-3 py-2">NHG Paid</th>
               <th className="px-3 py-2">KF Status</th>
               <th className="px-3 py-2">Joined</th>
+              <th className="px-3 py-2">Joined KF</th>
               <th className="px-3 py-2">Actions</th>
             </tr>
           </thead>
@@ -131,6 +133,10 @@ export default function MembersTab({ initialMembers }: { initialMembers: Member[
                 </td>
                 <td className="px-3 py-3 text-white/40 text-xs">
                   {new Date(m.created_at).toLocaleDateString()}
+                </td>
+                {/* Set automatically when a member first becomes KF; blank for members who joined before it was tracked */}
+                <td className="px-3 py-3 text-white/40 text-xs">
+                  {m.kf_joined_at ? new Date(m.kf_joined_at).toLocaleDateString() : "—"}
                 </td>
                 <td className="px-3 py-3">
                   <div className="flex items-center gap-1.5">
@@ -162,7 +168,7 @@ export default function MembersTab({ initialMembers }: { initialMembers: Member[
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-3 py-8 text-center text-sm text-white/30">
+                <td colSpan={9} className="px-3 py-8 text-center text-sm text-white/30">
                   No members found.
                 </td>
               </tr>

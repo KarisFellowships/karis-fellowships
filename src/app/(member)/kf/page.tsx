@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getCurrentLesson } from "@/lib/date-engine";
 import { getMeetingCodes, phoneNumber, kfMeetings } from "@/lib/meeting-codes";
 import { requireKF } from "@/lib/require-tier";
+import { createServerClient } from "@/lib/supabase-server";
 import SearchBar from "@/components/SearchBar";
 import Expandable from "@/components/Expandable";
 import AnnouncementBar from "@/components/AnnouncementBar";
@@ -14,8 +15,18 @@ import { docUrl } from "@/lib/storage-url";
 const PHONE_ICON =
   "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z";
 
+// New KF members see the Start Here card for their first 4 weeks in KF.
+const START_HERE_DAYS = 28;
+function joinedKFRecently(kfJoinedAt: string | null | undefined): boolean {
+  if (!kfJoinedAt) return false;
+  return Date.now() - new Date(kfJoinedAt).getTime() < START_HERE_DAYS * 24 * 60 * 60 * 1000;
+}
+
 export default async function KFPage() {
-  await requireKF();
+  const { userId } = await requireKF();
+  const supabase = await createServerClient();
+  const { data: profile } = await supabase.from("users").select("kf_joined_at").eq("id", userId).single();
+  const isNewMember = joinedKFRecently(profile?.kf_joined_at);
   const currentLesson = await getCurrentLesson();
   const codes = await getMeetingCodes();
   const callPhone = phoneNumber(codes);
@@ -49,7 +60,7 @@ export default async function KFPage() {
         <section className="px-6 pb-16 pt-10">
           <div className="mx-auto max-w-7xl space-y-4">
             {/* New members only: shown for their first few weeks, dismissible */}
-            <StartHereCard />
+            {isNewMember && <StartHereCard />}
 
             {/* Top row: This Week (photographic) + the getting-around cards */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

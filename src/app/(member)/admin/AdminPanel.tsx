@@ -16,6 +16,7 @@ interface Member {
   nhg_paid: boolean;
   kf_invited: boolean;
   kf_registered_year: number | null;
+  kf_joined_at: string | null;
   created_at: string;
 }
 

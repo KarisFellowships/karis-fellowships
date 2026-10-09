@@ -1,15 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 
-// "Start Here" card for NEW KF members, shown on the KF Dashboard for their
-// first few weeks. There's no KF-join date in the database (users.created_at is
-// the NHG sign-up date, often months earlier), so the clock starts the first
-// time this browser opens the dashboard. Members can also hide it with ×.
+// "Start Here" card for NEW KF members on the KF Dashboard. The page only
+// renders it during a member's first 4 weeks in KF (users.kf_joined_at).
+// Members can hide it sooner with ×, remembered per device.
 // Copy is verbatim from /kf/start-here; the "Open" button label is new.
-const SHOW_DAYS = 28;
-const FIRST_SEEN_KEY = "kf-start-here-first-seen";
 const DISMISSED_KEY = "kf-start-here-dismissed";
 
 const listeners = new Set<() => void>();
@@ -18,28 +15,17 @@ function subscribe(cb: () => void) {
   return () => listeners.delete(cb);
 }
 
-// Whether the card should show. A missing first-seen date means this is the
-// first visit (the effect below records it), so it shows.
 function getSnapshot() {
   try {
-    if (localStorage.getItem(DISMISSED_KEY)) return false;
-    const firstSeen = Number(localStorage.getItem(FIRST_SEEN_KEY));
-    return !firstSeen || Date.now() - firstSeen < SHOW_DAYS * 24 * 60 * 60 * 1000;
+    return !localStorage.getItem(DISMISSED_KEY);
   } catch {
-    // Storage blocked (private mode etc.) — Start Here is still in the menu.
-    return false;
+    return true;
   }
 }
 
 export default function StartHereCard() {
   // Server render: hidden (no storage there); the client decides after hydration.
   const show = useSyncExternalStore(subscribe, getSnapshot, () => false);
-
-  useEffect(() => {
-    try {
-      if (!localStorage.getItem(FIRST_SEEN_KEY)) localStorage.setItem(FIRST_SEEN_KEY, String(Date.now()));
-    } catch {}
-  }, []);
 
   function dismiss() {
     try {
