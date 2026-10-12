@@ -15,6 +15,24 @@ interface Props {
   params: Promise<{ lesson: string }>;
 }
 
+// Toolbox worksheets the teaching walks through, shown as an extra resource card
+// on just those lessons. Same files as the Toolbox page. Each label is split
+// across two lines (like the other cards) so every card keeps the same height.
+interface LessonWorksheet {
+  label: [string, string];
+  pdf: string;
+  docx: string;
+}
+const SUFFERING_WORKSHEET: LessonWorksheet = {
+  label: ["Suffering", "Worksheet"],
+  pdf: "/docs/toolbox/worksheets/Suffering-wkst-master-PDF-2021z.pdf",
+  docx: "/docs/toolbox/worksheets/Suffering-wkst-master-typed-2021z (2).docx",
+};
+const LESSON_WORKSHEETS: Record<number, LessonWorksheet[]> = {
+  29: [SUFFERING_WORKSHEET], // "Let's look at the worksheet titled Suffering: An Opportunity to See Yourself"
+  30: [SUFFERING_WORKSHEET], // "...you might check out the Suffering Worksheet"
+};
+
 export default async function LessonPage({ params }: Props) {
   const { lesson } = await params;
   await requireKF();
@@ -48,6 +66,7 @@ export default async function LessonPage({ params }: Props) {
   // KF1, and referenced again in later lessons — show its card wherever the
   // teaching mentions it, plus always on those first two meetings.
   const showLoveOrPride = num === 0 || num === 1 || /love or pride/i.test(lessonHtml);
+  const worksheets = LESSON_WORKSHEETS[num] ?? [];
 
   return (
     <div className="min-h-screen bg-[#4a5568]">
@@ -108,6 +127,19 @@ export default async function LessonPage({ params }: Props) {
                 <span className={hintClass}>PDF</span>
               </a>
             )}
+
+            {/* Lesson worksheets — PDF + Word, same layout as the Prep Guide card */}
+            {worksheets.map((w) => (
+              <div key={w.pdf} className={cardClass}>
+                <svg className={`${iconClass} text-emerald-300/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                <span className={labelClass}>{w.label[0]} <br className="hidden sm:block" />{w.label[1]}</span>
+                <div className="flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.2em] sm:mt-1 sm:gap-3">
+                  <a href={docUrl(w.pdf)} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">PDF</a>
+                  <span className="text-white/20">&middot;</span>
+                  <a href={docUrl(w.docx)} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">Word</a>
+                </div>
+              </div>
+            ))}
 
             {/* Meeting Schedule — PDF only */}
             <a href={docUrl("/docs/kf-resources/KF-Meeting-Schedule.pdf")} target="_blank" rel="noopener noreferrer" className={cardClass}>
