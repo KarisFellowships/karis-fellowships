@@ -15,14 +15,15 @@ interface Props {
   params: Promise<{ lesson: string }>;
 }
 
-// Toolbox tools/worksheets a lesson introduces or teaches, shown as an extra
-// resource card on just those lessons. Same files as the Toolbox page. Each label
-// is split across two lines (like the other cards) so every card keeps the same
-// height. Tools with a typed Word version get a PDF · Word card; PDF-only tools
-// get a single-link card (like Love or Pride?).
-// Chosen by reading each lesson: included where the teaching introduces the tool
-// (pointing members to it this week) or walks through it. NOT included: "next
-// week we will…" previews, recaps of earlier lessons, and passing suggestions.
+// The ONE Toolbox tool that is the main topic of a lesson's TOOLBOX segment,
+// shown as an extra resource card. Sarah's rule: one extra document per week, so
+// the cards always stay on ONE row (Love or Pride? counts as that document on
+// KF0–2). Same files as the Toolbox page. Each label is split across two lines
+// (like the other cards) so every card keeps the same height. Tools with a typed
+// Word version get a PDF · Word card; PDF-only tools get a single-link card.
+// Chosen by reading each lesson's TOOLBOX segment: the tool it introduces or
+// walks through. Tools only reviewed, previewed ("next week…"), or suggested in
+// passing don't get a card.
 interface LessonWorksheet {
   label: [string, string];
   pdf: string;
@@ -49,30 +50,32 @@ const SUFFERING_WORKSHEET: LessonWorksheet = {
   pdf: `${TOOLBOX}/worksheets/Suffering-wkst-master-PDF-2021z.pdf`,
   docx: `${TOOLBOX}/worksheets/Suffering-wkst-master-typed-2021z (2).docx`,
 };
-const UFO_HOLD: LessonWorksheet = { label: ["UFO", "Hold"], pdf: `${TOOLBOX}/healing-integration/UFO-Hold-2019.pdf` };
 
-const LESSON_WORKSHEETS: Record<number, LessonWorksheet[]> = {
-  3: [TAPPING], // introduced: "you will find the Tapping Protocol" under Toolbox
-  4: [TAPPING], // first series taught
-  5: [TAPPING], // second series taught
-  6: [TAPPING, TWO_PATHS_FLOWCHART], // Tapping Protocol section; flowchart taught
-  7: [TAPPING, TWO_PATHS_FLOWCHART],
-  8: [TWO_PATHS_FLOWCHART],
-  9: [TWO_PATHS_FLOWCHART],
-  10: [TWO_PATHS_FLOWCHART, TWO_PATHS_WORKSHEET], // flowchart review; worksheet introduced
-  11: [TWO_PATHS_WORKSHEET], // steps 1–6
-  12: [TWO_PATHS_WORKSHEET], // steps 7–10
-  13: [TWO_PATHS_WORKSHEET],
-  14: [SHOULDS_WORKSHEET], // Part One
-  15: [SHOULDS_WORKSHEET], // Part Two
-  16: [SHOULDS_WORKSHEET], // Part 3
-  17: [CLAIM_BLAME_WORKSHEET], // introduced: "begin this week to explore the Claim and Blame Worksheet"
-  18: [CLAIM_BLAME_WORKSHEET], // taught
-  23: [TAT], // introduced, with instructions under Toolbox
-  24: [TWO_PATHS_WORKSHEET], // Toolbox + Bible Teaching both use it
-  25: [TAT], // "In this lesson, we will learn the T-A-T"
-  29: [SUFFERING_WORKSHEET, UFO_HOLD], // worksheet taught; UFO Hold instructed
-  30: [SUFFERING_WORKSHEET],
+const LESSON_TOOL: Record<number, LessonWorksheet> = {
+  3: TAPPING, // introduced: "you will find the Tapping Protocol" under Toolbox
+  4: TAPPING, // first series taught
+  5: TAPPING, // second series taught
+  6: TWO_PATHS_FLOWCHART, // flowchart introduced ("This valuable tool…")
+  7: TWO_PATHS_FLOWCHART, // "have your Two Paths Flowchart handy"
+  8: TWO_PATHS_FLOWCHART,
+  9: TWO_PATHS_FLOWCHART,
+  10: TWO_PATHS_WORKSHEET, // worksheet introduced (flowchart reviewed)
+  11: TWO_PATHS_WORKSHEET, // steps 1–6
+  12: TWO_PATHS_WORKSHEET, // steps 7–10
+  13: TWO_PATHS_WORKSHEET,
+  14: SHOULDS_WORKSHEET, // Part One
+  15: SHOULDS_WORKSHEET, // Part Two
+  16: SHOULDS_WORKSHEET, // Part 3
+  17: CLAIM_BLAME_WORKSHEET, // introduced: "begin this week to explore the Claim and Blame Worksheet"
+  18: CLAIM_BLAME_WORKSHEET, // taught
+  23: TAT, // introduced, with instructions under Toolbox
+  24: TWO_PATHS_WORKSHEET, // Toolbox + Bible Teaching both use it
+  25: TAT, // "In this lesson, we will learn the T-A-T"
+  26: TAT, // "We will now use the T-A-T to explore the issue of money"
+  27: TAT, // "We will now use the T-A-T to explore the taboo"
+  29: SUFFERING_WORKSHEET, // taught
+  30: SUFFERING_WORKSHEET,
+  31: TAT, // "You can use the T-A-T to unload trauma" — practiced in the meeting
 };
 
 export default async function LessonPage({ params }: Props) {
@@ -105,10 +108,11 @@ export default async function LessonPage({ params }: Props) {
   const hasMeetingPdf = lessonData?.meetingFile;
   const hasExpandedPdf = lessonData?.expandedFile;
   // The "Love or Pride?" list is introduced at the KF Introductory Meeting and
-  // KF1, and referenced again in later lessons — show its card wherever the
-  // teaching mentions it, plus always on those first two meetings.
-  const showLoveOrPride = num === 0 || num === 1 || /love or pride/i.test(lessonHtml);
-  const worksheets = LESSON_WORKSHEETS[num] ?? [];
+  // KF1 and is KF2's Toolbox topic — it's the one extra document on those weeks.
+  // (Later lessons mention it in passing; their extra card is that week's tool.)
+  const showLoveOrPride = num <= 2;
+  const tool = LESSON_TOOL[num];
+  const worksheets = tool && !showLoveOrPride ? [tool] : [];
   // Resource cards rendered below (Call Info is added by CallInfoRow) — keep in
   // sync with the cards in the JSX so the row layout never leaves a gap.
   const cardCount =
