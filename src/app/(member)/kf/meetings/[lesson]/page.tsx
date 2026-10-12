@@ -128,9 +128,22 @@ export default async function LessonPage({ params }: Props) {
               </a>
             )}
 
-            {/* Lesson worksheets — PDF + Word, same layout as the Prep Guide card */}
+            {/* Lesson worksheets. Phones: one-line card linking the PDF (the name plus
+                "PDF · Word" is too wide for one row, and the other cards are one row).
+                sm+: PDF + Word, same layout as the Prep Guide card. The "contents"
+                wrappers keep each card a direct grid item. */}
             {worksheets.map((w) => (
-              <div key={w.pdf} className={cardClass}>
+              <div key={`${w.pdf}-phone`} className="contents sm:hidden">
+                <a href={docUrl(w.pdf)} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                  <svg className={`${iconClass} text-emerald-300/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                  <span className={labelClass}>{w.label[0]} {w.label[1]}</span>
+                  <span className={hintClass}>PDF</span>
+                </a>
+              </div>
+            ))}
+            {worksheets.map((w) => (
+              <div key={w.pdf} className="hidden sm:contents">
+              <div className={cardClass}>
                 <svg className={`${iconClass} text-emerald-300/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                 <span className={labelClass}>{w.label[0]} <br className="hidden sm:block" />{w.label[1]}</span>
                 <div className="flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.2em] sm:mt-1 sm:gap-3">
@@ -138,6 +151,7 @@ export default async function LessonPage({ params }: Props) {
                   <span className="text-white/20">&middot;</span>
                   <a href={docUrl(w.docx)} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">Word</a>
                 </div>
+              </div>
               </div>
             ))}
 
