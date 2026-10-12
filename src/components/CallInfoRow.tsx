@@ -20,10 +20,13 @@ interface Meeting {
 //      the 130px a 7-across card has there). Below xl: 2 / 4 across, with Call
 //      Info stretched to fill the last row (sm: full row; md–lg: 2 + Call Info×2).
 //  8 → 2 / 4 across (8 across is too narrow for "PDF · WORD").
+//  9 → 2 / 3 across (three rows of three; sm: Call Info fills the last row).
+// A lesson adding a card beyond 9 needs a new entry here first.
 const LAYOUTS: Record<number, { grid: string; callInfo: string }> = {
   6: { grid: "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6", callInfo: "" },
   7: { grid: "sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-7", callInfo: "sm:col-span-2 xl:col-span-1" },
   8: { grid: "sm:grid-cols-2 md:grid-cols-4", callInfo: "" },
+  9: { grid: "sm:grid-cols-2 md:grid-cols-3", callInfo: "sm:col-span-2 md:col-span-1" },
 };
 
 export default function CallInfoRow({

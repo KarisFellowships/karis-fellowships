@@ -15,22 +15,64 @@ interface Props {
   params: Promise<{ lesson: string }>;
 }
 
-// Toolbox worksheets the teaching walks through, shown as an extra resource card
-// on just those lessons. Same files as the Toolbox page. Each label is split
-// across two lines (like the other cards) so every card keeps the same height.
+// Toolbox tools/worksheets a lesson introduces or teaches, shown as an extra
+// resource card on just those lessons. Same files as the Toolbox page. Each label
+// is split across two lines (like the other cards) so every card keeps the same
+// height. Tools with a typed Word version get a PDF · Word card; PDF-only tools
+// get a single-link card (like Love or Pride?).
+// Chosen by reading each lesson: included where the teaching introduces the tool
+// (pointing members to it this week) or walks through it. NOT included: "next
+// week we will…" previews, recaps of earlier lessons, and passing suggestions.
 interface LessonWorksheet {
   label: [string, string];
   pdf: string;
-  docx: string;
+  docx?: string;
 }
+const TOOLBOX = "/docs/toolbox";
+const TAPPING: LessonWorksheet = { label: ["Tapping", "Protocol"], pdf: `${TOOLBOX}/healing-integration/Tapping-Detailed-Version-2022z.pdf` };
+const TWO_PATHS_FLOWCHART: LessonWorksheet = { label: ["Two Paths", "Flowchart"], pdf: `${TOOLBOX}/worksheets/Two-Paths-Flow-Chart-v2.pdf` };
+const TWO_PATHS_WORKSHEET: LessonWorksheet = {
+  label: ["Two Paths", "Worksheet"],
+  pdf: `${TOOLBOX}/worksheets/Two-Paths-Wksht-PDF-2021z.pdf`,
+  docx: `${TOOLBOX}/worksheets/Two-Paths-Wksht-Typed-2021z.docx`,
+};
+const SHOULDS_WORKSHEET: LessonWorksheet = {
+  label: ["Shoulds", "Worksheet"],
+  pdf: `${TOOLBOX}/worksheets/Shoulds-Wksht-2021z-PDF.pdf`,
+  docx: `${TOOLBOX}/worksheets/Shoulds-Wksht-typing-2021z.docx`,
+};
+const CLAIM_BLAME_WORKSHEET: LessonWorksheet = { label: ["Claim/Blame", "Worksheet"], pdf: `${TOOLBOX}/worksheets/Claim.Blm_.-Wkst-for-PDF-2021z-.pdf` };
+// The Toolbox has a condensed (web) and an expanded TAT; the card links the condensed one.
+const TAT: LessonWorksheet = { label: ["TAT", ""], pdf: `${TOOLBOX}/healing-integration/TAT-Cndsd-Web-Version-FINI-2021z.pdf` };
 const SUFFERING_WORKSHEET: LessonWorksheet = {
   label: ["Suffering", "Worksheet"],
-  pdf: "/docs/toolbox/worksheets/Suffering-wkst-master-PDF-2021z.pdf",
-  docx: "/docs/toolbox/worksheets/Suffering-wkst-master-typed-2021z (2).docx",
+  pdf: `${TOOLBOX}/worksheets/Suffering-wkst-master-PDF-2021z.pdf`,
+  docx: `${TOOLBOX}/worksheets/Suffering-wkst-master-typed-2021z (2).docx`,
 };
+const UFO_HOLD: LessonWorksheet = { label: ["UFO", "Hold"], pdf: `${TOOLBOX}/healing-integration/UFO-Hold-2019.pdf` };
+
 const LESSON_WORKSHEETS: Record<number, LessonWorksheet[]> = {
-  29: [SUFFERING_WORKSHEET], // "Let's look at the worksheet titled Suffering: An Opportunity to See Yourself"
-  30: [SUFFERING_WORKSHEET], // "...you might check out the Suffering Worksheet"
+  3: [TAPPING], // introduced: "you will find the Tapping Protocol" under Toolbox
+  4: [TAPPING], // first series taught
+  5: [TAPPING], // second series taught
+  6: [TAPPING, TWO_PATHS_FLOWCHART], // Tapping Protocol section; flowchart taught
+  7: [TAPPING, TWO_PATHS_FLOWCHART],
+  8: [TWO_PATHS_FLOWCHART],
+  9: [TWO_PATHS_FLOWCHART],
+  10: [TWO_PATHS_FLOWCHART, TWO_PATHS_WORKSHEET], // flowchart review; worksheet introduced
+  11: [TWO_PATHS_WORKSHEET], // steps 1–6
+  12: [TWO_PATHS_WORKSHEET], // steps 7–10
+  13: [TWO_PATHS_WORKSHEET],
+  14: [SHOULDS_WORKSHEET], // Part One
+  15: [SHOULDS_WORKSHEET], // Part Two
+  16: [SHOULDS_WORKSHEET], // Part 3
+  17: [CLAIM_BLAME_WORKSHEET], // introduced: "begin this week to explore the Claim and Blame Worksheet"
+  18: [CLAIM_BLAME_WORKSHEET], // taught
+  23: [TAT], // introduced, with instructions under Toolbox
+  24: [TWO_PATHS_WORKSHEET], // Toolbox + Bible Teaching both use it
+  25: [TAT], // "In this lesson, we will learn the T-A-T"
+  29: [SUFFERING_WORKSHEET, UFO_HOLD], // worksheet taught; UFO Hold instructed
+  30: [SUFFERING_WORKSHEET],
 };
 
 export default async function LessonPage({ params }: Props) {
@@ -133,11 +175,19 @@ export default async function LessonPage({ params }: Props) {
               </a>
             )}
 
-            {/* Lesson worksheets. Phones: one-line card linking the PDF (the name plus
-                "PDF · Word" is too wide for one row, and the other cards are one row).
-                sm+: PDF + Word, same layout as the Prep Guide card. The "contents"
-                wrappers keep each card a direct grid item. */}
-            {worksheets.map((w) => (
+            {/* Lesson Toolbox tools. PDF-only tools: a single-link card (like Love or
+                Pride?). Tools with a Word version — phones: one-line card linking the
+                PDF (the name plus "PDF · Word" is too wide for one row, and the other
+                cards are one row); sm+: PDF + Word, same layout as the Prep Guide
+                card. The "contents" wrappers keep each card a direct grid item. */}
+            {worksheets.filter((w) => !w.docx).map((w) => (
+              <a key={w.pdf} href={docUrl(w.pdf)} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                <svg className={`${iconClass} text-emerald-300/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                <span className={labelClass}>{w.label[0]} <br className="hidden sm:block" />{w.label[1]}</span>
+                <span className={hintClass}>PDF</span>
+              </a>
+            ))}
+            {worksheets.filter((w) => w.docx).map((w) => (
               <div key={`${w.pdf}-phone`} className="contents sm:hidden">
                 <a href={docUrl(w.pdf)} target="_blank" rel="noopener noreferrer" className={cardClass}>
                   <svg className={`${iconClass} text-emerald-300/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
@@ -146,7 +196,7 @@ export default async function LessonPage({ params }: Props) {
                 </a>
               </div>
             ))}
-            {worksheets.map((w) => (
+            {worksheets.filter((w) => w.docx).map((w) => (
               <div key={w.pdf} className="hidden sm:contents">
               <div className={cardClass}>
                 <svg className={`${iconClass} text-emerald-300/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
@@ -154,7 +204,7 @@ export default async function LessonPage({ params }: Props) {
                 <div className="flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.2em] sm:mt-1 sm:gap-3">
                   <a href={docUrl(w.pdf)} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">PDF</a>
                   <span className="text-white/20">&middot;</span>
-                  <a href={docUrl(w.docx)} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">Word</a>
+                  <a href={docUrl(w.docx!)} target="_blank" rel="noopener noreferrer" className="text-white/45 transition-colors hover:text-teal-light">Word</a>
                 </div>
               </div>
               </div>
