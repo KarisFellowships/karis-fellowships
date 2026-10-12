@@ -43,8 +43,9 @@ const SHOULDS_WORKSHEET: LessonWorksheet = {
   docx: `${TOOLBOX}/worksheets/Shoulds-Wksht-typing-2021z.docx`,
 };
 const CLAIM_BLAME_WORKSHEET: LessonWorksheet = { label: ["Claim/Blame", "Worksheet"], pdf: `${TOOLBOX}/worksheets/Claim.Blm_.-Wkst-for-PDF-2021z-.pdf` };
-// The Toolbox has a condensed (web) and an expanded TAT; the card links the condensed one.
-const TAT: LessonWorksheet = { label: ["TAT", ""], pdf: `${TOOLBOX}/healing-integration/TAT-Cndsd-Web-Version-FINI-2021z.pdf` };
+// The Toolbox has a condensed (web) and an expanded TAT; the card links the
+// Expanded Version (Sarah's choice — KF27 points members to it).
+const TAT: LessonWorksheet = { label: ["TAT", ""], pdf: `${TOOLBOX}/healing-integration/TAT-Exp.-Version-FINI-2021z.pdf` };
 const SUFFERING_WORKSHEET: LessonWorksheet = {
   label: ["Suffering", "Worksheet"],
   pdf: `${TOOLBOX}/worksheets/Suffering-wkst-master-PDF-2021z.pdf`,
