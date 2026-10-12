@@ -13,25 +13,42 @@ interface Meeting {
 // Call Info is the LAST card, and its panel opens directly below the row — so on
 // desktop it sits under the row, and on mobile (single column) it falls right
 // under the Call Info button instead of below every other card.
+// Rows must never leave an empty gap. Grid layout by TOTAL cards (resource cards
+// + Call Info), so every row is full at every screen size:
+//  6 → 2 / 3 / 6 across (sm / md / lg).
+//  7 → one row of 7 from xl (1280px+; "PDF · WORD" needs ~127px and fits in
+//      the 130px a 7-across card has there). Below xl: 2 / 4 across, with Call
+//      Info stretched to fill the last row (sm: full row; md–lg: 2 + Call Info×2).
+//  8 → 2 / 4 across (8 across is too narrow for "PDF · WORD").
+const LAYOUTS: Record<number, { grid: string; callInfo: string }> = {
+  6: { grid: "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6", callInfo: "" },
+  7: { grid: "sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-7", callInfo: "sm:col-span-2 xl:col-span-1" },
+  8: { grid: "sm:grid-cols-2 md:grid-cols-4", callInfo: "" },
+};
+
 export default function CallInfoRow({
   children,
+  cardCount,
   phone,
   meetings,
 }: {
   children: React.ReactNode;
+  /** Number of resource cards passed as children (Call Info is added on top). */
+  cardCount: number;
   phone: string;
   meetings: Meeting[];
 }) {
   const [open, setOpen] = useState(false);
+  const layout = LAYOUTS[cardCount + 1] ?? LAYOUTS[6];
 
   return (
     <div className="space-y-3">
-      <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+      <div className={`grid gap-3 ${layout.grid}`}>
         {children}
         <button
           type="button"
           onClick={() => setOpen(!open)}
-          className={cardClass}
+          className={`${cardClass} ${layout.callInfo}`}
         >
           <svg className={`${iconClass} text-teal/70`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
           <span className={labelClass}>Call Info</span>

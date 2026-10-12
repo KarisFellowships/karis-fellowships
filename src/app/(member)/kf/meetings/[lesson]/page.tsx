@@ -67,6 +67,11 @@ export default async function LessonPage({ params }: Props) {
   // teaching mentions it, plus always on those first two meetings.
   const showLoveOrPride = num === 0 || num === 1 || /love or pride/i.test(lessonHtml);
   const worksheets = LESSON_WORKSHEETS[num] ?? [];
+  // Resource cards rendered below (Call Info is added by CallInfoRow) — keep in
+  // sync with the cards in the JSX so the row layout never leaves a gap.
+  const cardCount =
+    (hasMeetingPdf ? 1 : 0) + (hasExpandedPdf ? 1 : 0) + 1 /* Prep Guide */ +
+    (showLoveOrPride ? 1 : 0) + worksheets.length + 1 /* Schedule */ + 1 /* Facilitator Qs */;
 
   return (
     <div className="min-h-screen bg-[#4a5568]">
@@ -89,7 +94,7 @@ export default async function LessonPage({ params }: Props) {
           {/* Resource cards, sitting over the fading banner */}
           <div className="mx-auto mt-10 max-w-[66rem] pb-3 sm:mt-12">
             {/* Resource cards + Call Info (Call Info is the last card; its panel expands below the row) */}
-            <CallInfoRow phone={phoneNumber(codes)} meetings={kfMeetings(codes)}>
+            <CallInfoRow cardCount={cardCount} phone={phoneNumber(codes)} meetings={kfMeetings(codes)}>
             {/* Meeting Version — PDF only */}
             {hasMeetingPdf && (
               <a href={docUrl(`/docs/lessons/kf${lessonNumber}-meeting.pdf`)} target="_blank" rel="noopener noreferrer" className={cardClass}>
